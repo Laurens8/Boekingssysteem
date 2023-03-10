@@ -1,0 +1,41 @@
+﻿@model Boekingssysteem.ViewModels.PersoonViewModel
+@{
+    ViewData["Title"] = "Verwijderen";
+}
+
+<div class="alert alert-danger mb-5 visible" role="alert">
+    alert wordt getoont bij foutmelding. normaal niet zichtbaar.
+</div>
+
+<div class="h-100 d-flex align-items-center justify-content-center">  
+    <div BtnCrud>
+        <div class="col">
+            <div class="mb-5">               
+                <form class="form-inline">
+                    <div class="form-group mb-2">
+                        <label for="staticEmail2" class="sr-only">personeelsnummer</label>
+                        <input type="text" readonly class="form-control-plaintext" id="text" value="personeelsnummer:">
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="text" class="sr-only">personeelsnummer</label>
+                        <input type="text" class="form-control" id="text" placeholder="">
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2">Gebruiker zoeken</button>
+                </form>
+            </div>
+            <div class="PersoneelInfo">
+                <div class="col">
+                    <p>Naam: </p>
+                    <p>Voornaam: </p>
+                    <p>Personeelsnummer: </p>
+                    <p>Functie: </p>
+                </div>          
+            </div>
+            <div class="mt-5">
+                <a class="btn btn-primary btn-lg mb-2" href="#">
+                Gebruiker verwijderen
+            </a>
+            </div>           
+        </div>     
+    </div>  
+</div>
