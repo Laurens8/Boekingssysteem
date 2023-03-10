@@ -1,0 +1,31 @@
+﻿@model Boekingssysteem.ViewModels.PersoonListViewModel
+
+@{
+    ViewData["Title"] = "Registratie aanwezigheid";
+}
+
+<div class="StatusWindow">
+    <div class="container">
+        <img class="HeaderImg" src="~/images/TM-logo.png" />
+
+        <h2>Informatica:</h2>
+        @foreach(var persoon in Model.Personen)
+        {
+            <div class="row">
+                <div class="col-3 themed-grid-col">@Html.DisplayFor(modelItem => persoon.Naam)</div>
+                <div class="col-3 themed-grid-col">@Html.DisplayFor(modelItem => persoon.Voornaam)</div>
+                @if (persoon.Admin)
+                {
+                    <div class="col-3 themed-grid-col">Administratief personeel</div>
+                }
+                else
+                {
+                    <div class="col-3 themed-grid-col">Leerkracht</div>
+                }
+                <div class="col-2 themed-grid-col">Aanwezig</div>
+                <div class="col-1 themed-grid-col KleurAanwezig"></div>
+            </div>
+        }
+        
+    </div>
+</div>

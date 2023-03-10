@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "CrudMenu";
+}
+
+<div class="h-100 d-flex align-items-center justify-content-center">  
+    <div BtnCrud>
+        <div class="col">
+            <div class="mb-5">               
+                <a asp-controller="Crud" asp-action="GebruikerToevoegen" class="btn btn-primary btn-lg mb-2" role="button">Gebruiker aanmaken</a>
+            </div>
+            <div class="mb-5">
+                <a asp-controller="Crud" asp-action="GebruikerAanpassen" class="btn btn-primary btn-lg mb-2" role="button">Gebruiker wijzigen</a>
+            </div>
+            <div class="mb-5">
+                <a asp-controller="Crud" asp-action="GebruikerVerwijderen" class="btn btn-primary btn-lg mb-2" role="button">Gebruiker verwijderen</a>
+            </div>           
+        </div>     
+    </div>  
+</div>
+
