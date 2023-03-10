@@ -7,13 +7,19 @@ namespace Boekingssysteem.Models
     {
         public int AfwezigheidID { get; set; }
 
-        [Required]
-        public int PersoonID { get; set; }
+        [Required(ErrorMessage = "Personeelnummer moet ingevuld zijn!")]
+        [MinLength(8)]
+        [MaxLength(8)]
+        public string Personeelnummer { get; set; }
 
+        [Required(ErrorMessage = "Begindatum moet ingevuld zijn!")]
         [DataType(DataType.Date)]
-        public DateTime? Begindatum { get; set; }
+        public DateTime Begindatum { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime? EindDatum { get; set; }
+
+        //Navigatieproperty
+        public virtual Persoon Persoon { get; set; }
     }
 }

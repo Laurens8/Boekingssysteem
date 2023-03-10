@@ -5,18 +5,22 @@ namespace Boekingssysteem.Models
 {
     public class Persoon
     {
-        public int PersoonID { get; set; }
-
-        [Required]
-        public string Naam { get; set; }
-
-        [Required]
-        public string Voornaam { get; set; }
-
-        [Required]
-        public bool Admin { get; set; }
-
-        [Required]
+        [Key]
+        [Required(ErrorMessage = "Personeelnummer moet ingevuld zijn!")]
+        [MinLength(8)]
+        [MaxLength(8)]
         public string Personeelnummer { get; set; }
+        [Required(ErrorMessage = "Naam moet ingevuld zijn!")]
+        public string Naam { get; set; }
+        [Required(ErrorMessage = "Voornaam moet ingevuld zijn!")]
+        public string Voornaam { get; set; }
+        [Required(ErrorMessage = "Admin moet ingevuld zijn!")]
+        public bool Admin { get; set; }
+        public bool? Aanwezig { get; set; }
+
+        //Navigatieproperties
+        public ICollection<Afwezigheid> Afwezigheden { get; set; }
+        public virtual ICollection<PersoonRichting> PersoonRichtingen { get; set; }
+        public virtual ICollection<PersoonFunctie> PersoonFuncties { get; set; }
     }
 }
