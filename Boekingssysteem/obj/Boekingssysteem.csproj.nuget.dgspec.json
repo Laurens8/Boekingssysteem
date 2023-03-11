@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Thomas More 2de jaar\\Projecten van het werkveld\\Project boekingssysteem\\Boekingssysteem\\Boekingssysteem.csproj": {}
+    "C:\\Thomas More 2de jaar\\Projecten van het werkveld\\Boekingssysteem\\Boekingssysteem\\Boekingssysteem.csproj": {}
   },
   "projects": {
-    "C:\\Thomas More 2de jaar\\Projecten van het werkveld\\Project boekingssysteem\\Boekingssysteem\\Boekingssysteem.csproj": {
+    "C:\\Thomas More 2de jaar\\Projecten van het werkveld\\Boekingssysteem\\Boekingssysteem\\Boekingssysteem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Thomas More 2de jaar\\Projecten van het werkveld\\Project boekingssysteem\\Boekingssysteem\\Boekingssysteem.csproj",
+        "projectUniqueName": "C:\\Thomas More 2de jaar\\Projecten van het werkveld\\Boekingssysteem\\Boekingssysteem\\Boekingssysteem.csproj",
         "projectName": "Boekingssysteem",
-        "projectPath": "C:\\Thomas More 2de jaar\\Projecten van het werkveld\\Project boekingssysteem\\Boekingssysteem\\Boekingssysteem.csproj",
+        "projectPath": "C:\\Thomas More 2de jaar\\Projecten van het werkveld\\Boekingssysteem\\Boekingssysteem\\Boekingssysteem.csproj",
         "packagesPath": "C:\\Users\\chris\\.nuget\\packages\\",
-        "outputPath": "C:\\Thomas More 2de jaar\\Projecten van het werkveld\\Project boekingssysteem\\Boekingssysteem\\obj\\",
+        "outputPath": "C:\\Thomas More 2de jaar\\Projecten van het werkveld\\Boekingssysteem\\Boekingssysteem\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\chris\\AppData\\Roaming\\NuGet\\NuGet.Config",

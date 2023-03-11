@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ED8/EYzghgJbcM8OShh4FNU7eVAQji7RPT5+H0emRkYMwa20lwumCKCTBH1WVuGGHLq5vzv0lTPlOYLsSpZWhw==",
+  "dgSpecHash": "WVp8skrqjH0gqMctxjq5+iuCplgbliJFgqA9AlCVTBobcyWmox4kaB7hVAWbMqsedt6TvjRSFL3yUqbuPPEP8Q==",
   "success": true,
-  "projectFilePath": "C:\\Thomas More 2de jaar\\Projecten van het werkveld\\Project boekingssysteem\\Boekingssysteem\\Boekingssysteem.csproj",
+  "projectFilePath": "C:\\Thomas More 2de jaar\\Projecten van het werkveld\\Boekingssysteem\\Boekingssysteem\\Boekingssysteem.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\chris\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\chris\\.nuget\\packages\\microsoft.bcl.hashcode\\1.1.1\\microsoft.bcl.hashcode.1.1.1.nupkg.sha512",
