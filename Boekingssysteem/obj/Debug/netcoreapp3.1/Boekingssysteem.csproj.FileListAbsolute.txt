@@ -254,7 +254,7 @@ C:\Thomas More 2de jaar\Projecten van het werkveld\Boekingssysteem\Boekingssyste
 C:\Thomas More 2de jaar\Projecten van het werkveld\Boekingssysteem\Boekingssysteem\obj\Debug\netcoreapp3.1\Boekingssysteem.dll
 C:\Thomas More 2de jaar\Projecten van het werkveld\Boekingssysteem\Boekingssysteem\obj\Debug\netcoreapp3.1\Boekingssysteem.pdb
 C:\Thomas More 2de jaar\Projecten van het werkveld\Boekingssysteem\Boekingssysteem\obj\Debug\netcoreapp3.1\Boekingssysteem.genruntimeconfig.cache
-C:\Thomas More 2de jaar\Projecten van het werkveld\Boekingssysteem\Boekingssysteem\obj\Debug\netcoreapp3.1\Razor\Views\Crud\GebruikerAanpassen.cshtml.g.cs
-C:\Thomas More 2de jaar\Projecten van het werkveld\Boekingssysteem\Boekingssysteem\obj\Debug\netcoreapp3.1\Razor\Views\Crud\GebruikerToevoegen.cshtml.g.cs
-C:\Thomas More 2de jaar\Projecten van het werkveld\Boekingssysteem\Boekingssysteem\obj\Debug\netcoreapp3.1\Razor\Views\Crud\GebruikerVerwijderen.cshtml.g.cs
-C:\Thomas More 2de jaar\Projecten van het werkveld\Boekingssysteem\Boekingssysteem\obj\Debug\netcoreapp3.1\Razor\Views\Crud\Index.cshtml.g.cs
+C:\Thomas More 2de jaar\Projecten van het werkveld\Boekingssysteem\Boekingssysteem\obj\Debug\netcoreapp3.1\Razor\Views\Persoon\Aanpassen.cshtml.g.cs
+C:\Thomas More 2de jaar\Projecten van het werkveld\Boekingssysteem\Boekingssysteem\obj\Debug\netcoreapp3.1\Razor\Views\Persoon\Index.cshtml.g.cs
+C:\Thomas More 2de jaar\Projecten van het werkveld\Boekingssysteem\Boekingssysteem\obj\Debug\netcoreapp3.1\Razor\Views\Persoon\Toevoegen.cshtml.g.cs
+C:\Thomas More 2de jaar\Projecten van het werkveld\Boekingssysteem\Boekingssysteem\obj\Debug\netcoreapp3.1\Razor\Views\Persoon\Verwijderen.cshtml.g.cs

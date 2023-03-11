@@ -4,14 +4,16 @@ using Boekingssysteem.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Boekingssysteem.Migrations
 {
     [DbContext(typeof(BoekingssysteemContext))]
-    partial class BoekingssysteemContextModelSnapshot : ModelSnapshot
+    [Migration("20230311220432_RelatiesGelegd")]
+    partial class RelatiesGelegd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,6 +45,15 @@ namespace Boekingssysteem.Migrations
                     b.HasIndex("Personeelnummer");
 
                     b.ToTable("Afwezigheid");
+
+                    b.HasData(
+                        new
+                        {
+                            AfwezigheidID = 1,
+                            Begindatum = new DateTime(2023, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EindDatum = new DateTime(2023, 4, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Personeelnummer = "R0901658"
+                        });
                 });
 
             modelBuilder.Entity("Boekingssysteem.Models.Functie", b =>
@@ -59,6 +70,23 @@ namespace Boekingssysteem.Migrations
                     b.HasKey("FunctieID");
 
                     b.ToTable("Functie");
+
+                    b.HasData(
+                        new
+                        {
+                            FunctieID = 1,
+                            Naam = "Leerling"
+                        },
+                        new
+                        {
+                            FunctieID = 2,
+                            Naam = "Administratief personeel"
+                        },
+                        new
+                        {
+                            FunctieID = 3,
+                            Naam = "Leerkracht"
+                        });
                 });
 
             modelBuilder.Entity("Boekingssysteem.Models.Persoon", b =>
@@ -84,6 +112,48 @@ namespace Boekingssysteem.Migrations
                     b.HasKey("Personeelnummer");
 
                     b.ToTable("Persoon");
+
+                    b.HasData(
+                        new
+                        {
+                            Personeelnummer = "R0901658",
+                            Aanwezig = true,
+                            Admin = true,
+                            Naam = "Mathieu",
+                            Voornaam = "Christophe"
+                        },
+                        new
+                        {
+                            Personeelnummer = "R0901293",
+                            Aanwezig = true,
+                            Admin = true,
+                            Naam = "De Wit",
+                            Voornaam = "Laurens"
+                        },
+                        new
+                        {
+                            Personeelnummer = "R0658604",
+                            Aanwezig = true,
+                            Admin = true,
+                            Naam = "Boeckx",
+                            Voornaam = "Lender"
+                        },
+                        new
+                        {
+                            Personeelnummer = "R0123456",
+                            Aanwezig = true,
+                            Admin = false,
+                            Naam = "Bellemans",
+                            Voornaam = "Johan"
+                        },
+                        new
+                        {
+                            Personeelnummer = "R0123457",
+                            Aanwezig = true,
+                            Admin = true,
+                            Naam = "Janssens",
+                            Voornaam = "Jan"
+                        });
                 });
 
             modelBuilder.Entity("Boekingssysteem.Models.PersoonFunctie", b =>
@@ -103,6 +173,38 @@ namespace Boekingssysteem.Migrations
                     b.HasIndex("Personeelnummer");
 
                     b.ToTable("PersoonFunctie");
+
+                    b.HasData(
+                        new
+                        {
+                            FunctieID = 1,
+                            Personeelnummer = "R0901658",
+                            PersoonFunctieID = 1
+                        },
+                        new
+                        {
+                            FunctieID = 1,
+                            Personeelnummer = "R0658604",
+                            PersoonFunctieID = 2
+                        },
+                        new
+                        {
+                            FunctieID = 1,
+                            Personeelnummer = "R0901293",
+                            PersoonFunctieID = 3
+                        },
+                        new
+                        {
+                            FunctieID = 2,
+                            Personeelnummer = "R0123457",
+                            PersoonFunctieID = 5
+                        },
+                        new
+                        {
+                            FunctieID = 3,
+                            Personeelnummer = "R0123456",
+                            PersoonFunctieID = 4
+                        });
                 });
 
             modelBuilder.Entity("Boekingssysteem.Models.PersoonRichting", b =>
@@ -122,6 +224,32 @@ namespace Boekingssysteem.Migrations
                     b.HasIndex("Personeelnummer");
 
                     b.ToTable("PersoonRichting");
+
+                    b.HasData(
+                        new
+                        {
+                            RichtingID = 1,
+                            Personeelnummer = "R0901658",
+                            PersoonRichtingID = 1
+                        },
+                        new
+                        {
+                            RichtingID = 1,
+                            Personeelnummer = "R0658604",
+                            PersoonRichtingID = 2
+                        },
+                        new
+                        {
+                            RichtingID = 1,
+                            Personeelnummer = "R0901293",
+                            PersoonRichtingID = 3
+                        },
+                        new
+                        {
+                            RichtingID = 2,
+                            Personeelnummer = "R0123456",
+                            PersoonRichtingID = 4
+                        });
                 });
 
             modelBuilder.Entity("Boekingssysteem.Models.Richting", b =>
@@ -138,6 +266,18 @@ namespace Boekingssysteem.Migrations
                     b.HasKey("RichtingID");
 
                     b.ToTable("Richting");
+
+                    b.HasData(
+                        new
+                        {
+                            RichtingID = 1,
+                            Naam = "Informatica"
+                        },
+                        new
+                        {
+                            RichtingID = 2,
+                            Naam = "Verpleegkunde"
+                        });
                 });
 
             modelBuilder.Entity("Boekingssysteem.Models.Afwezigheid", b =>

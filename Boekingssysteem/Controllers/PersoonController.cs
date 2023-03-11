@@ -20,121 +20,43 @@ namespace Boekingssysteem.Controllers
         // PersoonRichting tonen met Persoon en Richting
         public ViewResult Index()
         {
-            var afwezigheden = _context.Afwezigheden.Include(x => x.Persoon);
-            var personen = _context.Personen.Include(x => x.Afwezigheden);
-
-            PersoonListViewModel plvm = new PersoonListViewModel();
-            plvm.Afwezigheden = afwezigheden.ToList();
-            plvm.Personen = personen.ToList();
-
-            return View(plvm);
-        }
-
-        // Personeel/Create
-        public IActionResult Create()
-        {
             return View();
         }
 
-        // Personeel/Edit
-        //public async Task<IActionResult> Edit(string? id) 
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var persoon = await _context.Personen.FindAsync(id);
-        //    if (persoon == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    EditPersoonViewModel viewModel = new EditPersoonViewModel()
-        //    {
-        //        Personeelnummer = persoon.Personeelnummer,
-        //        Voornaam = persoon.Voornaam,
-        //        Naam = persoon.Naam,
-        //        Admin = persoon.Admin
-        //    };
-
-        //    return View(viewModel);
-        //}
-
-        public async Task<IActionResult> Edit(string id, EditPersoonViewModel viewModel)
+        public IActionResult Toevoegen()
         {
-            if (id != viewModel.Personeelnummer)
-            {
-                return NotFound(viewModel);
-            }
+            var persoonfuncties = _context.PersoonFuncties.Include(x => x.Persoon);
 
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Toevoegen(CreatePersoonViewModel viewModel) 
+        {
             if (ModelState.IsValid)
             {
-                try
+                _context.Add(new Persoon()
                 {
-                    Persoon persoon = new Persoon()
-                    {
-                        Personeelnummer = viewModel.Personeelnummer,
-                        Voornaam = viewModel.Voornaam,
-                        Naam = viewModel.Naam,
-                        Admin = viewModel.Admin
-                    };
-
-                    _context.Update(persoon);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!_context.Personen.Any(e => e.Personeelnummer == viewModel.Personeelnummer))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                    Personeelnummer = viewModel.Personeelnummer,
+                    Naam = viewModel.Naam,
+                    Voornaam = viewModel.Voornaam,
+                    Admin = viewModel.Admin
+                });
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(viewModel);
         }
 
-        // Personeel/Delete
-        public async Task<IActionResult> Delete(string? id)
+        public IActionResult Aanpassen()
         {
             return View();
-
-            //if (id == null) 
-            //{
-            //    return NotFound();
-            //}
-
-            //var persoon = await _context.Personen.FirstOrDefaultAsync(p => p.Personeelnummer == id);
-            //if (persoon == null)
-            //{
-            //    return NotFound();
-            //}
-
-            //DeletePersoonViewModel viewModel = new DeletePersoonViewModel()
-            //{
-            //    Personeelnummer = persoon.Personeelnummer,
-            //    Voornaam = persoon.Voornaam,
-            //    Naam = persoon.Naam
-            //};
-
-            //return View(viewModel);
         }
 
-        // POST: Klant/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public IActionResult Verwijderen()
         {
-            var persoon = await _context.Personen.FindAsync(id);
-            _context.Personen.Remove(persoon);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return View();
         }
     }
 }

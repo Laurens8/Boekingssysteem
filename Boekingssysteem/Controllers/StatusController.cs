@@ -24,12 +24,16 @@ namespace Boekingssysteem.Controllers
             _context = context;
         }
 
-
-        // GET: Personeel
-        public async Task<IActionResult> Index()
+        public ViewResult Index()
         {
+            var persoonrichtingen = _context.PersoonRichtingen.Include(x => x.Persoon).Include(z => z.Richting);
+            var persoonfuncties = _context.PersoonFuncties.Include(x => x.Persoon).Include(z => z.Functie);
+            var personen = _context.Personen.ToList();
+
             PersoonListViewModel viewModel = new PersoonListViewModel();
-            viewModel.Personen = await _context.Personen.ToListAsync();
+            viewModel.Personen = personen;
+            viewModel.PersoonRichtingen = persoonrichtingen.ToList();
+            viewModel.PersoonFuncties = persoonfuncties.ToList();
 
             return View(viewModel);
         }

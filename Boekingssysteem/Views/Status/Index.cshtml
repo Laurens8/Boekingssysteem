@@ -6,15 +6,20 @@
 
 <div class="StatusWindow">
     <div class="container">
-        <img class="HeaderImg" src="~/images/TM-logo.png" />
 
         <h2>Informatica:</h2>
-        @foreach(var persoon in Model.Personen)
+        @foreach(var p in Model.Personen)
         {
             <div class="row">
-                <div class="col-3 themed-grid-col">@Html.DisplayFor(modelItem => persoon.Naam)</div>
-                <div class="col-3 themed-grid-col">@Html.DisplayFor(modelItem => persoon.Voornaam)</div>
-                @if (persoon.Admin)
+                <div class="col-3 themed-grid-col">@Html.DisplayFor(modelItem => p.Naam)</div>
+                <div class="col-3 themed-grid-col">@Html.DisplayFor(modelItem => p.Voornaam)</div>
+                @foreach (var pr in p.PersoonRichtingen)
+                {
+                    <div class="col-3 themed-grid-col">@Html.DisplayFor(modelItem => pr.Richting.Naam)</div>
+                
+                }
+
+                @if (p.Admin)
                 {
                     <div class="col-3 themed-grid-col">Administratief personeel</div>
                 }
@@ -25,6 +30,10 @@
                 <div class="col-2 themed-grid-col">Aanwezig</div>
                 <div class="col-1 themed-grid-col KleurAanwezig"></div>
             </div>
+
+            
+            
+            
         }
         
     </div>

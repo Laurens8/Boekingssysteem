@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Boekingssysteem.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class RelatiesGelegd : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -82,14 +82,13 @@ namespace Boekingssysteem.Migrations
                 schema: "Boekingssysteem",
                 columns: table => new
                 {
-                    PersoonFunctieID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
                     Personeelnummer = table.Column<string>(maxLength: 8, nullable: false),
-                    FunctieID = table.Column<int>(nullable: false)
+                    FunctieID = table.Column<int>(nullable: false),
+                    PersoonFunctieID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PersoonFunctie", x => x.PersoonFunctieID);
+                    table.PrimaryKey("PK_PersoonFunctie", x => new { x.FunctieID, x.Personeelnummer });
                     table.ForeignKey(
                         name: "FK_PersoonFunctie_Functie_FunctieID",
                         column: x => x.FunctieID,
@@ -177,14 +176,14 @@ namespace Boekingssysteem.Migrations
             migrationBuilder.InsertData(
                 schema: "Boekingssysteem",
                 table: "PersoonFunctie",
-                columns: new[] { "PersoonFunctieID", "FunctieID", "Personeelnummer" },
+                columns: new[] { "FunctieID", "Personeelnummer", "PersoonFunctieID" },
                 values: new object[,]
                 {
-                    { 1, 1, "R0901658" },
-                    { 3, 1, "R0901293" },
-                    { 2, 1, "R0658604" },
-                    { 4, 3, "R0123456" },
-                    { 5, 2, "R0123457" }
+                    { 1, "R0901658", 1 },
+                    { 1, "R0901293", 3 },
+                    { 1, "R0658604", 2 },
+                    { 3, "R0123456", 4 },
+                    { 2, "R0123457", 5 }
                 });
 
             migrationBuilder.InsertData(
@@ -204,12 +203,6 @@ namespace Boekingssysteem.Migrations
                 schema: "Boekingssysteem",
                 table: "Afwezigheid",
                 column: "Personeelnummer");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PersoonFunctie_FunctieID",
-                schema: "Boekingssysteem",
-                table: "PersoonFunctie",
-                column: "FunctieID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PersoonFunctie_Personeelnummer",

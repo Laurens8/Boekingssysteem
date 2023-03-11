@@ -1,4 +1,5 @@
-﻿
+﻿@model Boekingssysteem.ViewModels.CreatePersoonViewModel
+
 <div class="alert alert-danger mb-5 visible" role="alert">
     alert wordt getoont bij foutmelding. normaal niet zichtbaar.
 </div>
@@ -7,24 +8,25 @@
     <div BtnCrud>
         <div class="col-sm-12">
             <div class="mb-5">
-                <form>
+                <form asp-action="Toevoegen">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group row">
-                        <label for="text" class="col-sm-4 col-form-label">Naam</label>
+                        <label asp-for="Personeelnummer" class="col-sm-4 col-form-label">Personeelnummer</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="naam" placeholder="">
+                            <input asp-for="Personeelnummer" class="form-control" id="Personeelnummer" placeholder="">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="text" class="col-sm-4 col-form-label">Voornaam</label>
+                        <label asp-for="Voornaam" class="col-sm-4 col-form-label">Voornaam</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="voornaam" placeholder="">
+                            <input asp-for="Voornaam" class="form-control" id="Voornaam" placeholder="">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="text" class="col-sm-4 col-form-label">PersoneelID</label>
+                        <label asp-for="Naam" class="col-sm-4 col-form-label">Naam</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="personeelnummer" placeholder="">
-                        </div>
+                            <input asp-for="Naam" class="form-control" id="Naam" placeholder="">
+                    </div>
                     </div>
                     <div class="form-group row">
                         <label for="email" class="col-sm-4 col-form-label">Email</label>
@@ -39,43 +41,25 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="password" class="col-sm-5 col-form-label">herhaal wachtwoord</label>
+                        <label for="password" class="col-sm-5 col-form-label">Herhaal wachtwoord</label>
                         <div class="col-sm-10">
                             <input type="password" class="form-control  mb-4" id="wachtwoord2" placeholder="">
                         </div>
                     </div>
-
-                    <form>
-                        <div class="form-row align-items-center">
-                            <div class="col-auto my-1">
-                                <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-                                    <option selected>Selecteer een functie</option>
-                                    <option value="1">Docent</option>
-                                    <option value="2">omnibus</option>
-                                    <option value="3">secretariaat</option>
-                                </select>
-                            </div>
-                            <div class="col-auto my-1">
-                                <button type="submit" class="btn btn-primary">Toevoegen</button>
-                            </div>
-                        </div>
-                    </form>
-
                     <div class="form-group row mt-2">
                         <div class="col-sm-2">Admin</div>
                         <div class="col-sm-10">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="gridCheck1">
-                                <label class="form-check-label" for="gridCheck1">
-                                    Selecteer om administrator te maken
-                                </label>
+                                <input asp-for="Admin" class="form-check-input" type="checkbox" id="gridCheck1">
+                                <label asp-for="Admin" class="form-check-label" for="gridCheck1">Selecteer om administrator te maken</label>
+                                <span asp-validation-for="Admin" class="text-danger"></span>
                             </div>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <div class="col-sm-10">
-                            <button type="submit" class="btn btn-primary mt-4">Toevoegen</button>
+                            <button type="submit" value="Toevoegen" class="btn btn-primary mt-4">Toevoegen</button>
                         </div>
                     </div>
                 </form>
@@ -83,3 +67,13 @@
         </div>
     </div>
 </div>
+
+<div>
+    <a asp-action="Index" class="btn btn-primary mt-4">Terug naar overzicht</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
