@@ -27,14 +27,14 @@ namespace Boekingssysteem.Data
             };
 
             var richtingen = new List<Richting>{
-                new Richting { RichtingID = 1, Naam = "Informatica" },
-                new Richting { RichtingID = 2, Naam = "Verpleegkunde" }
+                new Richting { Naam = "Informatica" },
+                new Richting { Naam = "Verpleegkunde" }
             };
 
             var functies = new List<Functie>{
-                new Functie { FunctieID = 1, Naam = "Leerling" },
-                new Functie { FunctieID = 2, Naam = "Administratief personeel" },
-                new Functie { FunctieID = 3, Naam = "Leerkracht" }
+                new Functie { Naam = "Leerling" },
+                new Functie { Naam = "Administratief personeel" },
+                new Functie { Naam = "Leerkracht" }
             };
 
             personen.ForEach(p => _context.Personen.Add(p));
@@ -68,7 +68,7 @@ namespace Boekingssysteem.Data
 
                 //Afwezigheden
                 var afwezigheden = new List<Afwezigheid>{
-                    new Afwezigheid { AfwezigheidID = 1, Personeelnummer = personen[0].Personeelnummer, Begindatum = new DateTime(2023, 04, 01), EindDatum = new DateTime(2023, 04, 30) }
+                    new Afwezigheid { Personeelnummer = personen[0].Personeelnummer, Begindatum = new DateTime(2023, 04, 01), EindDatum = new DateTime(2023, 04, 30) }
                 };
                 afwezigheden.ForEach(a => _context.Afwezigheden.Add(a));
 

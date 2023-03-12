@@ -7,27 +7,35 @@
 <div class="StatusWindow">
     <div class="container">
 
-        <h2>Informatica:</h2>
         @foreach(var p in Model.Personen)
         {
             <div class="row">
-                <div class="col-3 themed-grid-col">@Html.DisplayFor(modelItem => p.Naam)</div>
-                <div class="col-3 themed-grid-col">@Html.DisplayFor(modelItem => p.Voornaam)</div>
-                @foreach (var pr in p.PersoonRichtingen)
+                <div class="col-2 themed-grid-col">@Html.DisplayFor(modelItem => p.Naam)</div>
+                <div class="col-2 themed-grid-col">@Html.DisplayFor(modelItem => p.Voornaam)</div>
+
+                @if (p.PersoonRichtingen == null)
                 {
-                    <div class="col-3 themed-grid-col">@Html.DisplayFor(modelItem => pr.Richting.Naam)</div>
-                
+                    <div class="col-2 themed-grid-col">Geen richting</div>
+                }
+                else
+                {
+                    
+                    @foreach (var item in p.PersoonRichtingen)
+                    {
+                        <div class="col-2 themed-grid-col">@Html.DisplayFor(modelItem => item.Richting.Naam)
+                        </div>
+                    }
                 }
 
                 @if (p.Admin)
                 {
-                    <div class="col-3 themed-grid-col">Administratief personeel</div>
+                    <div class="col-2 themed-grid-col">Administratief personeel</div>
                 }
                 else
                 {
-                    <div class="col-3 themed-grid-col">Leerkracht</div>
+                    <div class="col-2 themed-grid-col">Leerkracht</div>
                 }
-                <div class="col-2 themed-grid-col">Aanwezig</div>
+                <div class="col-1 themed-grid-col">Aanwezig</div>
                 <div class="col-1 themed-grid-col KleurAanwezig"></div>
             </div>
 

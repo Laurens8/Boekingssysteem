@@ -6,6 +6,10 @@ namespace Boekingssysteem.ViewModels
 {
     public class EditPersoonViewModel
     {
+        public string PersoonSearch { get; set; }
+        public Persoon Persoon { get; set; }
+        public List<Persoon> Personen { get; set; }
+
         [Key]
         [Required(ErrorMessage = "Personeelnummer moet ingevuld zijn!")]
         [MinLength(8)]

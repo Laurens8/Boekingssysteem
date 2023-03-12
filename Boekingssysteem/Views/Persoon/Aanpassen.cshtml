@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Boekingssysteem.ViewModels.EditPersoonViewModel
+
+@{
     ViewData["Title"] = "Aanpassen";
 }
 
@@ -10,17 +12,23 @@
     <div BtnCrud>
         <div class="col-sm-12">
             <div class="mb-5">               
-                <form class="form-inline">
-                    <div class="form-group mb-2">
-                        <label for="staticEmail2" class="sr-only">personeelsnummer</label>
-                        <input type="text" readonly class="form-control-plaintext" id="text" value="personeelsnummer:">
+                @*<form asp-controller="Persoon" asp-action="Aanpassen" method="get" class="form-inline">
+                    <div class="form-actions form-group mb-2">
+                        <label for="personeelsnummer" class="sr-only">Personeelsnummer</label>
+                        <input type="text" readonly class="form-control-plaintext" id="text" value="Personeelsnummer:">
                     </div>
                     <div class="form-group mx-sm-3 mb-2">
-                        <label for="text" class="sr-only">personeelsnummer</label>
-                        <input type="text" class="form-control" id="text" placeholder="">
+                        <label for="text" class="sr-only">Personeelsnummer</label>
+                        <input asp-for="Personeelnummer" type="text" class="form-control" id="text">
                     </div>
                     <button type="submit" class="btn btn-primary mb-2">Gebruiker zoeken</button>
-                </form>
+                </form>*@
+
+                @using (Html.BeginForm())
+                {
+                    @Html.TextBoxFor(s => s.Personeelnummer)
+                    <input type="submit" value="Zoek adhv personeelsnummer" />
+                }
             </div>
 
             <div class="mb-5">

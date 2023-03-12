@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Boekingssysteem.Migrations
 {
     [DbContext(typeof(BoekingssysteemContext))]
-    [Migration("20230311225912_Intialiser")]
-    partial class Intialiser
+    [Migration("20230312133803_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

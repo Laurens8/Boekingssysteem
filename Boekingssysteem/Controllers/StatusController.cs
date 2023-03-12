@@ -2,40 +2,35 @@
 using Boekingssysteem.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace Boekingssysteem.Controllers
 {
     public class StatusController : Controller
     {
-
         private readonly BoekingssysteemContext _context;
+        private readonly ILogger<StatusController> _logger;
 
-        //public IActionResult Index()
-        //{
-        //    PersoonViewModel viewModel = new PersoonViewModel();
-        //    viewModel.Personen = _context.Personen.ToList();
-        //    return View(viewModel);
-        //}
-
-        public StatusController(BoekingssysteemContext context)
+        public StatusController(ILogger<StatusController> logger, BoekingssysteemContext context)
         {
             _context = context;
+            _logger = logger;
         }
 
         public ViewResult Index()
         {
+            var personen = _context.Personen.ToList();
             var persoonrichtingen = _context.PersoonRichtingen.Include(x => x.Persoon).Include(z => z.Richting);
             var persoonfuncties = _context.PersoonFuncties.Include(x => x.Persoon).Include(z => z.Functie);
-            var personen = _context.Personen.ToList();
+            PersoonListViewModel plvm = new PersoonListViewModel();
+            plvm.Personen = personen;
+            plvm.PersoonRichtingen = persoonrichtingen.ToList();
+            plvm.PersoonFuncties = persoonfuncties.ToList();
 
-            PersoonListViewModel viewModel = new PersoonListViewModel();
-            viewModel.Personen = personen;
-            viewModel.PersoonRichtingen = persoonrichtingen.ToList();
-            viewModel.PersoonFuncties = persoonfuncties.ToList();
-
-            return View(viewModel);
+            return View(plvm);
         }
     }
 }

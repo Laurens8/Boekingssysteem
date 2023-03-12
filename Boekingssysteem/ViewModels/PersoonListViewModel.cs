@@ -6,6 +6,7 @@ namespace Boekingssysteem.ViewModels
     public class PersoonListViewModel
     {
         public List<Persoon> Personen { get; set; }
+        public Persoon Persoon { get; set; }
         public List<Afwezigheid> Afwezigheden { get; set; }
         public List<PersoonRichting> PersoonRichtingen { get; set; }
         public List<PersoonFunctie> PersoonFuncties { get; set; }
