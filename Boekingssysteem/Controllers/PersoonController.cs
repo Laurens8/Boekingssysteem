@@ -56,11 +56,70 @@ namespace Boekingssysteem.Controllers
         }
 
         [HttpPost]
-        public IActionResult Aanpassen(EditPersoonViewModel vm)
+        public async Task<IActionResult> Aanpassen(EditPersoonViewModel vm)
         {
             string personeelsnummer = vm.Personeelnummer;
+
+            if (personeelsnummer == null)
+            {
+                return NotFound();
+            }
+
+            var persoon = await _context.Personen.FindAsync(personeelsnummer);
+            if (persoon == null)
+            {
+                return NotFound();
+            }
+
+            EditPersoonViewModel viewModel = new EditPersoonViewModel()
+            {
+                Personeelnummer = persoon.Personeelnummer,
+                Voornaam = persoon.Voornaam,
+                Naam = persoon.Naam,
+                Admin = persoon.Admin
+            };
             
-            return View();
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AanpassenViaID(string id, EditPersoonViewModel vm)
+        {
+            if (id == vm.Personeelnummer)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    Persoon persoon = new Persoon() 
+                    {
+                        Personeelnummer = vm.Personeelnummer,
+                        Voornaam = vm.Voornaam,
+                        Naam = vm.Naam,
+                        Admin = vm.Admin
+                    };
+
+                    _context.Update(persoon);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!_context.Personen.Any(p => p.Personeelnummer == vm.Personeelnummer))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Aanpassen));
+            }
+            return View(vm);
         }
 
         public BoekingssysteemContext Get_context()
