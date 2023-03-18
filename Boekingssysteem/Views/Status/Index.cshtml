@@ -1,0 +1,54 @@
+﻿@model Boekingssysteem.ViewModels.PersoonListViewModel
+
+@{
+    ViewData["Title"] = "Registratie aanwezigheid";
+}
+
+<div class="StatusWindow">
+    <div class="container">
+
+        @foreach(var p in Model.Personen)
+        {
+            <div class="row">
+                <div class="col-2 themed-grid-col">@Html.DisplayFor(modelItem => p.Naam)</div>
+                <div class="col-2 themed-grid-col">@Html.DisplayFor(modelItem => p.Voornaam)</div>
+
+                @if (p.PersoonRichtingen == null)
+                {
+                    <div class="col-2 themed-grid-col">Geen richting</div>
+                }
+                else
+                {
+                    
+                    @foreach (var item in p.PersoonRichtingen)
+                    {
+                        <div class="col-2 themed-grid-col">@Html.DisplayFor(modelItem => item.Richting.Naam)
+                        </div>
+                    }
+                }
+
+                @if (p.Admin)
+                {
+                    <div class="col-2 themed-grid-col">Administratief personeel</div>
+                }
+                else
+                {
+                    <div class="col-2 themed-grid-col">Leerkracht</div>
+                }
+                <div class="col-1 themed-grid-col">
+                    <form asp-action="StatusAanpassen">
+                    @if(p.Aanwezig == true)
+                    {
+                            <input asp-for="Aanwezig" type="checkbox" checked class="checkbox"/>
+                        }
+                        else
+                        {
+                            <input asp-for="Aanwezig" type="checkbox" class="checkbox"/>
+                        }
+                    </form>
+                </div>
+            </div>    
+        }
+        
+    </div>
+</div>

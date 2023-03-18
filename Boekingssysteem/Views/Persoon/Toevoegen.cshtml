@@ -1,0 +1,79 @@
+﻿@model Boekingssysteem.ViewModels.CreatePersoonViewModel
+
+<div class="alert alert-danger mb-5 visible" role="alert">
+    alert wordt getoont bij foutmelding. normaal niet zichtbaar.
+</div>
+
+<div class="h-100 d-flex align-items-center justify-content-center">
+    <div BtnCrud>
+        <div class="col-sm-12">
+            <div class="mb-5">
+                <form asp-action="Toevoegen">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group row">
+                        <label asp-for="Personeelnummer" class="col-sm-4 col-form-label">Personeelnummer</label>
+                        <div class="col-sm-10">
+                            <input asp-for="Personeelnummer" class="form-control" id="Personeelnummer" placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label asp-for="Voornaam" class="col-sm-4 col-form-label">Voornaam</label>
+                        <div class="col-sm-10">
+                            <input asp-for="Voornaam" class="form-control" id="Voornaam" placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label asp-for="Naam" class="col-sm-4 col-form-label">Naam</label>
+                        <div class="col-sm-10">
+                            <input asp-for="Naam" class="form-control" id="Naam" placeholder="">
+                    </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="email" class="col-sm-4 col-form-label">Email</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="email" placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="password" class="col-sm-4 col-form-label">Wachtwoord</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="wachtwoord1" placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="password" class="col-sm-5 col-form-label">Herhaal wachtwoord</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control  mb-4" id="wachtwoord2" placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group row mt-2">
+                        <div class="col-sm-2">Admin</div>
+                        <div class="col-sm-10">
+                            <div class="form-check">
+                                <input asp-for="Admin" class="form-check-input" type="checkbox" id="gridCheck1">
+                                <label asp-for="Admin" class="form-check-label" for="gridCheck1">Selecteer om administrator te maken</label>
+                                <span asp-validation-for="Admin" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <button type="submit" value="Toevoegen" class="btn btn-primary mt-4">Toevoegen</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" class="btn btn-primary mt-4">Terug naar overzicht</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
