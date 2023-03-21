@@ -259,3 +259,4 @@ C:\Thomas More 2de jaar\Projecten van het werkveld\Boekingssysteem\Boekingssyste
 C:\Thomas More 2de jaar\Projecten van het werkveld\Boekingssysteem\Boekingssysteem\obj\Debug\netcoreapp3.1\Razor\Views\Persoon\Toevoegen.cshtml.g.cs
 C:\Thomas More 2de jaar\Projecten van het werkveld\Boekingssysteem\Boekingssysteem\obj\Debug\netcoreapp3.1\Razor\Views\Persoon\Verwijderen.cshtml.g.cs
 C:\Thomas More 2de jaar\Projecten van het werkveld\Boekingssysteem\Boekingssysteem\obj\Debug\netcoreapp3.1\Razor\Views\Persoon\AanpassenDetail.cshtml.g.cs
+C:\Thomas More 2de jaar\Projecten van het werkveld\Boekingssysteem\Boekingssysteem\obj\Debug\netcoreapp3.1\Razor\Views\Functie\Index.cshtml.g.cs

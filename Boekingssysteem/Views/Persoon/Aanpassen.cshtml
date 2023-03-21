@@ -11,107 +11,93 @@
 <div class="h-100 d-flex align-items-center justify-content-center">  
     <div BtnCrud>
         <div class="col-sm-12">
-            <div class="mb-5">               
-                @*<form asp-controller="Persoon" asp-action="Aanpassen" method="get" class="form-inline">
-                    <div class="form-actions form-group mb-2">
-                        <label for="personeelsnummer" class="sr-only">Personeelsnummer</label>
-                        <input type="text" readonly class="form-control-plaintext" id="text" value="Personeelsnummer:">
-                    </div>
-                    <div class="form-group mx-sm-3 mb-2">
-                        <label for="text" class="sr-only">Personeelsnummer</label>
-                        <input asp-for="Personeelnummer" type="text" class="form-control" id="text">
-                    </div>
-                    <button type="submit" class="btn btn-primary mb-2">Gebruiker zoeken</button>
-                </form>*@
-
-                @using (Html.BeginForm())
-                {
-                    @Html.TextBoxFor(s => s.Personeelnummer)
-                    <input class="btn btn-primary mb-2" type="submit" value="Zoek adhv personeelsnummer" />
-                }
-            </div>
-
-            <div class="mb-5">
-                <form asp-action="AanpassenViaID">
-                    <div asp-validation-summary="ModelOnly"></div>
-                    <div class="form-group row">
-                        <label asp-for="Personeelnummer" for="text" class="col-sm-4 col-form-label">Personeelnummer</label>
+            @using (Html.BeginForm("Aanpassen", "Persoon", FormMethod.Post))
+            {
+                @Html.TextBoxFor(s => s.Personeelnummer)
+                <input class="btn btn-primary mb-2" type="submit" value="Zoek adhv personeelsnummer" />
+            }
+            @using (Html.BeginForm("AanpassenViaID", "Persoon", FormMethod.Post))
+            {
+                <div class="mb-5">
+                    <form asp-action="AanpassenViaID">
+                        <div asp-validation-summary="ModelOnly"></div>
+                        <div class="form-group row">
+                            <label asp-for="Personeelnummer" for="text" class="col-sm-4 col-form-label">Personeelnummer</label>
                         <div class="col-sm-10">
-                            <input asp-for="Personeelnummer" type="text" disabled class="form-control" id="personeelnummer" placeholder="">
+                            @Html.TextBoxFor(s => s.Personeelnummer, new { @readonly = "readonly", @class = "form-control" })
+                            @*<input asp-for="Personeelnummer" type="text" disabled class="form-control" id="personeelnummer" placeholder="">*@
                         </div>
-                        <span asp-validation-for="Personeelnummer" class="text-danger"></span>
-                    </div>                    
-                    <div class="form-group row">
-                        <label asp-for="Naam" for="text" class="col-sm-4 col-form-label">Naam</label>
-                        <div class="col-sm-10">
-                            <input asp-for="Naam" type="text" class="form-control" id="naam" placeholder="">
+                            <span asp-validation-for="Personeelnummer" class="text-danger"></span>
                         </div>
-                        <span asp-validation-for="Naam" class="text-danger"></span>
-                    </div>
-                    <div class="form-group row">
-                        <label asp-for="Voornaam" for="text" class="col-sm-4 col-form-label">Voornaam</label>
-                        <div class="col-sm-10">
-                            <input asp-for="Voornaam" type="text" class="form-control" id="voornaam" placeholder="">
-                        </div>
-                        <span asp-validation-for="Naam" class="text-danger"></span>
-                    </div>
-                    <div class="form-group row">
-                        <label for="email" class="col-sm-4 col-form-label">Email</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="email" placeholder="">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="password" class="col-sm-4 col-form-label">Wachtwoord</label>
-                        <div class="col-sm-10">
-                            <input type="password" class="form-control" id="wachtwoord1" placeholder="">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="password" class="col-sm-4 col-form-label">herhaal wachtwoord</label>
-                        <div class="col-sm-10">
-                            <input type="password" class="form-control mb-4" id="wachtwoord2" placeholder="">
-                        </div>
-                    </div>
-
-                    @*<form>
-                        <div class="form-row align-items-center">
-                            <div class="col-auto my-1">                                
-                                <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-                                    <option selected>Selecteer een functie</option>
-                                    <option value="1">Docent</option>
-                                    <option value="2">omnibus</option>
-                                    <option value="3">secretariaat</option>
-                                </select>
+                        <div class="form-group row">
+                            <label asp-for="Naam" for="text" class="col-sm-4 col-form-label">Naam</label>
+                            <div class="col-sm-10">
+                                <input asp-for="Naam" type="text" class="form-control" id="naam" placeholder="">
                             </div>
-                            <div class="col-auto my-1">
-                                <button type="submit" class="btn btn-primary">Toevoegen</button>
+                            <span asp-validation-for="Naam" class="text-danger"></span>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="Voornaam" for="text" class="col-sm-4 col-form-label">Voornaam</label>
+                            <div class="col-sm-10">
+                                <input asp-for="Voornaam" type="text" class="form-control" id="voornaam" placeholder="">
+                            </div>
+                            <span asp-validation-for="Voornaam" class="text-danger"></span>
+                        </div>
+                        <div class="form-group row">
+                            <label for="email" class="col-sm-4 col-form-label">Email</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="email" placeholder="">
                             </div>
                         </div>
-                    </form>*@
-
-                    <div class="form-group row mt-2">
-                        <div class="col-sm-2">Admin</div>
-                        <div class="col-sm-10">
-                            <div class="form-check">
-                                <input asp-for="Admin" class="form-check-input" type="checkbox" id="gridCheck1">
-                                <label asp-for="Admin" class="form-check-label" for="gridCheck1">
-                                    Selecteer om administrator te maken
-                                </label>
+                        <div class="form-group row">
+                            <label for="password" class="col-sm-4 col-form-label">Wachtwoord</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" id="wachtwoord1" placeholder="">
                             </div>
                         </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <div class="col-sm-10">
-                            <button type="submit" value="Save" class="btn btn-primary mt-4">Wijzigen</button>
+                        <div class="form-group row">
+                            <label for="password" class="col-sm-4 col-form-label">herhaal wachtwoord</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control mb-4" id="wachtwoord2" placeholder="">
+                            </div>
                         </div>
-                    </div>
-                </form>
-            </div>
+
+                        <div class="form-group row mt-2">
+                            <div class="col-sm-2">Admin</div>
+                            <div class="col-sm-10">
+                                <div class="form-check">
+                                    <input asp-for="Admin" class="form-check-input" type="checkbox" id="gridCheck1">
+                                    <label asp-for="Admin" class="form-check-label" for="gridCheck1">
+                                        Selecteer om administrator te maken
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-10">
+                                <button type="submit" value="Save" class="btn btn-primary mt-4">Wijzigen</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            }
+            <script type="text/javascript">
+                function MeldingSucces(personeelnummer) {
+                    alert("De persoon met personeelnummer " + personeelnummer + " is succesvol aangepast!");
+                };
+            </script>
         </div>
     </div>
 </div>
+
+
+@if (ViewBag.JavaScriptFunction != null)
+{
+    <script type="text/javascript">
+        @Html.Raw(ViewBag.JavaScriptFunction)
+    </script>
+}
 
 @section Scripts {
     @{

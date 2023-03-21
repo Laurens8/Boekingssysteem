@@ -3,9 +3,11 @@ using Boekingssysteem.Models;
 using Boekingssysteem.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Boekingssysteem.Controllers
 {
@@ -18,7 +20,6 @@ namespace Boekingssysteem.Controllers
             _context = context;
         }
 
-        // PersoonRichting tonen met Persoon en Richting
         public ViewResult Index()
         {
             return View();
@@ -52,41 +53,43 @@ namespace Boekingssysteem.Controllers
 
         public IActionResult Aanpassen()
         {
-            return View(new EditPersoonViewModel());
+            return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Aanpassen(EditPersoonViewModel vm)
+        public IActionResult Aanpassen(string personeelnummer) 
         {
-            string personeelsnummer = vm.Personeelnummer;
-
-            if (personeelsnummer == null)
+            try
             {
-                return NotFound();
+                if (personeelnummer == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    Persoon persoon = _context.Personen.Find(personeelnummer);
+                    EditPersoonViewModel viewModel = new EditPersoonViewModel()
+                    {
+                        Personeelnummer = persoon.Personeelnummer,
+                        Naam = persoon.Naam,
+                        Voornaam = persoon.Voornaam,
+                        Admin = persoon.Admin
+                    };
+
+                    return View(viewModel);
+                }
             }
-
-            var persoon = await _context.Personen.FindAsync(personeelsnummer);
-            if (persoon == null)
+            catch (Exception)
             {
-                return NotFound();
+                throw;
             }
-
-            EditPersoonViewModel viewModel = new EditPersoonViewModel()
-            {
-                Personeelnummer = persoon.Personeelnummer,
-                Voornaam = persoon.Voornaam,
-                Naam = persoon.Naam,
-                Admin = persoon.Admin
-            };
-            
-            return View(viewModel);
         }
 
-        [HttpPost]
+        [HttpPost, ActionName("AanpassenViaID")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AanpassenViaID(string id, EditPersoonViewModel vm)
-        {
-            if (id == vm.Personeelnummer)
+        public async Task<IActionResult> AanpassenViaID(string personeelnummer, EditPersoonViewModel viewModel) 
+        {            
+            if (personeelnummer == null)
             {
                 return NotFound();
             }
@@ -95,12 +98,12 @@ namespace Boekingssysteem.Controllers
             {
                 try
                 {
-                    Persoon persoon = new Persoon() 
+                    Persoon persoon = new Persoon()
                     {
-                        Personeelnummer = vm.Personeelnummer,
-                        Voornaam = vm.Voornaam,
-                        Naam = vm.Naam,
-                        Admin = vm.Admin
+                        Personeelnummer = viewModel.Personeelnummer,
+                        Voornaam = viewModel.Voornaam,
+                        Naam = viewModel.Naam,
+                        Admin = viewModel.Admin
                     };
 
                     _context.Update(persoon);
@@ -108,7 +111,7 @@ namespace Boekingssysteem.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!_context.Personen.Any(p => p.Personeelnummer == vm.Personeelnummer))
+                    if (!_context.Personen.Any(e => e.Personeelnummer == viewModel.Personeelnummer))
                     {
                         return NotFound();
                     }
@@ -117,56 +120,97 @@ namespace Boekingssysteem.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Aanpassen));
+
+                ViewBag.JavaScriptFunction = string.Format("MeldingSucces('{0}');", personeelnummer);
+                return RedirectToAction("Aanpassen");
             }
-            return View(vm);
+
+            return View("Aanpassen");
+        }
+
+        public IActionResult Verwijderen()
+        {
+            return View();
+        }
+
+        public IActionResult VerwijderenData(string personeelnummer)
+        {
+            try
+            {
+                if (personeelnummer == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    Persoon persoon = _context.Personen.Find(personeelnummer);
+                    ViewBag.naam = persoon.Naam;
+                    ViewBag.voornaam = persoon.Voornaam;
+                    ViewBag.personeelnummer = persoon.Personeelnummer;
+                }
+                return View("Verwijderen");
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<IActionResult> Delete(string? personeelnummer)
+        {
+            try
+            {
+                if (personeelnummer == null)
+                {
+                    return NotFound();
+                }
+
+                Persoon persoon = await _context.Personen.FirstOrDefaultAsync(k => k.Personeelnummer == personeelnummer);
+                if (persoon == null)
+                {
+                    return NotFound();
+                }
+
+                DeletePersoonViewModel vm = new DeletePersoonViewModel()
+                {
+                    Personeelnummer = persoon.Personeelnummer,
+                    Voornaam = persoon.Voornaam,
+                    Naam = persoon.Naam
+                };
+                return View(vm);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(string? personeelnummer)
+        {
+            try
+            {
+                Persoon persoon = await _context.Personen.FindAsync(personeelnummer);
+                _context.Personen.Remove(persoon);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Verwijderen));
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
         }
 
         public BoekingssysteemContext Get_context()
         {
             return _context;
         }
-
-        //public async Task<IActionResult> Search(EditPersoonViewModel viewModel)
-        //{
-        //    var personen = _context.Personen.ToList();
-            
-        //    if (!string.IsNullOrWhiteSpace(viewModel.PersoonSearch))
-        //    {
-        //        var persoonID = personen.Where(p => p.Personeelnummer == viewModel.Personeelnummer);
-        //        Persoon persoon = new Persoon();
-        //        //viewModel.Persoon = (Persoon)personen.Where(p => p.Personeelnummer.Equals(viewModel.PersoonSearch));
-        //        string id = persoon.Personeelnummer;
-
-        //        //Persoon persoon = await _context.Personen.FindAsync(id);
-
-        //        EditPersoonViewModel vm = new EditPersoonViewModel()
-        //        {
-        //            Personeelnummer = persoon.Personeelnummer,
-        //            Naam = persoon.Naam,
-        //            Voornaam = persoon.Voornaam,
-        //            Admin = persoon.Admin
-        //        };
-
-        //        return View(vm);
-
-                
-        //        //return View(AanpassenDetail(id));
-        //    }
-        //    else
-        //    {
-        //        return null;
-        //    }
-        //}
-
-        //public async Task<IActionResult> AanpassenDetail(string id) 
-        //{
-            
-        //}
-
-        public IActionResult Verwijderen()
-        {
-            return View();
-        }
     }
+
 }

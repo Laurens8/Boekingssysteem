@@ -10,6 +10,7 @@
         @foreach(var p in Model.Personen)
         {
             <div class="row">
+                <div class="col-2 themed-grid-col">@Html.DisplayFor(modelItem => p.Personeelnummer)</div>
                 <div class="col-2 themed-grid-col">@Html.DisplayFor(modelItem => p.Naam)</div>
                 <div class="col-2 themed-grid-col">@Html.DisplayFor(modelItem => p.Voornaam)</div>
 
@@ -38,10 +39,6 @@
                 <div class="col-1 themed-grid-col">Aanwezig</div>
                 <div class="col-1 themed-grid-col KleurAanwezig"></div>
             </div>
-
-            
-            
-            
         }
         
     </div>
