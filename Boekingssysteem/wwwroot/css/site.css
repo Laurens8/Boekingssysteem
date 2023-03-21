@@ -74,3 +74,56 @@ body {
     width: 100%;
     height: 2px;
 }
+/*TV pagina*/
+table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+tr:nth-child(even) {
+    background-color: #D6EEEE !important;
+}
+
+/*Status pagina - input*/
+.checkbox {
+    -moz-appearance: none;
+    appearance: none;
+    position: relative;
+    display: inline-block;
+    background: red;
+    height: 1.65rem;
+    width: 2.75rem;
+    vertical-align: middle;
+    border-radius: 2rem;
+    box-shadow: 0px 1px 3px #0003 inset;
+    transition: 0.25s linear background;
+}
+
+    .checkbox::before {
+        content: '';
+        display: block;
+        width: 1.25rem;
+        height: 1.25rem;
+        background: #fff;
+        border-radius: 1.2rem;
+        position: absolute;
+        top: 0.2rem;
+        left: 0.2rem;
+        box-shadow: 0px 1px 3px #0003;
+        transition: 0.25s linear transform;
+        transform: translateX(0rem)
+    }
+
+:checked {
+    background: green;
+}
+
+    :checked::before {
+        transform: translateX(1rem)
+    }
+
+
+.checkbox:focus-visible {
+    outline: 2px solid dodgerblue;
+    outline-offset: 2px
+}

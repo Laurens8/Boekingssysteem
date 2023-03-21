@@ -1,51 +1,128 @@
-﻿@{
+﻿@model Boekingssysteem.ViewModels.PersoonListViewModel;
+@{
     ViewData["Title"] = "Screen";
 }
 
 <div class="MainWindow">
     <h2>Informatica</h2>
-    <ul>
-        @for (int i = 0; i <= 20; i++)
+    <table class="width-100">
+        @foreach (var p in Model.Personen)
         {
-            @if (i % 2 == 0)
+            @if (p.PersoonRichtingen != null)
             {
-                <li class="grey"><p>naam</p><p class="rechts">aanwezig</p></li>
-            }
-            else
-            {
-                <li class="white"><p>naam</p><p class="rechts">aanwezig</p></li>
+                @foreach (var item in p.PersoonRichtingen)
+                {
+                    @if (item.RichtingID == 1)
+                    {
+                        @foreach (var functie in p.PersoonFuncties)
+                        {
+                            @if (functie.FunctieID == 1)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => p.Naam)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => p.Voornaam)
+                                    </td>
+
+                                    @if (p.Aanwezig == true)
+                                    {
+                                        <td class="KleurAanwezig">
+                                            Aanwezig
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td class="KleurAfwezig">
+                                            Afwezig
+                                        </td>
+                                    }
+                                </tr>
+                            }
+                        }
+                    }
+                }
             }
         }
-
-    </ul>
-    <h2>Verpleegkunde</h2>
-    <ul>
-        @for (int i = 0; i <= 20; i++)
+    </table>
+    <h2>Geneeskunde</h2>
+    <table class="width-100">
+        @foreach (var p in Model.Personen)
         {
-            @if (i % 2 == 0)
+            @if (p.PersoonRichtingen != null)
             {
-                <li class="grey"><p>naam</p><p class="rechts">aanwezig</p></li>
-            }
-            else
-            {
-                <li class="white"><p>naam</p><p class="rechts">aanwezig</p></li>
+                @foreach (var item in p.PersoonRichtingen)
+                {
+                    @if (item.RichtingID == 2)
+                    {
+                        @foreach (var functie in p.PersoonFuncties)
+                        {
+                            @if (functie.FunctieID == 1)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => p.Naam)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => p.Voornaam)
+                                    </td>
+
+                                    @if (p.Aanwezig == true)
+                                    {
+                                        <td class="KleurAanwezig">
+                                            Aanwezig
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td class="KleurAfwezig">
+                                            Afwezig
+                                        </td>
+                                    }
+                                </tr>
+                            }
+                        }
+                    }
+                }
             }
         }
-
-    </ul>
-    <h2>Andere</h2>
-    <ul>
-        @for (int i = 0; i <= 20; i++)
+    </table>
+    <h2>Andere functies</h2>
+    <table class="width-100">
+        @foreach (var p in Model.Personen)
         {
-            @if (i % 2 == 0)
+            if (p.PersoonFuncties != null)
             {
-                <li class="grey"><p>naam</p><p class="rechts">aanwezig</p></li>
-            }
-            else
-            {
-                <li class="white"><p>naam</p><p class="rechts">aanwezig</p></li>
+                @foreach (var functie in p.PersoonFuncties)
+                {
+                    @if (functie.FunctieID != 1)
+                    {
+                        <tr class="width-100">
+                            <td>
+                                @Html.DisplayFor(modelItem => p.Naam)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => p.Voornaam)
+                            </td>
+
+                            @if (p.Aanwezig == true)
+                            {
+                                <td class="KleurAanwezig">
+                                    Aanwezig
+                                </td>
+                            }
+                            else
+                            {
+                                <td class="KleurAfwezig">
+                                    Afwezig
+                                </td>
+                            }
+                        </tr>
+
+                    }
+                }
             }
         }
-
-    </ul>
+    </table>
 </div>

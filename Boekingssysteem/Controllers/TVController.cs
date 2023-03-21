@@ -1,5 +1,8 @@
 ﻿using Boekingssysteem.Data;
+using Boekingssysteem.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Boekingssysteem.Controllers
 {
@@ -14,7 +17,15 @@ namespace Boekingssysteem.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var personen = _context.Personen.ToList();
+            var persoonrichtingen = _context.PersoonRichtingen.Include(x => x.Persoon).Include(z => z.Richting);
+            var persoonfuncties = _context.PersoonFuncties.Include(x => x.Persoon).Include(z => z.Functie);
+            PersoonListViewModel plvm = new PersoonListViewModel();
+            plvm.Personen = personen;
+            plvm.PersoonRichtingen = persoonrichtingen.ToList();
+            plvm.PersoonFuncties = persoonfuncties.ToList();
+
+            return View(plvm);
         }
     }
 }
