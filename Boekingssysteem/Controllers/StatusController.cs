@@ -6,6 +6,9 @@ using Microsoft.Extensions.Logging;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using Boekingssysteem.Models;
+using Boekingssysteem.Lib;
+using System;
 
 namespace Boekingssysteem.Controllers
 {
@@ -32,6 +35,7 @@ namespace Boekingssysteem.Controllers
 
             return View(plvm);
         }
+
         public async Task<IActionResult> StatusAanpassen(EditStatusViewModel vm)
         {
             string personeelsnummer = vm.Personeelnummer;
@@ -71,8 +75,6 @@ namespace Boekingssysteem.Controllers
                 };
                 return View(viewModel);
             }
-
-
         }
     }
 }
