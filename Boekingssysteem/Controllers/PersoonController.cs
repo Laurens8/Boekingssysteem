@@ -1,8 +1,10 @@
 ﻿using Boekingssysteem.Data;
+using Boekingssysteem.Lib;
 using Boekingssysteem.Models;
 using Boekingssysteem.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -31,21 +33,30 @@ namespace Boekingssysteem.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpPut]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Toevoegen(CreatePersoonViewModel viewModel) 
         {
-            if (ModelState.IsValid)
+            try
             {
-                _context.Add(new Persoon()
+                if (ModelState.IsValid)
                 {
-                    Personeelnummer = viewModel.Personeelnummer,
-                    Naam = viewModel.Naam,
-                    Voornaam = viewModel.Voornaam,
-                    Admin = viewModel.Admin
-                });
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                    _context.Add(new Persoon()
+                    {
+                        Personeelnummer = viewModel.Personeelnummer,
+                        Naam = viewModel.Naam,
+                        Voornaam = viewModel.Voornaam,
+                        Admin = viewModel.Admin
+                    });
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                return View(viewModel);
+            }
+            catch (Exception e)
+            {
+
+                Foutenlogboek.FoutLoggen(e);
             }
             return View(viewModel);
         }
@@ -55,71 +66,87 @@ namespace Boekingssysteem.Controllers
             return View(new EditPersoonViewModel());
         }
 
-        [HttpPost]
+        [HttpPut]
         public async Task<IActionResult> Aanpassen(EditPersoonViewModel vm)
         {
-            string personeelsnummer = vm.Personeelnummer;
-
-            if (personeelsnummer == null)
+            try
             {
-                return NotFound();
+                string personeelsnummer = vm.Personeelnummer;
+
+                if (personeelsnummer == null)
+                {
+                    return NotFound();
+                }
+
+                var persoon = await _context.Personen.FindAsync(personeelsnummer);
+                if (persoon == null)
+                {
+                    return NotFound();
+                }
+
+                EditPersoonViewModel viewModel = new EditPersoonViewModel()
+                {
+                    Personeelnummer = persoon.Personeelnummer,
+                    Voornaam = persoon.Voornaam,
+                    Naam = persoon.Naam,
+                    Admin = persoon.Admin
+                };
+
+                return View(viewModel);
             }
-
-            var persoon = await _context.Personen.FindAsync(personeelsnummer);
-            if (persoon == null)
+            catch (Exception e)
             {
-                return NotFound();
+                Foutenlogboek.FoutLoggen(e);
             }
-
-            EditPersoonViewModel viewModel = new EditPersoonViewModel()
-            {
-                Personeelnummer = persoon.Personeelnummer,
-                Voornaam = persoon.Voornaam,
-                Naam = persoon.Naam,
-                Admin = persoon.Admin
-            };
-            
-            return View(viewModel);
+            return View(vm);
         }
 
-        [HttpPost]
+        [HttpPut]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AanpassenViaID(string id, EditPersoonViewModel vm)
         {
-            if (id == vm.Personeelnummer)
+            try
             {
-                return NotFound();
-            }
+                if (id == vm.Personeelnummer)
+                {
+                    return NotFound();
+                }
 
-            if (ModelState.IsValid)
+                if (ModelState.IsValid)
+                {
+                    try
+                    {
+                        Persoon persoon = new Persoon()
+                        {
+                            Personeelnummer = vm.Personeelnummer,
+                            Voornaam = vm.Voornaam,
+                            Naam = vm.Naam,
+                            Admin = vm.Admin
+                        };
+
+                        _context.Update(persoon);
+                        await _context.SaveChangesAsync();
+                    }
+                    catch (DbUpdateConcurrencyException)
+                    {
+                        if (!_context.Personen.Any(p => p.Personeelnummer == vm.Personeelnummer))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
+                    return RedirectToAction(nameof(Aanpassen));
+                }
+                return View(vm);
+            }
+            catch (Exception e)
             {
-                try
-                {
-                    Persoon persoon = new Persoon() 
-                    {
-                        Personeelnummer = vm.Personeelnummer,
-                        Voornaam = vm.Voornaam,
-                        Naam = vm.Naam,
-                        Admin = vm.Admin
-                    };
-
-                    _context.Update(persoon);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!_context.Personen.Any(p => p.Personeelnummer == vm.Personeelnummer))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Aanpassen));
+               Foutenlogboek.FoutLoggen(e);
             }
-            return View(vm);
+           return View(vm);
         }
 
         public BoekingssysteemContext Get_context()
@@ -130,7 +157,7 @@ namespace Boekingssysteem.Controllers
         //public async Task<IActionResult> Search(EditPersoonViewModel viewModel)
         //{
         //    var personen = _context.Personen.ToList();
-            
+
         //    if (!string.IsNullOrWhiteSpace(viewModel.PersoonSearch))
         //    {
         //        var persoonID = personen.Where(p => p.Personeelnummer == viewModel.Personeelnummer);
@@ -150,7 +177,7 @@ namespace Boekingssysteem.Controllers
 
         //        return View(vm);
 
-                
+
         //        //return View(AanpassenDetail(id));
         //    }
         //    else
@@ -161,12 +188,86 @@ namespace Boekingssysteem.Controllers
 
         //public async Task<IActionResult> AanpassenDetail(string id) 
         //{
-            
+
         //}
 
         public IActionResult Verwijderen()
         {
             return View();
         }
+
+        public IActionResult VerwijderenData(string personeelnummer)
+        {
+            try
+            {
+                if (personeelnummer == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    Persoon persoon = _context.Personen.Find(personeelnummer);
+                    ViewBag.naam = persoon.Naam;
+                    ViewBag.voornaam = persoon.Voornaam;
+                    ViewBag.personeelnummer = persoon.Personeelnummer;
+                }
+                return View("Verwijderen");
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<IActionResult> Delete(string? personeelnummer)
+        {
+            try
+            {
+                if (personeelnummer == null)
+                {
+                    return NotFound();
+                }
+
+                Persoon persoon = await _context.Personen.FirstOrDefaultAsync(k => k.Personeelnummer == personeelnummer);
+                if (persoon == null)
+                {
+                    return NotFound();
+                }
+
+                DeletePersoonViewModel vm = new DeletePersoonViewModel()
+                {
+                    Personeelnummer = persoon.Personeelnummer,
+                    Voornaam = persoon.Voornaam,
+                    Naam = persoon.Naam
+                };
+                return View(vm);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(string? personeelnummer)
+        {
+            try
+            {
+                Persoon persoon = await _context.Personen.FindAsync(personeelnummer);
+                _context.Personen.Remove(persoon);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Verwijderen));
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }   
     }
 }

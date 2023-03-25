@@ -24,7 +24,7 @@ namespace Boekingssysteem.ViewModels
         public bool? Aanwezig { get; set; }
 
         //Navigatieproperties
-        public ICollection<Afwezigheid> Afwezigheden { get; set; }
+        public virtual ICollection<Afwezigheid> Afwezigheden { get; set; }
         public virtual ICollection<PersoonRichting> PersoonRichtingen { get; set; }
         public virtual ICollection<PersoonFunctie> PersoonFuncties { get; set; }
         public virtual ICollection<Functie> Functies { get; set; }

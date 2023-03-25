@@ -6,50 +6,71 @@
 
 <div class="StatusWindow">
     <div class="container">
+            @foreach (var p in Model.Personen)
+            {
+                <div class="row">
+                    <div class="col">
+                        @Html.DisplayFor(modelItem => p.Naam)
+                        @Html.DisplayFor(modelItem => p.Voornaam)
+                    </div>
 
-        @foreach (var p in Model.Personen)
-        {
-            <div class="row">
-                <div class="col-2 themed-grid-col">@Html.DisplayFor(modelItem => p.Naam)</div>
-                <div class="col-2 themed-grid-col">@Html.DisplayFor(modelItem => p.Voornaam)</div>
-
-                @if (p.PersoonRichtingen == null)
-                {
-                    <div class="col-2 themed-grid-col">Geen richting</div>
-                }
-                else
-                {
-
-                    @foreach (var item in p.PersoonRichtingen)
+                    @if (p.PersoonRichtingen == null)
                     {
-                        <div class="col-2 themed-grid-col">
-                            @Html.DisplayFor(modelItem => item.Richting.Naam)
-                        </div>
+                        <div class="col">Geen richting</div>
                     }
-                }
+                    else
+                    {
 
-                @if (p.Admin)
-                {
-                    <div class="col-2 themed-grid-col">Administratief personeel</div>
-                }
-                else
-                {
-                    <div class="col-2 themed-grid-col">Leerkracht</div>
-                }
-                <div class="col-1 themed-grid-col">
-                    <form asp-action="StatusAanpassen">
-                        @if (p.Aanwezig == true)
+                        @foreach (var item in p.PersoonRichtingen)
                         {
-                            <input asp-for="Aanwezig" type="checkbox" checked class="checkbox" />
+                            <div class="col">
+                                @Html.DisplayFor(modelItem => item.Richting.Naam)
+                            </div>
                         }
-                        else
-                        {
-                            <input asp-for="Aanwezig" type="checkbox" class="checkbox" />
-                        }
-                    </form>
+                    }
+
+                    @if (p.Admin)
+                    {
+                        <div class="col">Administratief personeel</div>
+                    }
+                    else
+                    {
+                        <div class="col">Leerkracht</div>
+                    }
+
+                    <div class="row">
+                        <div class="col">
+                            <p>Afwezig</p>
+                        </div>
+
+                    <div class="col">
+                        <form asp-action="StatusAanpassen">
+                            <div asp-validation-summary="ModelOnly"></div>
+                            @if (p.Aanwezig == true)
+                            {
+                                <input asp-for="Aanwezig" name="Aanwezig" type="checkbox" checked class="checkbox" value="false" />
+                                <input asp-for="Aanwezig" type="hidden" name="Aanwezig" value="false" />
+                            }
+                            else
+                            {
+                                <input asp-for="Aanwezig" name="Aanwezig" type="checkbox" class="checkbox" value="true" />
+                                <input asp-for="Aanwezig" type="hidden" name="Aanwezig" value="true" />
+                            }
+                        </form>
+                    </div>
+
+                        <div class="col">
+                            <p>Aanwezig</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        }
-
+                <div class="divider mt-5 mb-5"></div>
+            }
     </div>
 </div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
