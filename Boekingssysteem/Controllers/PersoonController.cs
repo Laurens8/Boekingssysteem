@@ -1,4 +1,5 @@
 ﻿using Boekingssysteem.Data;
+using Boekingssysteem.Lib;
 using Boekingssysteem.Models;
 using Boekingssysteem.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -74,6 +75,7 @@ namespace Boekingssysteem.Controllers
                         Naam = persoon.Naam,
                         Voornaam = persoon.Voornaam,
                         Admin = persoon.Admin
+                        
                     };
 
                     return View(viewModel);
@@ -150,11 +152,12 @@ namespace Boekingssysteem.Controllers
                 }
                 return View("Verwijderen");
             }
-            catch (Exception)
+            catch (Exception e)
             {
 
-                throw;
+                Foutenlogboek.FoutLoggen(e);
             }
+            return View();
         }
 
         public async Task<IActionResult> Delete(string? personeelnummer)
@@ -180,12 +183,12 @@ namespace Boekingssysteem.Controllers
                 };
                 return View(vm);
             }
-            catch (Exception)
+            catch (Exception e)
             {
 
-                throw;
+                Foutenlogboek.FoutLoggen(e);
             }
-
+            return View();
         }
 
         [HttpPost, ActionName("Delete")]
@@ -199,12 +202,12 @@ namespace Boekingssysteem.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Verwijderen));
             }
-            catch (Exception)
+            catch (Exception e)
             {
 
-                throw;
+                Foutenlogboek.FoutLoggen(e);
             }
-
+            return View();
         }
 
         public BoekingssysteemContext Get_context()

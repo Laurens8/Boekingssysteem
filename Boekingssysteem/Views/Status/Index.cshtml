@@ -6,6 +6,9 @@
 
 <div class="StatusWindow">
     <div class="container">
+        <div class="mb-5">
+            <a asp-controller="Status" asp-action="StatusIndividueel" class="btn btn-primary btn-lg mb-2" role="button">Aanwezigheid aanpassen</a>
+        </div>
             @foreach (var p in Model.Personen)
             {
                 <div class="row">
@@ -50,11 +53,13 @@
                             {
                                 <input asp-for="Aanwezig" name="Aanwezig" type="checkbox" checked class="checkbox" value="false" />
                                 <input asp-for="Aanwezig" type="hidden" name="Aanwezig" value="false" />
+                                p.Aanwezig = false;
                             }
                             else
                             {
                                 <input asp-for="Aanwezig" name="Aanwezig" type="checkbox" class="checkbox" value="true" />
                                 <input asp-for="Aanwezig" type="hidden" name="Aanwezig" value="true" />
+                                p.Aanwezig = true;
                             }
                         </form>
                     </div>

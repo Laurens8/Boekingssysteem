@@ -1,6 +1,7 @@
-﻿@model Boekingssysteem.ViewModels.DeletePersoonViewModel
+﻿
+@model Boekingssysteem.ViewModels.EditPersoonViewModel
 @{
-    ViewData["Title"] = "Verwijderen";
+    ViewData["Title"] = "Aanwezigheid aanpassen";
 }
 
 <div class="alert alert-danger mb-5 visible" role="alert">
@@ -9,7 +10,7 @@
 
 <div class="h-100 d-flex align-items-center justify-content-center">
     <div class="col">
-        @using (Html.BeginForm("VerwijderenData", "Persoon", FormMethod.Post))
+        @using (Html.BeginForm("StatusData", "Status", FormMethod.Post))
         {
             <div class="col">
                 <div class="mb-5">
@@ -33,17 +34,28 @@
                             <p>Personeelnummer: </p>
                             <p>@ViewBag.personeelnummer</p>
                         </div>
+                        <div class="row">
+                            <p>Status: </p>
+                            <p>@ViewBag.Aanwezig</p>
+                        </div>
                     </div>
                 </div>
 
             </div>
         }
-        @using (Html.BeginForm("Delete", "Persoon", FormMethod.Post))
-        {
-            <div class="mt-5">
-                <form asp-action="Delete">
-                    <input type="hidden" asp-for="Personeelnummer" />
-                    <input type="submit" value="Gebruiker verwijderen" class="btn btn-primary btn-lg mb-2" />
+        @using (Html.BeginForm("StatusIndividueel", "Status", FormMethod.Get))
+        {         
+            <div class="row">                
+                <form asp-action="AanpassenViaID">
+                    <div asp-validation-summary="ModelOnly"></div>
+                    <div class="mt-5 mr-5">
+                        <input type="hidden" asp-for="Aanwezig" value="true" />
+                        <input type="submit" value="Aanwezig" class="btn btn-primary btn-lg mb-2" asp-for="Aanwezig" id="Aanwezig"/>
+                    </div>
+                    <div class="mt-5 ml-5">
+                        <input type="hidden" asp-for="Aanwezig" value="false" />
+                        <input type="submit" value="Afwezig" class="btn btn-primary btn-lg mb-2" asp-for="Aanwezig" id="Aanwezig"/>
+                    </div>
                 </form>
             </div>
         }
