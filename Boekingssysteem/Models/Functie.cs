@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
+using System.Runtime.CompilerServices;
 using System.Security.Policy;
 
 namespace Boekingssysteem.Models
@@ -7,7 +9,7 @@ namespace Boekingssysteem.Models
     public class Functie
     {
         public int FunctieID { get; set; }
-
+        
         [Required(ErrorMessage = "Naam moet ingevuld zijn!")]
         public string Naam { get; set; }
 

@@ -21,11 +21,11 @@ namespace Boekingssysteem.Controllers
             var afwezigheden = _context.Afwezigheden.Include(x => x.Persoon);
             var personen = _context.Personen.Include(x => x.Afwezigheden);
 
-            AfwezigheidListViewModel alvm = new AfwezigheidListViewModel();
-            alvm.Afwezigheden = afwezigheden.ToList();
-            alvm.Personen = personen.ToList();
+            PersoonListViewModel plvm = new PersoonListViewModel();
+            plvm.Afwezigheden = afwezigheden.ToList();
+            plvm.Personen = personen.ToList();
 
-            return View(alvm);
+            return View(plvm);
         }
     }
 }
