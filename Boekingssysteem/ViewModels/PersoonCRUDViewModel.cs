@@ -4,25 +4,27 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Boekingssysteem.ViewModels
 {
-    public class CreatePersoonViewModel
+    public class PersoonCRUDViewModel
     {
-        [Key]
         [Required(ErrorMessage = "Personeelnummer moet ingevuld zijn!")]
-        [MinLength(8)]
+        [MinLength(8, ErrorMessage = "Een personeelnummer bestaat uit 8 tekens")]
         [MaxLength(8)]
         public string Personeelnummer { get; set; }
         [Required(ErrorMessage = "Naam moet ingevuld zijn!")]
+        [MaxLength(15)]
         public string Naam { get; set; }
         [Required(ErrorMessage = "Voornaam moet ingevuld zijn!")]
+        [MaxLength(15)]
         public string Voornaam { get; set; }
-        [Required(ErrorMessage = "Admin moet ingevuld zijn!")]
         public bool Admin { get; set; }
         public bool? Aanwezig { get; set; }
 
+        public ICollection<Persoon> Personen { get; set; }
+        public List<Persoon> lijstPersonen { get; set; }
+
         //Navigatieproperties
-        public ICollection<Afwezigheid> Afwezigheden { get; set; }
+        public virtual ICollection<Afwezigheid> Afwezigheden { get; set; }
         public virtual ICollection<PersoonRichting> PersoonRichtingen { get; set; }
         public virtual ICollection<PersoonFunctie> PersoonFuncties { get; set; }
-        public virtual ICollection<Functie> Functies { get; set; }
     }
 }

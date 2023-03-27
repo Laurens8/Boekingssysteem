@@ -41,7 +41,7 @@ namespace Boekingssysteem.Controllers
             return View();
         }
 
-        public async Task<IActionResult> StatusAanpassen(EditPersoonViewModel vm)
+        public async Task<IActionResult> StatusAanpassen(PersoonCRUDViewModel vm)
         {
             string personeelsnummer = vm.Personeelnummer;
 
@@ -58,7 +58,7 @@ namespace Boekingssysteem.Controllers
 
             if (persoon.Aanwezig == null)
             {
-                EditPersoonViewModel viewModel = new EditPersoonViewModel()
+                PersoonCRUDViewModel viewModel = new PersoonCRUDViewModel()
                 {
                     Aanwezig = true
                 };
@@ -66,7 +66,7 @@ namespace Boekingssysteem.Controllers
             }
             else if (persoon.Aanwezig == true)
             {
-                EditPersoonViewModel viewModel = new EditPersoonViewModel()
+                PersoonCRUDViewModel viewModel = new PersoonCRUDViewModel()
                 {
                     Aanwezig = false
                 };
@@ -74,7 +74,7 @@ namespace Boekingssysteem.Controllers
             }
             else
             {
-                EditPersoonViewModel viewModel = new EditPersoonViewModel()
+                PersoonCRUDViewModel viewModel = new PersoonCRUDViewModel()
                 {
                     Aanwezig = true
                 };
@@ -122,7 +122,7 @@ namespace Boekingssysteem.Controllers
                 else
                 {
                     Persoon persoon = _context.Personen.Find(personeelnummer);
-                    EditPersoonViewModel viewModel = new EditPersoonViewModel()
+                    PersoonCRUDViewModel viewModel = new PersoonCRUDViewModel()
                     {
                         Personeelnummer = persoon.Personeelnummer,
                         Naam = persoon.Naam,
@@ -143,7 +143,7 @@ namespace Boekingssysteem.Controllers
 
         [HttpPost, ActionName("AanpassenViaID")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AanpassenViaID(string personeelnummer, EditPersoonViewModel viewModel)
+        public async Task<IActionResult> AanpassenViaID(string personeelnummer, PersoonCRUDViewModel viewModel)
         {
             if (personeelnummer == null)
             {

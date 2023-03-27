@@ -1,4 +1,4 @@
-﻿@model Boekingssysteem.ViewModels.DeletePersoonViewModel
+﻿@model Boekingssysteem.ViewModels.PersoonCRUDViewModel
 @{
     ViewData["Title"] = "Verwijderen";
 }
@@ -9,12 +9,16 @@
 
 <div class="h-100 d-flex align-items-center justify-content-center">
     <div class="col">
+        
         @using (Html.BeginForm("VerwijderenData", "Persoon", FormMethod.Post))
         {
+            <div class="@ViewBag.Class @ViewBag.Visibility" role="alert">
+                Niemand gevonden met dit personeelsnummer!
+            </div>
             <div class="col">
                 <div class="mb-5">
                     <div class="form-group">
-                        <label class="mr-3">personeelsnummer:</label>
+                        <label class="mr-3">Personeelsnummer: </label>
                         <input class="mr-3" type="text" name="personeelnummer" />
                         <input type="submit" value="Gebruiker zoeken" class="btn btn-primary mb-2" />
                     </div>
@@ -22,16 +26,13 @@
                 <div class="PersoneelInfo">
                     <div class="col">
                         <div class="row">
-                            <p>Naam: </p>
-                            <p>@ViewBag.naam</p>
+                            <p>Naam: @ViewBag.naam</p>
                         </div>
                         <div class="row">
-                            <p>Voornaam: </p>
-                            <p>@ViewBag.voornaam</p>
+                            <p>Voornaam: @ViewBag.voornaam</p>
                         </div>
                         <div class="row">
-                            <p>Personeelnummer: </p>
-                            <p>@ViewBag.personeelnummer</p>
+                            <p>Personeelnummer: @ViewBag.personeelnummer</p>
                         </div>
                     </div>
                 </div>
@@ -43,7 +44,7 @@
             <div class="mt-5">
                 <form asp-action="Delete">
                     <input type="hidden" asp-for="Personeelnummer" />
-                    <input type="submit" value="Gebruiker verwijderen" class="btn btn-primary btn-lg mb-2" />
+                    <input type="submit" value="Gebruiker verwijderen" @ViewBag.Enabled class="btn btn-primary btn-lg mb-2" />
                 </form>
             </div>
         }

@@ -1,5 +1,46 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model Boekingssysteem.ViewModels.FunctieCRUDViewModel
+
 @{
+    ViewData["Title"] = "Functiebeheer";
+}
+
+<div class="alert alert-danger mb-5 visible" role="alert">
+    alert wordt getoont bij foutmelding. normaal niet zichtbaar.
+</div>
+
+<div class="h-100 d-flex align-items-center justify-content-center">
+    <div BtnCrud>
+        <div class="col-sm-12">
+            <div class="mb-5">
+                <form asp-action="Toevoegen">
+                    <div class="@ViewBag.Class @ViewBag.Visibility" role="alert">
+                        Deze functie bestaat al!
+                    </div>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group row">
+                        <label asp-for="Naam" class="col-sm-4 col-form-label">Naam</label>
+                        <div class="col-sm-10">
+                            <input asp-for="Naam" class="form-control" id="Naam" placeholder="">
+                            <span asp-validation-for="Naam" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <button type="submit" value="Toevoegen" class="btn btn-primary mt-4">Toevoegen</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" class="btn btn-primary mt-4">Terug naar overzicht</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

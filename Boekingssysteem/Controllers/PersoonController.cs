@@ -28,57 +28,81 @@ namespace Boekingssysteem.Controllers
 
         public IActionResult Toevoegen()
         {
-            var persoonfuncties = _context.PersoonFuncties.Include(x => x.Persoon);
-
+            ViewBag.Visibility = "invisible";
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Toevoegen(CreatePersoonViewModel viewModel)
+        public async Task<IActionResult> Toevoegen(PersoonCRUDViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(new Persoon()
+                try
                 {
-                    Personeelnummer = viewModel.Personeelnummer,
-                    Naam = viewModel.Naam,
-                    Voornaam = viewModel.Voornaam,
-                    Admin = viewModel.Admin
-                });
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                    _context.Add(new Persoon()
+                    {
+                        Personeelnummer = viewModel.Personeelnummer,
+                        Naam = viewModel.Naam,
+                        Voornaam = viewModel.Voornaam,
+                        Admin = viewModel.Admin
+                    });
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception ex)
+                {
+                    Foutenlogboek.FoutLoggen(ex);
+                    ViewBag.Class = "alert alert-danger mb-5";
+                    ViewBag.Visibility = "visible";
+                }
             }
             return View(viewModel);
         }
 
         public IActionResult Aanpassen()
         {
+            ViewBag.Visibility = "invisible";
             return View();
         }
 
         [HttpPost]
         public IActionResult Aanpassen(string personeelnummer)
         {
+            ViewBag.Visibility = "invisible";
+            bool gevonden = false;
+            var lijstPersonen = _context.Personen.ToList();
+
+            foreach (var persoon in lijstPersonen)
+            {
+                if (persoon.Personeelnummer == personeelnummer)
+                {
+                    gevonden = true;
+                }
+            }
+
             try
             {
-                if (personeelnummer == null)
-                {
-                    return NotFound();
-                }
-                else
+                if (gevonden)
                 {
                     Persoon persoon = _context.Personen.Find(personeelnummer);
-                    EditPersoonViewModel viewModel = new EditPersoonViewModel()
+                    PersoonCRUDViewModel viewModel = new PersoonCRUDViewModel()
                     {
                         Personeelnummer = persoon.Personeelnummer,
                         Naam = persoon.Naam,
                         Voornaam = persoon.Voornaam,
                         Admin = persoon.Admin
-                        
+
                     };
 
                     return View(viewModel);
+                }
+                else
+                {
+                    ViewBag.Class = "alert alert-danger mb-5";
+                    ViewBag.Visibility = "visible";
+
+                    return View(nameof(Aanpassen));
                 }
             }
             catch (Exception)
@@ -87,9 +111,9 @@ namespace Boekingssysteem.Controllers
             }
         }
 
-        [HttpPost, ActionName("AanpassenViaID")]
+        [HttpPost, ActionName("AanpassenDetail")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AanpassenViaID(string personeelnummer, EditPersoonViewModel viewModel)
+        public async Task<IActionResult> AanpassenDetail(string personeelnummer, PersoonCRUDViewModel viewModel)
         {
             if (personeelnummer == null)
             {
@@ -122,8 +146,6 @@ namespace Boekingssysteem.Controllers
                         throw;
                     }
                 }
-
-                ViewBag.JavaScriptFunction = string.Format("MeldingSucces('{0}');", personeelnummer);
                 return RedirectToAction("Aanpassen");
             }
 
@@ -132,32 +154,58 @@ namespace Boekingssysteem.Controllers
 
         public IActionResult Verwijderen()
         {
+            ViewBag.Enabled = "disabled";
+            ViewBag.Visibility = "invisible";
             return View();
         }
 
         public IActionResult VerwijderenData(string personeelnummer)
         {
-            try
+            bool gevonden = false;
+            
+            PersoonCRUDViewModel viewModel = new PersoonCRUDViewModel();
+            var personen = _context.Personen.ToList();
+            viewModel.Personen = personen;
+            
+            foreach (var persoon in personen)
             {
-                if (personeelnummer == null)
+                if (persoon.Personeelnummer == personeelnummer)
                 {
-                    return NotFound();
+                    gevonden = true;
                 }
-                else
-                {
-                    Persoon persoon = _context.Personen.Find(personeelnummer);
-                    ViewBag.naam = persoon.Naam;
-                    ViewBag.voornaam = persoon.Voornaam;
-                    ViewBag.personeelnummer = persoon.Personeelnummer;
-                }
-                return View("Verwijderen");
             }
-            catch (Exception e)
-            {
 
-                Foutenlogboek.FoutLoggen(e);
+            if (gevonden)
+            {
+                try
+                {
+                    if (personeelnummer == null)
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        Persoon persoon = _context.Personen.Find(personeelnummer);
+                        ViewBag.naam = persoon.Naam;
+                        ViewBag.voornaam = persoon.Voornaam;
+                        ViewBag.personeelnummer = persoon.Personeelnummer;
+                    }
+                    return View("Verwijderen");
+                }
+                catch (Exception e)
+                {
+
+                    Foutenlogboek.FoutLoggen(e);
+                }
+                return View();
             }
-            return View();
+            else
+            {
+                ViewBag.Class = "alert alert-danger mb-5";
+                ViewBag.Visibility = "visible";
+
+                return RedirectToAction("Verwijderen");
+            }
         }
 
         public async Task<IActionResult> Delete(string? personeelnummer)
@@ -175,7 +223,7 @@ namespace Boekingssysteem.Controllers
                     return NotFound();
                 }
 
-                DeletePersoonViewModel vm = new DeletePersoonViewModel()
+                PersoonCRUDViewModel vm = new PersoonCRUDViewModel()
                 {
                     Personeelnummer = persoon.Personeelnummer,
                     Voornaam = persoon.Voornaam,

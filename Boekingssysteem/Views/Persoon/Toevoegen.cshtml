@@ -1,4 +1,4 @@
-﻿@model Boekingssysteem.ViewModels.CreatePersoonViewModel
+﻿@model Boekingssysteem.ViewModels.PersoonCRUDViewModel
 
 <div class="alert alert-danger mb-5 visible" role="alert">
     alert wordt getoont bij foutmelding. normaal niet zichtbaar.
@@ -9,23 +9,29 @@
         <div class="col-sm-12">
             <div class="mb-5">
                 <form asp-action="Toevoegen">
+                    <div class="@ViewBag.Class @ViewBag.Visibility" role="alert">
+                        Er bestaat al iemand met dit personeelnummer, probeer opnieuw.
+                    </div>
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group row">
                         <label asp-for="Personeelnummer" class="col-sm-4 col-form-label">Personeelnummer</label>
                         <div class="col-sm-10">
                             <input asp-for="Personeelnummer" class="form-control" id="Personeelnummer" placeholder="">
+                            <span asp-validation-for="Personeelnummer" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label asp-for="Voornaam" class="col-sm-4 col-form-label">Voornaam</label>
                         <div class="col-sm-10">
                             <input asp-for="Voornaam" class="form-control" id="Voornaam" placeholder="">
+                            <span asp-validation-for="Voornaam" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label asp-for="Naam" class="col-sm-4 col-form-label">Naam</label>
                         <div class="col-sm-10">
                             <input asp-for="Naam" class="form-control" id="Naam" placeholder="">
+                            <span asp-validation-for="Naam" class="text-danger"></span>
                     </div>
                     </div>
                     <div class="form-group row">
