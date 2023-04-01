@@ -29,13 +29,19 @@ namespace Boekingssysteem.Controllers
         public IActionResult Toevoegen()
         {
             ViewBag.Visibility = "invisible";
+            ViewBag.Functies = _context.Functies;
+            ViewBag.Richtingen = _context.Richtingen;
+
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Toevoegen(PersoonCRUDViewModel viewModel)
+        public async Task<IActionResult> Toevoegen(PersoonCRUDViewModel viewModel, string personeelnummer, int[] FunctieIDs, int[] RichtingIDs)
         {
+            ViewBag.Functies = _context.Functies;
+            ViewBag.Richtingen = _context.Richtingen;
+
             if (ModelState.IsValid)
             {
                 try
@@ -48,6 +54,30 @@ namespace Boekingssysteem.Controllers
                         Admin = viewModel.Admin
                     });
                     await _context.SaveChangesAsync();
+
+                    foreach (int ID in RichtingIDs)
+                    {
+                        
+                        _context.Add(new PersoonRichting()
+                        {
+                            Personeelnummer = personeelnummer,
+                            RichtingID = ID
+                        });
+                        await _context.SaveChangesAsync();
+                    }
+
+                    foreach (int ID in FunctieIDs)
+                    {
+                        _context.Add(new PersoonFunctie()
+                        {
+                            Personeelnummer = personeelnummer,
+                            FunctieID = ID
+                        });
+                        
+                        //_context.PersoonFuncties.Add(persFunctie);
+                        await _context.SaveChangesAsync();
+                    }
+
                     return RedirectToAction(nameof(Index));
                 }
                 catch (Exception ex)
@@ -63,6 +93,9 @@ namespace Boekingssysteem.Controllers
         public IActionResult Aanpassen()
         {
             ViewBag.Visibility = "invisible";
+            ViewBag.Functies = _context.Functies;
+            ViewBag.Richtingen = _context.Richtingen;
+
             return View();
         }
 
@@ -70,6 +103,9 @@ namespace Boekingssysteem.Controllers
         public IActionResult Aanpassen(string personeelnummer)
         {
             ViewBag.Visibility = "invisible";
+            ViewBag.Functies = _context.Functies;
+            ViewBag.Richtingen = _context.Richtingen;
+
             bool gevonden = false;
             var lijstPersonen = _context.Personen.ToList();
 
@@ -113,8 +149,11 @@ namespace Boekingssysteem.Controllers
 
         [HttpPost, ActionName("AanpassenDetail")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AanpassenDetail(string personeelnummer, PersoonCRUDViewModel viewModel)
+        public async Task<IActionResult> AanpassenDetail(string personeelnummer, PersoonCRUDViewModel viewModel, int[] FunctieIDs, int[] RichtingIDs)
         {
+            ViewBag.Functies = _context.Functies;
+            ViewBag.Richtingen = _context.Richtingen;
+
             if (personeelnummer == null)
             {
                 return NotFound();
@@ -134,6 +173,46 @@ namespace Boekingssysteem.Controllers
 
                     _context.Update(persoon);
                     await _context.SaveChangesAsync();
+
+                    //Bestaande PersoonFuncties & PersoonRichtingen verwijderen
+                    foreach (var persf in _context.PersoonFuncties.ToList())
+                    {
+                        if (persf.Personeelnummer == personeelnummer)
+                        {
+                            _context.PersoonFuncties.Remove(persf);
+                        }
+                    }
+                    foreach (var persr in _context.PersoonRichtingen.ToList())
+                    {
+                        if (persr.Personeelnummer == personeelnummer)
+                        {
+                            _context.PersoonRichtingen.Remove(persr);
+                        }
+                    }
+
+                    //Nieuwe PersoonFuncties & PersoonRichtingen toevoegen
+                    foreach (int ID in RichtingIDs)
+                    {
+
+                        _context.Add(new PersoonRichting()
+                        {
+                            Personeelnummer = personeelnummer,
+                            RichtingID = ID
+                        });
+                        await _context.SaveChangesAsync();
+                    }
+
+                    foreach (int ID in FunctieIDs)
+                    {
+                        _context.Add(new PersoonFunctie()
+                        {
+                            Personeelnummer = personeelnummer,
+                            FunctieID = ID
+                        });
+
+                        //_context.PersoonFuncties.Add(persFunctie);
+                        await _context.SaveChangesAsync();
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -263,5 +342,4 @@ namespace Boekingssysteem.Controllers
             return _context;
         }
     }
-
 }

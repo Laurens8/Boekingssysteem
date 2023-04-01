@@ -22,6 +22,9 @@ namespace Boekingssysteem.ViewModels
         public ICollection<Persoon> Personen { get; set; }
         public List<Persoon> lijstPersonen { get; set; }
 
+        public ICollection<Functie> Functies { get; set; }
+        public ICollection<Richting> Richtingen { get; set; }
+
         //Navigatieproperties
         public virtual ICollection<Afwezigheid> Afwezigheden { get; set; }
         public virtual ICollection<PersoonRichting> PersoonRichtingen { get; set; }

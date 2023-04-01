@@ -1,0 +1,55 @@
+﻿@model Boekingssysteem.ViewModels.AfwezigheidCRUDViewModel
+
+@{
+    ViewData["Title"] = "Afwezigheid aanpassen";
+}
+
+<div class="alert alert-danger mb-5 visible" role="alert">
+    alert wordt getoont bij foutmelding. normaal niet zichtbaar.
+</div>
+
+<div class="h-100 d-flex align-items-center justify-content-center">
+    <div BtnCrud>
+        <div class="col-sm-12">
+            <div class="mb-5">
+                @using (Html.BeginForm())
+                {
+                    @Html.TextBoxFor(s => s.Personeelnummer)
+                    <input class="btn btn-primary mb-2" type="submit" value="Zoek adhv personeelsnummer" />
+                }
+            </div>
+            <div class="@ViewBag.Class @ViewBag.Visibility" role="alert">
+                @ViewBag.Message
+            </div>
+
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <th>Begindatum</th>
+                    <th>Einddatum</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                @foreach (var afwezig in ViewBag.Afwezigheden)
+                {
+                    <tr>
+                        <td>@afwezig.BeginDatum</td>
+                        <td>@afwezig.EindDatum</td>
+                        <td><a class="button" asp-action="Aanpassen" asp-route-id="@afwezig.DonutId">Aanpassen</a></td>
+                        <td><a class="button" asp-action="Verwijderen" asp-route-id="@afwezig.DonutId">Verwijderen</a></td>
+                    </tr>
+                }
+            </table>
+
+        </div>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" class="btn btn-primary mt-4">Terug naar overzicht</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
