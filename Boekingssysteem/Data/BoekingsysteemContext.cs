@@ -3,10 +3,12 @@ using System.Reflection.Emit;
 using System;
 using Microsoft.EntityFrameworkCore;
 using Boekingssysteem.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace Boekingssysteem.Data
 {
-    public class BoekingssysteemContext : DbContext
+    public class BoekingssysteemContext : IdentityDbContext<IdentityUser>
     {
         public BoekingssysteemContext(DbContextOptions<BoekingssysteemContext> options) : base(options) { }
 
@@ -20,7 +22,8 @@ namespace Boekingssysteem.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasDefaultSchema("Boekingssysteem");
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.HasDefaultSchema("TM_Boekingssysteem");
 
             //Tabellen aanmaken
             modelBuilder.Entity<Persoon>().ToTable("Persoon");
@@ -35,14 +38,14 @@ namespace Boekingssysteem.Data
             modelBuilder.Entity<Afwezigheid>().HasOne(p => p.Persoon).WithMany(a => a.Afwezigheden).HasForeignKey(p => p.Personeelnummer).IsRequired();
 
             /*PersoonRichting heeft één persoon*/
-            modelBuilder.Entity<PersoonRichting>().HasKey(pr => new { pr.RichtingID, pr.Personeelnummer });
+            //modelBuilder.Entity<PersoonRichting>().HasKey(pr => new { pr.RichtingID, pr.Personeelnummer });
 
             /*Persoon en Richting naar PersoonRichting*/
             modelBuilder.Entity<PersoonRichting>().HasOne(pr => pr.Persoon).WithMany(x => x.PersoonRichtingen).HasForeignKey(pr => pr.Personeelnummer).IsRequired();
             modelBuilder.Entity<PersoonRichting>().HasOne(pr => pr.Richting).WithMany(x => x.PersoonRichtingen).HasForeignKey(pr => pr.RichtingID).IsRequired();
 
             /*PersoonFunctie heeft één Persoon*/
-            modelBuilder.Entity<PersoonFunctie>().HasKey(pf => new { pf.FunctieID, pf.Personeelnummer });
+            //modelBuilder.Entity<PersoonFunctie>().HasKey(pf => new { pf.FunctieID, pf.Personeelnummer });
 
             /*Persoon en Functie naar PersoonFunctie*/
             modelBuilder.Entity<PersoonFunctie>().HasOne(pf => pf.Persoon).WithMany(x => x.PersoonFuncties).HasForeignKey(pr => pr.Personeelnummer).IsRequired();

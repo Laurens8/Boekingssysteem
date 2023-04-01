@@ -1,4 +1,4 @@
-19:54:11 pm
+10:45:34 am
 DbUpdateException
 An error occurred while updating the entries. See the inner exception for details.
    at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
@@ -8,34 +8,10 @@ An error occurred while updating the entries. See the inner exception for detail
    at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(DbContext _, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
    at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
    at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
-   at Boekingssysteem.Controllers.PersoonController.Toevoegen(PersoonCRUDViewModel viewModel) in C:\Thomas More 2de jaar\Projecten van het werkveld\TM_Boekingssysteem\Boekingssysteem\Controllers\PersoonController.cs:line 50
+   at Boekingssysteem.Controllers.PersoonController.Toevoegen(PersoonCRUDViewModel viewModel, String personeelnummer, Int32[] FunctieIDs) in C:\Thomas More 2de jaar\Projecten van het werkveld\TM_Boekingssysteem\Boekingssysteem\Controllers\PersoonController.cs:line 53
 --------------------------------------------------------------------------------
 
-19:55:17 pm
-ArgumentNullException
-Value cannot be null. (Parameter 'entity')
-   at Microsoft.EntityFrameworkCore.Utilities.Check.NotNull[T](T value, String parameterName)
-   at Microsoft.EntityFrameworkCore.DbContext.Remove[TEntity](TEntity entity)
-   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.Remove(TEntity entity)
-   at Boekingssysteem.Controllers.PersoonController.DeleteConfirmed(String personeelnummer) in C:\Thomas More 2de jaar\Projecten van het werkveld\TM_Boekingssysteem\Boekingssysteem\Controllers\PersoonController.cs:line 210
---------------------------------------------------------------------------------
-
-19:56:15 pm
-ArgumentNullException
-Value cannot be null. (Parameter 'entity')
-   at Microsoft.EntityFrameworkCore.Utilities.Check.NotNull[T](T value, String parameterName)
-   at Microsoft.EntityFrameworkCore.DbContext.Remove[TEntity](TEntity entity)
-   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.Remove(TEntity entity)
-   at Boekingssysteem.Controllers.PersoonController.DeleteConfirmed(String personeelnummer) in C:\Thomas More 2de jaar\Projecten van het werkveld\TM_Boekingssysteem\Boekingssysteem\Controllers\PersoonController.cs:line 210
---------------------------------------------------------------------------------
-
-19:59:50 pm
-NullReferenceException
-Object reference not set to an instance of an object.
-   at Boekingssysteem.Controllers.PersoonController.VerwijderenData(String personeelnummer) in C:\Thomas More 2de jaar\Projecten van het werkveld\TM_Boekingssysteem\Boekingssysteem\Controllers\PersoonController.cs:line 159
---------------------------------------------------------------------------------
-
-21:05:31 pm
+15:57:15 pm
 DbUpdateException
 An error occurred while updating the entries. See the inner exception for details.
    at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
@@ -45,6 +21,45 @@ An error occurred while updating the entries. See the inner exception for detail
    at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(DbContext _, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
    at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
    at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
-   at Boekingssysteem.Controllers.PersoonController.Toevoegen(PersoonCRUDViewModel viewModel) in C:\Thomas More 2de jaar\Projecten van het werkveld\TM_Boekingssysteem\Boekingssysteem\Controllers\PersoonController.cs:line 50
+   at Boekingssysteem.Controllers.PersoonController.Toevoegen(PersoonCRUDViewModel viewModel, String personeelnummer, Int32[] FunctieIDs, Int32[] RichtingIDs) in C:\Thomas More 2de jaar\Projecten van het werkveld\TM_Boekingssysteem\Boekingssysteem\Controllers\PersoonController.cs:line 53
+--------------------------------------------------------------------------------
+
+15:58:05 pm
+DbUpdateException
+An error occurred while updating the entries. See the inner exception for details.
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(DbContext _, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Boekingssysteem.Controllers.PersoonController.Toevoegen(PersoonCRUDViewModel viewModel, String personeelnummer, Int32[] FunctieIDs, Int32[] RichtingIDs) in C:\Thomas More 2de jaar\Projecten van het werkveld\TM_Boekingssysteem\Boekingssysteem\Controllers\PersoonController.cs:line 53
+--------------------------------------------------------------------------------
+
+15:59:01 pm
+DbUpdateException
+An error occurred while updating the entries. See the inner exception for details.
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(DbContext _, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Boekingssysteem.Controllers.PersoonController.Toevoegen(PersoonCRUDViewModel viewModel, String personeelnummer, Int32[] FunctieIDs, Int32[] RichtingIDs) in C:\Thomas More 2de jaar\Projecten van het werkveld\TM_Boekingssysteem\Boekingssysteem\Controllers\PersoonController.cs:line 53
+--------------------------------------------------------------------------------
+
+15:59:44 pm
+DbUpdateException
+An error occurred while updating the entries. See the inner exception for details.
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(DbContext _, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Boekingssysteem.Controllers.PersoonController.Toevoegen(PersoonCRUDViewModel viewModel, String personeelnummer, Int32[] FunctieIDs, Int32[] RichtingIDs) in C:\Thomas More 2de jaar\Projecten van het werkveld\TM_Boekingssysteem\Boekingssysteem\Controllers\PersoonController.cs:line 56
 --------------------------------------------------------------------------------
 

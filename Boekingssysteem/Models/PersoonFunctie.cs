@@ -1,9 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Boekingssysteem.Models
 {
     public class PersoonFunctie
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int PersoonFunctieID { get; set; }
 
         [MinLength(8)]
