@@ -42,10 +42,10 @@
 
             </div>
         }
-        @using (Html.BeginForm("StatusIndividueel", "Status", FormMethod.Get))
+        @using (Html.BeginForm("StatusIndividueel", "Status", FormMethod.Post))
         {         
-            <div class="row">                
-                <form asp-action="AanpassenViaID">
+            <div class="row">
+                <form asp-action="StatusAanpassen">
                     <div asp-validation-summary="ModelOnly"></div>
                     <div class="mt-5 mr-5">
                         <input type="hidden" asp-for="Aanwezig" value="true" />

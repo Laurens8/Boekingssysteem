@@ -17,29 +17,30 @@
                         @Html.DisplayFor(modelItem => p.Voornaam)
                     </div>
 
-                    @if (p.PersoonRichtingen == null)
-                    {
-                        <div class="col">Geen richting</div>
-                    }
-                    else
-                    {
+                @if (p.PersoonRichtingen == null)
+                {
+                    <div class="col">Geen richting</div>
+                }
+                else
+                {
+
+                    <div class="col">
 
                         @foreach (var item in p.PersoonRichtingen)
                         {
-                            <div class="col">
-                                @Html.DisplayFor(modelItem => item.Richting.Naam)
-                            </div>
+                            @Html.DisplayFor(modelItem => item.Richting.Naam) <br>
                         }
-                    }
 
-                    @if (p.Admin)
-                    {
-                        <div class="col">Administratief personeel</div>
-                    }
-                    else
-                    {
-                        <div class="col">Leerkracht</div>
-                    }
+                        @if (p.Admin)
+                        {
+                            <p>Administratief personeel</p>
+                        }
+                        else
+                        {
+                            <p>Leerkracht</p>
+                        }
+                    </div>
+                }
 
                     <div class="row">
                         <div class="col">
@@ -47,19 +48,17 @@
                         </div>
 
                     <div class="col">
-                        <form asp-action="StatusAanpassen">
+                        <form asp-action="Aanpassen">
                             <div asp-validation-summary="ModelOnly"></div>
                             @if (p.Aanwezig == true)
                             {
-                                <input asp-for="Aanwezig" name="Aanwezig" type="checkbox" checked class="checkbox" value="false" />
+                                <input asp-for="Aanwezig" name="StatusAanpassen" type="checkbox" checked class="checkbox" value="false" />
                                 <input asp-for="Aanwezig" type="hidden" name="Aanwezig" value="false" />
-                                p.Aanwezig = false;
                             }
                             else
                             {
-                                <input asp-for="Aanwezig" name="Aanwezig" type="checkbox" class="checkbox" value="true" />
+                                <input asp-for="Aanwezig" name="StatusAanpassen" type="checkbox" class="checkbox" value="true" />
                                 <input asp-for="Aanwezig" type="hidden" name="Aanwezig" value="true" />
-                                p.Aanwezig = true;
                             }
                         </form>
                     </div>

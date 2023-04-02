@@ -20,10 +20,12 @@ namespace Boekingssysteem.Controllers
             var personen = _context.Personen.ToList();
             var persoonrichtingen = _context.PersoonRichtingen.Include(x => x.Persoon).Include(z => z.Richting);
             var persoonfuncties = _context.PersoonFuncties.Include(x => x.Persoon).Include(z => z.Functie);
+            var richtingen = _context.Richtingen;
             PersoonListViewModel plvm = new PersoonListViewModel();
             plvm.Personen = personen;
             plvm.PersoonRichtingen = persoonrichtingen.ToList();
             plvm.PersoonFuncties = persoonfuncties.ToList();
+            plvm.Richtingen = richtingen.ToList();
 
             return View(plvm);
         }
