@@ -62,6 +62,7 @@ namespace Boekingssysteem.Controllers
                 {
                     Aanwezig = true
                 };
+                await _context.SaveChangesAsync();
                 return View(viewModel);
             }
             else if (persoon.Aanwezig == true)
@@ -70,6 +71,7 @@ namespace Boekingssysteem.Controllers
                 {
                     Aanwezig = false
                 };
+                await _context.SaveChangesAsync();
                 return View(viewModel);
             }
             else
@@ -78,6 +80,7 @@ namespace Boekingssysteem.Controllers
                 {
                     Aanwezig = true
                 };
+                await _context.SaveChangesAsync();
                 return View(viewModel);
             }
 
@@ -130,6 +133,7 @@ namespace Boekingssysteem.Controllers
                         Admin = persoon.Admin,
                         Aanwezig = persoon.Aanwezig
                     };
+                    _context.SaveChangesAsync();
 
                     return View(viewModel);
                 }

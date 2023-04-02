@@ -1,5 +1,6 @@
 ﻿using Boekingssysteem.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Boekingssysteem.ViewModels
 {
@@ -14,6 +15,5 @@ namespace Boekingssysteem.ViewModels
         public List<Functie> Functies { get; set; }
 
         public bool Aanwezig { get; set; }
-
     }
 }

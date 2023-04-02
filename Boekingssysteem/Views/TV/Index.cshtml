@@ -1,182 +1,117 @@
 ﻿@model Boekingssysteem.ViewModels.PersoonListViewModel;
 @{
     ViewData["Title"] = "Screen";
+    int teller = 1;
 }
 
 <div class="MainWindow">
-    <h2>Informatica</h2>
-    <div class="divider"></div>
-    <div class="row">
-    <table class="width-100">
-        @foreach (var p in Model.Personen)
-        {           
-            @if (p.PersoonRichtingen != null)
+    @foreach (var item in Model.Richtingen)
+    {
+        <h2>@item.Naam</h2>
+        <div class="divider"></div>
+        <div class="row">
+            @foreach (var p in Model.Personen)
             {
-                @foreach (var item in p.PersoonRichtingen)
+                @if (p.PersoonRichtingen != null)
                 {
-                    
-                    @if (item.RichtingID == 1)
+                    @foreach (var item2 in p.PersoonRichtingen)
                     {
-                        @foreach (var functie in p.PersoonFuncties)
+                        @if (p.PersoonFuncties != null)
                         {
-                                @*Afwezigheid af = new Afwezigheid(); dit klopt niet, de logica moeten we later doen*@
-                                Afwezigheid af = new Afwezigheid();
-                                @if (functie.FunctieID == 1)
-                                {
-
-
-                                    @if (p.Aanwezig == true)
-                                    {
-                                        <div class="card text-white bg-success m-3 w-100" style="max-width: 18rem;">
-                                            <div class="card-header"><h4>Aanwezig</h4></div>
-                                            <div class="card-body">
-                                                <h5 class="card-title">@Html.DisplayFor(modelItem => p.Voornaam) @Html.DisplayFor(modelItem => p.Naam)</h5>
-                                            </div>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        if (af.Personeelnummer == p.Personeelnummer)
-                                        {
-                                            <div class="card text-white bg-danger m-3 w-100" style="max-width: 18rem;">
-                                                <div class="card-header"><h4>Afwezig</h4></div>
-                                                <div class="card-body">
-                                                    <h5 class="card-title">@Html.DisplayFor(modelItem => p.Voornaam) @Html.DisplayFor(modelItem => p.Naam)</h5>
-                                                    <p>Ziek tot en met @Html.DisplayFor(modelItem => af.EindDatum)</p>
-                                                </div>
-                                            </div>
-                                        }
-                                        else
-                                        {
-                                            <div class="card text-white bg-danger m-3 w-100" style="max-width: 18rem;">
-                                                <div class="card-header"><h4>Afwezig</h4></div>
-                                                <div class="card-body">
-                                                    <h5 class="card-title">@Html.DisplayFor(modelItem => p.Voornaam) @Html.DisplayFor(modelItem => p.Naam)</h5>
-                                                </div>
-                                            </div>
-                                        }
-                                    }                                   
-                                }                               
-                        }
-                    }
-                }
-            }
-        }
-    </table>
-    </div>
-    <h2 class ="mt-5 mb-3">Geneeskunde</h2>
-    <div class="divider"></div>
-    <div class="row">
-    <table class="width-100">
-        @foreach (var p in Model.Personen)
-        {
-            @if (p.PersoonRichtingen != null)
-            {
-                @foreach (var item in p.PersoonRichtingen)
-                {
-                        
-                    @if (item.RichtingID == 2)
-                    {
-                        @foreach (var functie in p.PersoonFuncties)
-                        {
-                                @*Afwezigheid af = new Afwezigheid(); dit klopt niet, de logica moeten we later doen*@
-                                Afwezigheid af = new Afwezigheid();
-                                @if (functie.FunctieID == 1)
-                                {
-
-                                    @if (p.Aanwezig == true)
-                                    {
-                                        <div class="card text-white bg-success m-3 w-100" style="max-width: 18rem;">
-                                            <div class="card-header"><h4>Aanwezig</h4></div>
-                                            <div class="card-body">
-                                                <h5 class="card-title">@Html.DisplayFor(modelItem => p.Voornaam) @Html.DisplayFor(modelItem => p.Naam)</h5>
-                                            </div>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        if (af.Personeelnummer == p.Personeelnummer)
-                                        {
-                                            <div class="card text-white bg-danger m-3 w-100" style="max-width: 18rem;">
-                                                <div class="card-header"><h4>Afwezig</h4></div>
-                                                <div class="card-body">
-                                                    <h5 class="card-title">@Html.DisplayFor(modelItem => p.Voornaam) @Html.DisplayFor(modelItem => p.Naam)</h5>
-                                                    <p>Ziek tot en met @Html.DisplayFor(modelItem => af.EindDatum)</p>
-                                                </div>
-                                            </div>
-                                        }
-                                        else
-                                        {
-                                            <div class="card text-white bg-danger m-3 w-100" style="max-width: 18rem;">
-                                                <div class="card-header"><h4>Afwezig</h4></div>
-                                                <div class="card-body">
-                                                    <h5 class="card-title">@Html.DisplayFor(modelItem => p.Voornaam) @Html.DisplayFor(modelItem => p.Naam)</h5>
-                                                </div>
-                                            </div>
-                                        }
-                                    }                                   
-                                }       
-                        }
-                    }
-                }
-            }
-        }
-    </table>
-    </div>
-    <h2 class="mt-5 mb-3">Andere functies</h2>
-    <div class="divider"></div>
-    <div class="row">
-    <table class="width-100">
-        @foreach (var p in Model.Personen)
-        {
-                
-            if (p.PersoonFuncties != null)
-            {
-                @foreach (var functie in p.PersoonFuncties)
-                {
-                        @*Afwezigheid af = new Afwezigheid(); dit klopt niet, de logica moeten we later doen*@
-                        Afwezigheid af = new Afwezigheid();
-                    @if (functie.FunctieID != 1)
-                    {
-                            @if (p.Aanwezig == true)
+                            @if (item2.RichtingID == teller)
                             {
-                                @if (p.Aanwezig == true)
+                                @foreach (var functie in p.PersoonFuncties)
                                 {
-                                    <div class="card text-white bg-success m-3 w-100" style="max-width: 18rem;">
-                                        <div class="card-header"><h4>Aanwezig</h4></div>
-                                        <div class="card-body">
-                                            <h5 class="card-title">@Html.DisplayFor(modelItem => p.Voornaam) @Html.DisplayFor(modelItem => p.Naam)</h5>
-                                        </div>
-                                    </div>
-                                }
-                                else                            
-                                {
-                                    if (af.Personeelnummer == p.Personeelnummer)
+                                    @*Afwezigheid af = new Afwezigheid(); dit klopt niet, de logica moeten we later doen*@
+                                    Afwezigheid af = new Afwezigheid();
+                                    @if (functie.FunctieID == 3)
                                     {
-                                        <div class="card text-white bg-success m-3 w-100" style="max-width: 18rem;">
-                                            <div class="card-header"><h4>Afwezig</h4></div>
-                                            <div class="card-body">
-                                                <h5 class="card-title">@Html.DisplayFor(modelItem => p.Voornaam) @Html.DisplayFor(modelItem => p.Naam)</h5>
-                                                <p>Ziek tot en met @Html.DisplayFor(modelItem => af.EindDatum)</p>
+                                        @if (p.Aanwezig == true)
+                                        {
+                                            <div class="card text-white bg-success m-3 w-100" style="max-width: 18rem;">
+                                                <div class="card-header"><h4>Aanwezig</h4></div>
+                                                <div class="card-body">
+                                                    <h5 class="card-title">@Html.DisplayFor(modelItem => p.Voornaam) @Html.DisplayFor(modelItem => p.Naam)</h5>
+                                                    <p>@Html.DisplayFor(modelItem => functie.Functie.Naam)</p>
+                                                </div>
                                             </div>
-                                        </div>
+                                        }
+                                        else
+                                        {
+                                            if (af.Personeelnummer == p.Personeelnummer)
+                                            {
+                                                <div class="card text-white bg-danger m-3 w-100" style="max-width: 18rem;">
+                                                    <div class="card-header"><h4>Afwezig</h4></div>
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">@Html.DisplayFor(modelItem => p.Voornaam) @Html.DisplayFor(modelItem => p.Naam)</h5>
+                                                        <p>@Html.DisplayFor(modelItem => functie.Functie.Naam)</p>
+                                                        <p>Ziek tot en met @Html.DisplayFor(modelItem => p.Afwezigheden)</p>
+                                                    </div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="card text-white bg-danger m-3 w-100" style="max-width: 18rem;">
+                                                    <div class="card-header"><h4>Afwezig</h4></div>
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">@Html.DisplayFor(modelItem => p.Voornaam) @Html.DisplayFor(modelItem => p.Naam)</h5>
+                                                        <p>@Html.DisplayFor(modelItem => functie.Functie.Naam)</p>
+                                                    </div>
+                                                </div>
+                                            }
+                                        }
                                     }
-                                    else
-                                    {
-                                        <div class="card text-white bg-success m-3 w-100" style="max-width: 18rem;">
-                                            <div class="card-header"><h4>Afwezig</h4></div>
-                                            <div class="card-body">
-                                                <h5 class="card-title">@Html.DisplayFor(modelItem => p.Voornaam) @Html.DisplayFor(modelItem => p.Naam)</h5>
-                                            </div>
-                                        </div>
-                                    }                                   
+                                    
                                 }
-                                
-                            }                                                       
+                                @foreach (var functie in p.PersoonFuncties)
+                                {
+                                    @*Afwezigheid af = new Afwezigheid(); dit klopt niet, de logica moeten we later doen*@
+                                    Afwezigheid af = new Afwezigheid();
+                                    @if (functie.FunctieID == 2)
+                                    {
+                                        @if (p.Aanwezig == true)
+                                        {
+                                            <div class="card text-white bg-success m-3 w-100" style="max-width: 18rem;">
+                                                <div class="card-header"><h4>Aanwezig</h4></div>
+                                                <div class="card-body">
+                                                    <h5 class="card-title">@Html.DisplayFor(modelItem => p.Voornaam) @Html.DisplayFor(modelItem => p.Naam)</h5>
+                                                    <p>@Html.DisplayFor(modelItem => functie.Functie.Naam)</p>
+                                                </div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            if (af.Personeelnummer == p.Personeelnummer)
+                                            {
+                                                <div class="card text-white bg-danger m-3 w-100" style="max-width: 18rem;">
+                                                    <div class="card-header"><h4>Afwezig</h4></div>
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">@Html.DisplayFor(modelItem => p.Voornaam) @Html.DisplayFor(modelItem => p.Naam)</h5>
+                                                        <p>@Html.DisplayFor(modelItem => functie.Functie.Naam)</p>
+                                                        <p>Ziek tot en met @Html.DisplayFor(modelItem => p.Afwezigheden)</p>
+                                                    </div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="card text-white bg-danger m-3 w-100" style="max-width: 18rem;">
+                                                    <div class="card-header"><h4>Afwezig</h4></div>
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">@Html.DisplayFor(modelItem => p.Voornaam) @Html.DisplayFor(modelItem => p.Naam)</h5>
+                                                        <p>@Html.DisplayFor(modelItem => functie.Functie.Naam)</p>
+                                                    </div>
+                                                </div>
+                                            }
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
                     }
                 }
             }
-        }
-    </table>
-    </div>
+        </div>
+        teller++;
+    }
 </div>
