@@ -20,7 +20,7 @@ namespace Boekingssysteem.ViewModels
         public DateTime Begindatum { get; set; }
 
         [DataType(DataType.Date)]
-        public DateTime? EindDatum { get; set; }
+        public DateTime? Einddatum { get; set; }
 
         //Navigatieproperty
         public virtual Persoon Persoon { get; set; }

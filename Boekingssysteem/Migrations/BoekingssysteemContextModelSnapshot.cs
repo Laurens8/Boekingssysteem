@@ -30,7 +30,7 @@ namespace Boekingssysteem.Migrations
                     b.Property<DateTime>("Begindatum")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("EindDatum")
+                    b.Property<DateTime?>("Einddatum")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Personeelnummer")
@@ -88,22 +88,19 @@ namespace Boekingssysteem.Migrations
 
             modelBuilder.Entity("Boekingssysteem.Models.PersoonFunctie", b =>
                 {
+                    b.Property<int>("FunctieID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Personeelnummer")
+                        .HasColumnType("nvarchar(8)")
+                        .HasMaxLength(8);
+
                     b.Property<int>("PersoonFunctieID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("FunctieID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Personeelnummer")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(8)")
-                        .HasMaxLength(8);
-
-                    b.HasKey("PersoonFunctieID");
-
-                    b.HasIndex("FunctieID");
+                    b.HasKey("FunctieID", "Personeelnummer");
 
                     b.HasIndex("Personeelnummer");
 
@@ -112,24 +109,21 @@ namespace Boekingssysteem.Migrations
 
             modelBuilder.Entity("Boekingssysteem.Models.PersoonRichting", b =>
                 {
+                    b.Property<int>("RichtingID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Personeelnummer")
+                        .HasColumnType("nvarchar(8)")
+                        .HasMaxLength(8);
+
                     b.Property<int>("PersoonRichtingID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Personeelnummer")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(8)")
-                        .HasMaxLength(8);
-
-                    b.Property<int>("RichtingID")
-                        .HasColumnType("int");
-
-                    b.HasKey("PersoonRichtingID");
+                    b.HasKey("RichtingID", "Personeelnummer");
 
                     b.HasIndex("Personeelnummer");
-
-                    b.HasIndex("RichtingID");
 
                     b.ToTable("PersoonRichting");
                 });

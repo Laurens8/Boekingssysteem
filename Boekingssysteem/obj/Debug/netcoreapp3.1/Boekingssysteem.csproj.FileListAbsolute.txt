@@ -813,3 +813,4 @@ C:\Users\laure\OneDrive\Desktop\Boekingssysteem\Boekingssysteem\Boekingssysteem\
 C:\Users\laure\OneDrive\Desktop\Boekingssysteem\Boekingssysteem\Boekingssysteem\Boekingssysteem\obj\Debug\netcoreapp3.1\Boekingssysteem.dll
 C:\Users\laure\OneDrive\Desktop\Boekingssysteem\Boekingssysteem\Boekingssysteem\Boekingssysteem\obj\Debug\netcoreapp3.1\Boekingssysteem.pdb
 C:\Users\laure\OneDrive\Desktop\Boekingssysteem\Boekingssysteem\Boekingssysteem\Boekingssysteem\obj\Debug\netcoreapp3.1\Boekingssysteem.genruntimeconfig.cache
+C:\Thomas More 2de jaar\Projecten van het werkveld\TM_Boekingssysteem\Boekingssysteem\obj\Debug\netcoreapp3.1\Razor\Views\Afwezigheid\AanpassenDetail.cshtml.g.cs
