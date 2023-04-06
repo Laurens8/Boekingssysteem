@@ -68,7 +68,7 @@ namespace Boekingssysteem.Data
 
                 //Afwezigheden
                 var afwezigheden = new List<Afwezigheid>{
-                    new Afwezigheid { Personeelnummer = personen[0].Personeelnummer, Begindatum = new DateTime(2023, 04, 01), EindDatum = new DateTime(2023, 04, 30) }
+                    new Afwezigheid { Personeelnummer = personen[0].Personeelnummer, Begindatum = new DateTime(2023, 04, 01), Einddatum = new DateTime(2023, 04, 30) }
                 };
                 afwezigheden.ForEach(a => _context.Afwezigheden.Add(a));
 

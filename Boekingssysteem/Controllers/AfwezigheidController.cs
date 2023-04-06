@@ -42,7 +42,7 @@ namespace Boekingssysteem.Controllers
                 ViewBag.Visibility = "visible";
                 return View(nameof(Toevoegen));
             }
-            if (viewModel.Begindatum > viewModel.EindDatum)
+            if (viewModel.Begindatum > viewModel.Einddatum)
             {
                 ViewBag.Message = "Begindatum moet voor de einddatum liggen!";
                 ViewBag.Class = "alert alert-danger mb-5";
@@ -58,7 +58,7 @@ namespace Boekingssysteem.Controllers
                     {
                         Personeelnummer = viewModel.Personeelnummer,
                         Begindatum = viewModel.Begindatum,
-                        EindDatum = viewModel.EindDatum
+                        Einddatum = viewModel.Einddatum
                     });
 
                     await _context.SaveChangesAsync();
@@ -71,6 +71,93 @@ namespace Boekingssysteem.Controllers
 
             }
             return View(Toevoegen());
+        }
+
+        public IActionResult Aanpassen()
+        {
+            ViewBag.Afwezigheden = "";
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Aanpassen(string personeelnummer)
+        {
+            Persoon persoon = _context.Personen.Find(personeelnummer);
+            ViewBag.Afwezigheden = _context.Afwezigheden.Where(a => a.Personeelnummer == personeelnummer);
+
+            return View();
+        }
+
+        public async Task<IActionResult> AanpassenDetail(int id) 
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var afwezigheid = await _context.Afwezigheden.FindAsync(id);
+            if (afwezigheid == null)
+            {
+                return NotFound();
+            }
+
+            AfwezigheidCRUDViewModel viewModel = new AfwezigheidCRUDViewModel()
+            {
+                AfwezigheidID = afwezigheid.AfwezigheidID,
+                Begindatum = afwezigheid.Begindatum,
+                Einddatum = afwezigheid.Einddatum,
+                Personeelnummer = afwezigheid.Personeelnummer
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AanpassenDetail(int id, AfwezigheidCRUDViewModel viewModel)
+        {            
+            if (id != viewModel.AfwezigheidID)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    Afwezigheid afwezigheid = new Afwezigheid()
+                    {
+                        AfwezigheidID = viewModel.AfwezigheidID,
+                        Begindatum = viewModel.Begindatum,
+                        Einddatum = viewModel.Einddatum,
+                        Personeelnummer = viewModel.Personeelnummer
+                    };
+
+                    _context.Update(afwezigheid);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!_context.Afwezigheden.Any(e => e.AfwezigheidID == viewModel.AfwezigheidID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return View(Aanpassen());
+            }
+
+            return View(Aanpassen());
+        }
+
+        public IActionResult Verwijderen(string personeelnummer, int id)
+        {
+            
+            
+            return View(Aanpassen(personeelnummer));
         }
     }
 }

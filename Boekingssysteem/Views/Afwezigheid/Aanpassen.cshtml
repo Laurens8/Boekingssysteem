@@ -32,10 +32,15 @@
                 @foreach (var afwezig in ViewBag.Afwezigheden)
                 {
                     <tr>
-                        <td>@afwezig.BeginDatum</td>
-                        <td>@afwezig.EindDatum</td>
-                        <td><a class="button" asp-action="Aanpassen" asp-route-id="@afwezig.DonutId">Aanpassen</a></td>
-                        <td><a class="button" asp-action="Verwijderen" asp-route-id="@afwezig.DonutId">Verwijderen</a></td>
+                        <td>@String.Format("{0:dd/MM/yyyy}",@afwezig.Begindatum)</td>
+                        <td>
+                            @if (@afwezig.Einddatum != null)
+                            {
+                                @String.Format("{0:dd/MM/yyyy}",@afwezig.Einddatum)
+                            }
+                        </td>
+                        <td><a class="button" asp-action="AanpassenDetail" asp-route-id="@afwezig.AfwezigheidID">Aanpassen</a></td>
+                        <td><a class="button" asp-action="Verwijderen" asp-route-id="@afwezig.AfwezigheidID">Verwijderen</a></td>
                     </tr>
                 }
             </table>

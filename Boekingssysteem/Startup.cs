@@ -1,3 +1,4 @@
+using Boekingssysteem.Areas.Identity.Data;
 using Boekingssysteem.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,13 +31,13 @@ namespace Boekingssysteem
             services.AddDbContext<BoekingssysteemContext>(options => options.UseSqlServer(Configuration.GetConnectionString("BoekingssysteemDB")));
 
             //Voor identity
-            services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<BoekingssysteemContext>();
+            services.AddDefaultIdentity<CustomUser>().AddRoles<IdentityRole>().AddEntityFrameworkStores<BoekingssysteemContext>();
             services.AddRazorPages();
             
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -64,6 +65,31 @@ namespace Boekingssysteem
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+
+            CreateRoles(serviceProvider).Wait();
+
+        }
+
+        private async Task CreateRoles(IServiceProvider serviceProvider)
+        {
+            RoleManager<IdentityRole> roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            BoekingssysteemContext context = serviceProvider.GetRequiredService<BoekingssysteemContext>();
+
+            IdentityResult result;
+
+            bool roleCheck = await roleManager.RoleExistsAsync("user");
+            if (!roleCheck) 
+            {
+                result = await roleManager.CreateAsync(new IdentityRole("user"));
+            }
+
+            roleCheck = await roleManager.RoleExistsAsync("admin");
+            if (!roleCheck)
+            {
+                result = await roleManager.CreateAsync(new IdentityRole("admin"));
+            }
+
+            context.SaveChanges();
         }
     }
 }
