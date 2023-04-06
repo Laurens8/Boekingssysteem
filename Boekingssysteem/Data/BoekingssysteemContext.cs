@@ -5,10 +5,11 @@ using Microsoft.EntityFrameworkCore;
 using Boekingssysteem.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Boekingssysteem.Areas.Identity.Data;
 
 namespace Boekingssysteem.Data
 {
-    public class BoekingssysteemContext : IdentityDbContext<IdentityUser>
+    public class BoekingssysteemContext : IdentityDbContext<CustomUser>
     {
         public BoekingssysteemContext(DbContextOptions<BoekingssysteemContext> options) : base(options) { }
 

@@ -115,9 +115,7 @@ namespace Boekingssysteem.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AanpassenDetail(int id, AfwezigheidCRUDViewModel viewModel)
-        {
-            string personeelnummer;
-            
+        {            
             if (id != viewModel.AfwezigheidID)
             {
                 return NotFound();
@@ -149,10 +147,10 @@ namespace Boekingssysteem.Controllers
                         throw;
                     }
                 }
-                return View(RedirectToAction("Aanpassen(personeelnummer)"));
+                return View(Aanpassen());
             }
 
-            return View(RedirectToAction("Aanpassen"));
+            return View(Aanpassen());
         }
 
         public IActionResult Verwijderen(string personeelnummer, int id)
