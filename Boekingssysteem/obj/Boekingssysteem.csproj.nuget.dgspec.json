@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Thomas More 2de jaar\\Projecten van het werkveld\\TM_Boekingssysteem\\Boekingssysteem\\Boekingssysteem.csproj": {}
+    "C:\\Users\\laure\\OneDrive\\Desktop\\Boekingssysteem\\Boekingssysteem\\Boekingssysteem\\Boekingssysteem.csproj": {}
   },
   "projects": {
-    "C:\\Thomas More 2de jaar\\Projecten van het werkveld\\TM_Boekingssysteem\\Boekingssysteem\\Boekingssysteem.csproj": {
+    "C:\\Users\\laure\\OneDrive\\Desktop\\Boekingssysteem\\Boekingssysteem\\Boekingssysteem\\Boekingssysteem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Thomas More 2de jaar\\Projecten van het werkveld\\TM_Boekingssysteem\\Boekingssysteem\\Boekingssysteem.csproj",
+        "projectUniqueName": "C:\\Users\\laure\\OneDrive\\Desktop\\Boekingssysteem\\Boekingssysteem\\Boekingssysteem\\Boekingssysteem.csproj",
         "projectName": "Boekingssysteem",
-        "projectPath": "C:\\Thomas More 2de jaar\\Projecten van het werkveld\\TM_Boekingssysteem\\Boekingssysteem\\Boekingssysteem.csproj",
-        "packagesPath": "C:\\Users\\chris\\.nuget\\packages\\",
-        "outputPath": "C:\\Thomas More 2de jaar\\Projecten van het werkveld\\TM_Boekingssysteem\\Boekingssysteem\\obj\\",
+        "projectPath": "C:\\Users\\laure\\OneDrive\\Desktop\\Boekingssysteem\\Boekingssysteem\\Boekingssysteem\\Boekingssysteem.csproj",
+        "packagesPath": "C:\\Users\\laure\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\laure\\OneDrive\\Desktop\\Boekingssysteem\\Boekingssysteem\\Boekingssysteem\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\chris\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\laure\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

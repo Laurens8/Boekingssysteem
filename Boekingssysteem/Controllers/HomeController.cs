@@ -50,26 +50,49 @@ namespace Boekingssysteem.Controllers
             return View(new Models.ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        [HttpPost]
         public IActionResult Inloggen(string personeelnummer)
         {
-            try
+            ViewBag.Visibility = "invisible";
+
+            bool gevonden = false;
+            var lijstPersonen = _context.Personen.ToList();
+
+            foreach (var persoon in lijstPersonen)
             {
-                var persoon = _context.Personen.Where(p => p.Personeelnummer == personeelnummer).FirstOrDefault();
-                if (persoon != null)
+                if (persoon.Personeelnummer == personeelnummer)
                 {
-                    if (persoon.Admin == true)
-                    {
-                        return View("AdminView");
-                    }
-                    else
-                    {
-                        return View(Status());
-                    }
+                    gevonden = true;
                 }
             }
-            catch (Exception e)
+
+            try
             {
-                Foutenlogboek.FoutLoggen(e);
+                if (gevonden)
+                {
+                    Persoon persoon = _context.Personen.Find(personeelnummer);
+                    PersoonCRUDViewModel viewModel = new PersoonCRUDViewModel()
+                    {
+                        Personeelnummer = persoon.Personeelnummer,
+                        Naam = persoon.Naam,
+                        Voornaam = persoon.Voornaam,
+                        Admin = persoon.Admin
+                    };
+
+                    return View(viewModel);
+                }
+                else
+                {
+                    ViewBag.Class = "alert alert-danger mb-5";
+                    ViewBag.Visibility = "visible";
+
+                    return View(nameof(Inloggen));
+                }
+
+            }
+            catch (Exception)
+            {
+                throw;
             }
             return View();
         }
