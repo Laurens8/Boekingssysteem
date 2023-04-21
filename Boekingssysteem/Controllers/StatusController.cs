@@ -101,8 +101,9 @@ namespace Boekingssysteem.Controllers
                     ViewBag.naam = persoon.Naam;
                     ViewBag.voornaam = persoon.Voornaam;
                     ViewBag.personeelnummer = persoon.Personeelnummer;
-                    ViewBag.Aanwezig = persoon.Aanwezig;
+                    ViewBag.Aanwezig = persoon.Aanwezig;                    
                 }
+                
                 return View("StatusIndividueel");
             }
             catch (Exception e)
@@ -113,62 +114,32 @@ namespace Boekingssysteem.Controllers
             return View();
         }
 
-        [HttpPost]
-        public IActionResult Aanpassen(string personeelnummer)
-        {
-            try
-            {
-                if (personeelnummer == null)
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    Persoon persoon = _context.Personen.Find(personeelnummer);
-                    PersoonCRUDViewModel viewModel = new PersoonCRUDViewModel()
-                    {
-                        Personeelnummer = persoon.Personeelnummer,
-                        Naam = persoon.Naam,
-                        Voornaam = persoon.Voornaam,
-                        Admin = persoon.Admin,
-                        Aanwezig = persoon.Aanwezig
-                    };
-                    _context.SaveChangesAsync();
-
-                    return View(viewModel);
-                }
-            }
-            catch (Exception e)
-            {
-                Foutenlogboek.FoutLoggen(e);
-            }
-            return View();
-        }        
-
-        [HttpPost, ActionName("AanpassenViaID")]
+        [HttpPost, ActionName("Aanpassen")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AanpassenViaID(string personeelnummer, PersoonCRUDViewModel viewModel)
+        public async Task<IActionResult> Aanpassen(string personeelnummer, PersoonCRUDViewModel viewModel)
         {
             if (personeelnummer == null)
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
+            else
             {
                 try
                 {
-                    Persoon persoon = new Persoon()
+                    Persoon persoon = _context.Personen.Find(personeelnummer);
+                    if (persoon.Aanwezig == true)
                     {
-                        Personeelnummer = viewModel.Personeelnummer,
-                        Voornaam = viewModel.Voornaam,
-                        Naam = viewModel.Naam,
-                        Admin = viewModel.Admin,
-                        Aanwezig = viewModel.Aanwezig
-                    };
+                        persoon.Aanwezig = false;
 
-                    _context.Update(persoon);
-                    await _context.SaveChangesAsync();
+                        _context.Update(persoon);
+                        await _context.SaveChangesAsync();
+                    }
+                    else
+                    {
+                        persoon.Aanwezig = true;
+                        _context.Update(persoon);
+                        await _context.SaveChangesAsync();
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -182,11 +153,53 @@ namespace Boekingssysteem.Controllers
                     }
                 }
 
-                ViewBag.JavaScriptFunction = string.Format("MeldingSucces('{0}');", personeelnummer);
-                return RedirectToAction("Aanpassen");
             }
+            ViewBag.JavaScriptFunction = string.Format("MeldingSucces('{0}');", personeelnummer);
+            return RedirectToAction("Index");
+        }
 
-            return View("Aanpassen");
+        [HttpPost, ActionName("AanpassenViaId")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AanpassenViaId(string personeelnummer, PersoonCRUDViewModel viewModel)
+        {            
+            if (personeelnummer == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                try
+                {
+                    Persoon persoon = _context.Personen.Find(personeelnummer);                    
+                    if (persoon.Aanwezig == true)
+                    {
+                        persoon.Aanwezig = false;
+
+                        _context.Update(persoon);
+                        await _context.SaveChangesAsync();
+                    }
+                    else
+                    {
+                        persoon.Aanwezig = true;
+                        _context.Update(persoon);
+                        await _context.SaveChangesAsync();
+                    }
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!_context.Personen.Any(e => e.Personeelnummer == viewModel.Personeelnummer))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+
+            }                           
+                ViewBag.JavaScriptFunction = string.Format("MeldingSucces('{0}');", personeelnummer);
+                return RedirectToAction("StatusIndividueel");           
         }
     }
 }

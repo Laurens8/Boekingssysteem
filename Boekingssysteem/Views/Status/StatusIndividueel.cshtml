@@ -11,52 +11,58 @@
     <div class="col">
         @using (Html.BeginForm("StatusData", "Status", FormMethod.Post))
         {
-            <div class="col">
-                <div class="mb-5">
-                    <div class="form-group">
-                        <label class="mr-3">Personeelsnummer: </label>
-                        <input class="mr-3" type="text" name="personeelnummer" />
-                        <input type="submit" value="Gebruiker zoeken" class="btn btn-primary mb-2" />
-                    </div>
-                </div>
-                <div class="PersoneelInfo">
-                    <div class="col">
-                        <div class="row">
-                            <p>Naam: </p>
-                            <p>@ViewBag.naam</p>
-                        </div>
-                        <div class="row">
-                            <p>Voornaam: </p>
-                            <p>@ViewBag.voornaam</p>
-                        </div>
-                        <div class="row">
-                            <p>Personeelnummer: </p>
-                            <p>@ViewBag.personeelnummer</p>
-                        </div>
-                        <div class="row">
-                            <p>Status: </p>
-                            <p>@ViewBag.Aanwezig</p>
+            <form>
+                <div class="col">
+                    <div class="mb-5">
+                        <div class="form-group">
+                            <label class="mr-3">Personeelsnummer: </label>
+                            @Html.TextBoxFor(s => s.Personeelnummer, new {@class = "form-control mb-3", @placeholder = "R-nummer"})
+                            <input type="submit" value="Gebruiker zoeken" class="btn btn-primary mb-2" />
                         </div>
                     </div>
-                </div>
-
-            </div>
-        }
-        @using (Html.BeginForm("StatusIndividueel", "Status", FormMethod.Post))
-        {         
-            <div class="row">
-                <form asp-action="StatusAanpassen">
-                    <div asp-validation-summary="ModelOnly"></div>
+                    <div class="PersoneelInfo">
+                        <div class="col">
+                            <div class="row">
+                                <p>Naam: </p>
+                                <p>@ViewBag.naam</p>
+                            </div>
+                            <div class="row">
+                                <p>Voornaam: </p>
+                                <p>@ViewBag.voornaam</p>
+                            </div>
+                            <div class="row">
+                                <p>Personeelnummer: </p>
+                                <p>@ViewBag.personeelnummer</p>
+                            </div>
+                            <div class="row">
+                                <p>Status: </p>
+                                @if (@ViewBag.Aanwezig == null)
+                                {
+                                    <p></p> 
+                                }
+                                else if (@ViewBag.Aanwezig == true)
+                                {
+                                    <p>Aanwezig</p>                                    
+                                }
+                                else
+                                {
+                                    <p>Afwezig</p>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+            </form>
+        }       
+        <div class="row">
+            <div>
+                @using (Html.BeginForm("AanpassenViaId", "Status", new { @personeelnummer = $"{@ViewBag.personeelnummer}" }, FormMethod.Post))
+                {
                     <div class="mt-5 mr-5">
-                        <input type="hidden" asp-for="Aanwezig" value="true" />
-                        <input type="submit" value="Aanwezig" class="btn btn-primary btn-lg mb-2" asp-for="Aanwezig" id="Aanwezig"/>
+                        <input type="submit" class="btn btn-primary btn-lg mb-2" value="Status aanpassen">
                     </div>
-                    <div class="mt-5 ml-5">
-                        <input type="hidden" asp-for="Aanwezig" value="false" />
-                        <input type="submit" value="Afwezig" class="btn btn-primary btn-lg mb-2" asp-for="Aanwezig" id="Aanwezig"/>
-                    </div>
-                </form>
+                }
             </div>
-        }
+        </div>
     </div>
 </div>
