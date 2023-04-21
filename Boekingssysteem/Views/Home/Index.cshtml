@@ -1,4 +1,4 @@
-﻿@model Boekingssysteem.ViewModels.PersoonListViewModel
+﻿@model Boekingssysteem.ViewModels.PersoonCRUDViewModel
 @using Microsoft.AspNetCore.Hosting
 @using Microsoft.AspNetCore.Mvc.ViewEngines
 @inject IWebHostEnvironment Environment
@@ -9,43 +9,50 @@
 
 <div class="MainWindow">
     <div class="col-md-12">
-        @using (Html.BeginForm("Inloggen", "Home", FormMethod.Post))
-        {
+        @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+        {            
             <form>
                 <div class="col">
                     <div asp-validation-summary="ModelOnly"></div>
                     <div class="form-group">
-                        <label asp-for="Persoon.Personeelnummer" for="text" class="form-label">Personeelnummer</label>
+                        <label asp-for="Personeelnummer" for="text" class="form-label">Personeelnummer</label>
                         <div class="col">
-                            <input asp-for="Persoon.Personeelnummer" type="text" class="form-control" id="personeelnummer" placeholder="Uw R-nummer">
+                            @Html.TextBoxFor(s => s.Personeelnummer, new {@class = "form-control", @placeholder = "R-nummer"})
                         </div>
-                        <span asp-validation-for="Persoon.Personeelnummer" class="text-danger"></span>
-
+                        <div>
+                            <span asp-validation-for="Personeelnummer" class="text-danger"></span>
+                        </div>                      
                         <div asp-validation-summary="ModelOnly"></div>
 
-                        <label asp-for="Persoon.Personeelnummer" for="text" class="col-sm-4 col-form-label">Wachtwoord</label>
+                        <label asp-for="Personeelnummer" for="text" class="col-sm-4 col-form-label">Wachtwoord</label>
                         <div class="col">
-                            <input asp-for="Persoon.Personeelnummer" type="text" disabled class="form-control" id="personeelnummer" placeholder="Uw wachtwoord">
+                            <input asp-for="Personeelnummer" type="text" disabled class="form-control" id="personeelnummer" placeholder="Uw wachtwoord">
                         </div>
                     </div>
-
-                    <div class="BtnHome">
-                        <hr class="mb-4">
-                        <a asp-controller="Home" asp-action="AdminView" class="btn btn-primary btn-lg mb-2" role="button">Inloggen</a>
-                    </div>
-                    <div class="ActionButtonHome">
-                        <a class="btn btn-primary btn-lg mb-2" href="https://passwordreset.microsoftonline.com/?ru=https%3a%2f%2flogin.microsoftonline.com%2fthomasmore365.onmicrosoft.com%2freprocess%3fctx%3drQQIARAAlVG9i9NgHG6uvfM8z_NwEkS4wcmjzUebXlNwSJt-JF7e0M-0AdG8-WjfNMlbmt61zeYgCHIg4uQiODgILsVBbtFFDm46nMQ_QEROcHAo3GIzOjr8fvDwPL8fD89zJ86kqPxtk6MynE1bSWiwejKzZ8Kkvkdlk7pt2wxtMxk9x42ub2x_P75pPrw4Up6_YP-wH63CW4Lsj8fDIE-SQYBThu4f6oHrBSkDe6SLe8gnsX4w7jOkobsu1I3BB4I4I4gfBPFt5ZrCR1S08AiF1sv40Yo1kyirwyMFSffadA3tF6U-rBgRFluhSAMkcamlqN9Vga2rNaQ4pVBu9kJZ4Cf_DJog6HEHXaYVHQ-0ZncCmBYrM6W0JoCB0qy7stOlNE-caGqLBp7MAK9GKRWR1gTNk9USCxzTBYI41SqtyAiGaUCJDkZmpX8I1XIIVW6mNdgh9AFl-G3HrLYj7ECGivSuVeUjfwwIjQxwlr8FjUuNp53QVoGVy_bFYt2ElSQ9LDYKgeTb5d6Q4h_wdE_O6tWJLM7jt5bReHrg4ZGVzrIp7HvIGOEA2-Mo4dP4Fh5aPjJ3hiNsI9f6GifOEsTPxCYVz6-vb2zHbsR2YosE8Xp12d3JlfPC_c0v4NXneeLx4k3sdJVkyerUknKDToZvQ74G5f2ZWC1LpVpdCQe7u2kgsEKjSNrOuHeXydPP1ojfa8STS7Hjy_9b-6erscXW_Pzd0_ePTn5V_wI1&mkt=nl-NL&hosted=0&device_platform=Windows+10">
-                            Wachtwoord vergeten
-                        </a>
-                    </div>
-                    <div class="ActionButtonHome">
-                        <a class="btn btn-primary btn-lg mb-2" asp-area="Identity" asp-page="/Account/Register">
-                            Registeren
-                        </a>
-                    </div>
+                </div>
+                <div class="BtnHome">
+                    <hr class="mb-4">
+                    <input type="submit" class="btn btn-primary btn-lg mb-2" value="Inloggen">
                 </div>
             </form>
         }
+                               
+        <div class="ActionButtonHome">
+            <a class="btn btn-primary btn-lg mb-2" href="https://passwordreset.microsoftonline.com/?ru=https%3a%2f%2flogin.microsoftonline.com%2fthomasmore365.onmicrosoft.com%2freprocess%3fctx%3drQQIARAAlVG9i9NgHG6uvfM8z_NwEkS4wcmjzUebXlNwSJt-JF7e0M-0AdG8-WjfNMlbmt61zeYgCHIg4uQiODgILsVBbtFFDm46nMQ_QEROcHAo3GIzOjr8fvDwPL8fD89zJ86kqPxtk6MynE1bSWiwejKzZ8Kkvkdlk7pt2wxtMxk9x42ub2x_P75pPrw4Up6_YP-wH63CW4Lsj8fDIE-SQYBThu4f6oHrBSkDe6SLe8gnsX4w7jOkobsu1I3BB4I4I4gfBPFt5ZrCR1S08AiF1sv40Yo1kyirwyMFSffadA3tF6U-rBgRFluhSAMkcamlqN9Vga2rNaQ4pVBu9kJZ4Cf_DJog6HEHXaYVHQ-0ZncCmBYrM6W0JoCB0qy7stOlNE-caGqLBp7MAK9GKRWR1gTNk9USCxzTBYI41SqtyAiGaUCJDkZmpX8I1XIIVW6mNdgh9AFl-G3HrLYj7ECGivSuVeUjfwwIjQxwlr8FjUuNp53QVoGVy_bFYt2ElSQ9LDYKgeTb5d6Q4h_wdE_O6tWJLM7jt5bReHrg4ZGVzrIp7HvIGOEA2-Mo4dP4Fh5aPjJ3hiNsI9f6GifOEsTPxCYVz6-vb2zHbsR2YosE8Xp12d3JlfPC_c0v4NXneeLx4k3sdJVkyerUknKDToZvQ74G5f2ZWC1LpVpdCQe7u2kgsEKjSNrOuHeXydPP1ojfa8STS7Hjy_9b-6erscXW_Pzd0_ePTn5V_wI1&mkt=nl-NL&hosted=0&device_platform=Windows+10">
+                Wachtwoord vergeten
+            </a>
+        </div>
+        <div class="ActionButtonHome">
+            <a class="btn btn-primary btn-lg mb-2" asp-area="Identity" asp-page="/Account/Register">
+                Registeren
+            </a>
+        </div>
     </div>
 </div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
 

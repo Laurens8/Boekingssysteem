@@ -8,8 +8,10 @@
     <div class="container">
         <div class="mb-5">
             <a asp-controller="Status" asp-action="StatusIndividueel" class="btn btn-primary btn-lg mb-2" role="button">Aanwezigheid aanpassen</a>
-        </div>
+        </div>                   
             @foreach (var p in Model.Personen)
+            {
+            @using (Html.BeginForm("Aanpassen", "Status", new { @personeelnummer = $"{p.Personeelnummer}" }, FormMethod.Post))
             {
                 <div class="row">
                     <div class="col">
@@ -17,51 +19,49 @@
                         @Html.DisplayFor(modelItem => p.Voornaam)
                     </div>
 
-                @if (p.PersoonRichtingen == null)
-                {
-                    <div class="col">Geen richting</div>
-                }
-                else
-                {
+                    @if (p.PersoonRichtingen == null)
+                    {
+                        <div class="col">Geen richting</div>
+                    }
+                    else
+                    {
 
-                    <div class="col">
+                        <div class="col">
 
-                        @foreach (var item in p.PersoonRichtingen)
-                        {
-                            @Html.DisplayFor(modelItem => item.Richting.Naam) <br>
-                        }
+                            @foreach (var item in p.PersoonRichtingen)
+                            {
+                                @Html.DisplayFor(modelItem => item.Richting.Naam) <br>
+                            }
 
-                        @if (p.Admin)
-                        {
-                            <p>Administratief personeel</p>
-                        }
-                        else
-                        {
-                            <p>Leerkracht</p>
-                        }
-                    </div>
-                }
+                            @if (p.Admin)
+                            {
+                                <p>Administratief personeel</p>
+                            }
+                            else
+                            {
+                                <p>Leerkracht</p>
+                            }
+                        </div>
+                    }
 
                     <div class="row">
                         <div class="col">
                             <p>Afwezig</p>
                         </div>
 
-                    <div class="col">
-                        <form asp-action="Aanpassen">
-                            <div asp-validation-summary="ModelOnly"></div>
-                            @if (p.Aanwezig == true)
-                            {
-                                <input asp-for="Aanwezig" name="StatusAanpassen" type="checkbox" checked class="checkbox" value="false" />
-                                <input asp-for="Aanwezig" type="hidden" name="Aanwezig" value="false" />
-                            }
-                            else
-                            {
-                                <input asp-for="Aanwezig" name="StatusAanpassen" type="checkbox" class="checkbox" value="true" />
-                                <input asp-for="Aanwezig" type="hidden" name="Aanwezig" value="true" />
-                            }
-                        </form>
-                    </div>
+                        <div class="col">
+                            <form>
+                                <div asp-validation-summary="ModelOnly"></div>
+                                @if (p.Aanwezig == true)
+                                {
+                                    <input type="submit" class="btn btn-primary btn-lg mb-2" value="Aanwezig">
+                                }
+                                else
+                                {                                   
+                                    <input type="submit" class="btn btn-primary btn-lg mb-2" value="Afwezig">                                   
+                                }
+                            </form>
+                        </div>
 
                         <div class="col">
                             <p>Aanwezig</p>
@@ -70,6 +70,7 @@
                 </div>
                 <div class="divider mt-5 mb-5"></div>
             }
+        }          
     </div>
 </div>
 

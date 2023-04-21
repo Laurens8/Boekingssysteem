@@ -3,6 +3,7 @@ using Boekingssysteem.Data;
 using Boekingssysteem.Lib;
 using Boekingssysteem.Models;
 using Boekingssysteem.ViewModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Session;
 using Microsoft.EntityFrameworkCore;
@@ -51,7 +52,7 @@ namespace Boekingssysteem.Controllers
         }
 
         [HttpPost]
-        public IActionResult Inloggen(string personeelnummer)
+        public IActionResult Index(string personeelnummer)
         {
             ViewBag.Visibility = "invisible";
 
@@ -60,39 +61,29 @@ namespace Boekingssysteem.Controllers
 
             foreach (var persoon in lijstPersonen)
             {
-                if (persoon.Personeelnummer == personeelnummer)
+                if (persoon.Personeelnummer == personeelnummer && persoon.Admin == true)
                 {
                     gevonden = true;
                 }
             }
-
             try
             {
                 if (gevonden)
                 {
-                    Persoon persoon = _context.Personen.Find(personeelnummer);
-                    PersoonCRUDViewModel viewModel = new PersoonCRUDViewModel()
-                    {
-                        Personeelnummer = persoon.Personeelnummer,
-                        Naam = persoon.Naam,
-                        Voornaam = persoon.Voornaam,
-                        Admin = persoon.Admin
-                    };
-
-                    return View(viewModel);
+                    return RedirectToAction("AdminView");
                 }
                 else
                 {
                     ViewBag.Class = "alert alert-danger mb-5";
                     ViewBag.Visibility = "visible";
 
-                    return View(nameof(Inloggen));
+                    return View();
                 }
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw;
+                Foutenlogboek.FoutLoggen(e);
             }
             return View();
         }
