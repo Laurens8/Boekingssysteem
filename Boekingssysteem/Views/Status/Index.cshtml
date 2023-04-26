@@ -46,26 +46,26 @@
 
                     <div class="row">
                         <div class="col">
-                            <p>Afwezig</p>
+                            @if (p.Aanwezig == true)
+                            {
+                                <p style="color: green; font-size:20px">Aanwezig</p>
+                            }
+                            else if (p.Aanwezig == false)
+                            {
+                                <p style="color: red; font-size:20px">Afwezig</p>
+                            }
+                            else
+                            {
+                                <p style="color: #e6b400; font-size:20px">Ongekend</p>
+                            }
                         </div>
 
                         <div class="col">
                             <form>
-                                <div asp-validation-summary="ModelOnly"></div>
-                                @if (p.Aanwezig == true)
-                                {
-                                    <input type="submit" class="btn btn-primary btn-lg mb-2" value="Aanwezig">
-                                }
-                                else
-                                {                                   
-                                    <input type="submit" class="btn btn-primary btn-lg mb-2" value="Afwezig">                                   
-                                }
+                                <div asp-validation-summary="ModelOnly"></div>                                
+                                <input type="submit" class="btn btn-primary btn-lg mb-2" value="Status aanpassen">                                                                
                             </form>
-                        </div>
-
-                        <div class="col">
-                            <p>Aanwezig</p>
-                        </div>
+                        </div>                   
                     </div>
                 </div>
                 <div class="divider mt-5 mb-5"></div>
