@@ -4,6 +4,8 @@
     ViewData["Title"] = "Registratie aanwezigheid";
 }
 
+<a class="btn btn-primary btn-lg mb-2" asp-controller="Home" asp-action="AdminView">Terug</a>
+<hr />
 <div class="StatusWindow">
     <div class="container">
         <div class="mb-5">
@@ -62,8 +64,11 @@
 
                         <div class="col">
                             <form>
+                                @using (Html.BeginForm("AanpassenViaId", "Status", new { @personeelnummer = $"{@p.Personeelnummer}" }, FormMethod.Post))
+                                {
                                 <div asp-validation-summary="ModelOnly"></div>                                
                                 <input type="submit" class="btn btn-primary btn-lg mb-2" value="Status aanpassen">                                                                
+                                }
                             </form>
                         </div>                   
                     </div>
