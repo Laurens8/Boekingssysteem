@@ -4,7 +4,7 @@
     int teller = 1;
 }
 
-<div class="MainWindow">
+<div class="MainWindowTV">
     @foreach (var item in Model.Richtingen)
     {
         <h2>@item.Naam</h2>
@@ -26,12 +26,9 @@
                                     {
                                         @if (p.Aanwezig == true)
                                         {
-                                            <div class="card text-white bg-success m-3 w-100" style="max-width: 18rem;">
-                                                <div class="card-header"><h4>Aanwezig</h4></div>
-                                                <div class="card-body">
-                                                    <h5 class="card-title">@Html.DisplayFor(modelItem => p.Voornaam) @Html.DisplayFor(modelItem => p.Naam)</h5>
-                                                    <p>@Html.DisplayFor(modelItem => functie.Functie.Naam)</p>
-                                                </div>
+                                            <div class="card text-white bg-success m-3" style="max-width: 18rem;">
+                                                <div class="card-header"><h4>@Html.DisplayFor(modelItem => p.Voornaam) @Html.DisplayFor(modelItem => p.Naam) (Aanwezig)</h4></div>
+                                               
                                             </div>
                                         }
                                         else if (p.Aanwezig == false)
@@ -42,37 +39,26 @@
                                                 {
                                                     if (item3.Begindatum.Year <= DateTime.Now.Year && item3.Einddatum != null)
                                                     {
-                                                        <div class="card text-white bg-danger m-3 w-100" style="max-width: 18rem;">
-                                                            <div class="card-header"><h4>Afwezig</h4></div>
-                                                            <div class="card-body">
-                                                                <h5 class="card-title">@Html.DisplayFor(modelItem => p.Voornaam) @Html.DisplayFor(modelItem => p.Naam)</h5>
-                                                                <p>@Html.DisplayFor(modelItem => functie.Functie.Naam)</p>
-                                                                <p>Afwezig van @Html.DisplayFor(modelItem => item3.Begindatum)</p>
-                                                                <p>tot en met @Html.DisplayFor(modelItem => item3.Einddatum)</p>
-                                                            </div>
+                                                        <div class="card text-white bg-danger m-3" style="max-width: 18rem;">
+                                                            <div class="card-header"><h4>@Html.DisplayFor(modelItem => p.Voornaam) @Html.DisplayFor(modelItem => p.Naam) (Afwezig)</h4></div>
+                                                            
                                                         </div>
                                                     }
                                                 }
                                             }
                                             else
                                             {
-                                                <div class="card text-white bg-danger m-3 w-100" style="max-width: 18rem;">
-                                                    <div class="card-header"><h4>Afwezig</h4></div>
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">@Html.DisplayFor(modelItem => p.Voornaam) @Html.DisplayFor(modelItem => p.Naam)</h5>
-                                                        <p>@Html.DisplayFor(modelItem => functie.Functie.Naam)</p>
-                                                    </div>
+                                                <div class="card text-white bg-danger m-3" style="max-width: 18rem;">
+                                                    <div class="card-header"><h4>@Html.DisplayFor(modelItem => p.Voornaam) @Html.DisplayFor(modelItem => p.Naam) (Afwezig)</h4></div>
+                                                 
                                                 </div>
                                             }
                                         }
                                         else if (p.Aanwezig == null)
                                         {
-                                            <div class="card text-white bg-warning m-3 w-100" style="max-width: 18rem;">
-                                                <div class="card-header"><h4>Ongekend</h4></div>
-                                                <div class="card-body">
-                                                    <h5 class="card-title">@Html.DisplayFor(modelItem => p.Voornaam) @Html.DisplayFor(modelItem => p.Naam)</h5>
-                                                    <p>@Html.DisplayFor(modelItem => functie.Functie.Naam)</p>
-                                                </div>
+                                            <div class="card text-white bg-warning m-3" style="max-width: 18rem;">
+                                                <div class="card-header"><h4>@Html.DisplayFor(modelItem => p.Voornaam) @Html.DisplayFor(modelItem => p.Naam) (Ongekend)</h4></div>
+                                               
                                             </div>
                                         }
                                     }                                   
@@ -83,37 +69,26 @@
                                     {
                                         @if (p.Aanwezig == true)
                                         {
-                                            <div class="card text-white bg-success m-3 w-100" style="max-width: 18rem;">
-                                                <div class="card-header"><h4>Aanwezig</h4></div>
-                                                <div class="card-body">
-                                                    <h5 class="card-title">@Html.DisplayFor(modelItem => p.Voornaam) @Html.DisplayFor(modelItem => p.Naam)</h5>
-                                                    <p>@Html.DisplayFor(modelItem => functie.Functie.Naam)</p>
-                                                </div>
+                                            <div class="card text-white bg-success m-3" style="max-width: 18rem;">
+                                                <div class="card-header"><h4>@Html.DisplayFor(modelItem => p.Voornaam) @Html.DisplayFor(modelItem => p.Naam) (Aanwezig)</h4></div>
+                                              
                                             </div>
                                         }
                                         else if(p.Afwezigheden != null)
                                         {
                                             foreach (var item3 in p.Afwezigheden)
-                                            {                                               
-                                                    <div class="card text-white bg-danger m-3 w-100" style="max-width: 18rem;">
-                                                        <div class="card-header"><h4>Afwezig</h4></div>
-                                                        <div class="card-body">
-                                                            <h5 class="card-title">@Html.DisplayFor(modelItem => p.Voornaam) @Html.DisplayFor(modelItem => p.Naam)</h5>
-                                                            <p>@Html.DisplayFor(modelItem => functie.Functie.Naam)</p>
-                                                            <p>Afwezig van @Html.DisplayFor(modelItem => item3.Begindatum)</p>
-                                                            <p>tot en met @Html.DisplayFor(modelItem => item3.Einddatum)</p>
-                                                        </div>
+                                            {
+                                                <div class="card text-white bg-danger m-3" style="max-width: 18rem;">
+                                                    <div class="card-header"><h4>@Html.DisplayFor(modelItem => p.Voornaam) @Html.DisplayFor(modelItem => p.Naam) (Afwezig)</h4></div>
+                                                   
                                                     </div>                                                                                                                                                    
                                             }        
                                         }
                                         else
                                         {
-                                            <div class="card text-white bg-danger m-3 w-100" style="max-width: 18rem;">
-                                                        <div class="card-header"><h4>Afwezig</h4></div>
-                                                        <div class="card-body">
-                                                            <h5 class="card-title">@Html.DisplayFor(modelItem => p.Voornaam) @Html.DisplayFor(modelItem => p.Naam)</h5>
-                                                            <p>@Html.DisplayFor(modelItem => functie.Functie.Naam)</p>
-                                                        </div>
+                                            <div class="card text-white bg-danger m-3" style="max-width: 18rem;">
+                                                <div class="card-header"><h4>@Html.DisplayFor(modelItem => p.Voornaam) @Html.DisplayFor(modelItem => p.Naam) (Afwezig)</h4></div>
+                                                  
                                             </div>
                                         }
                                     }

@@ -121,3 +121,26 @@ tr:nth-child(even) {
     pointer-events: none;
     background-color: #A9A9A9;
 }
+
+.card {
+    display: inline-block;
+}
+
+.MainWindowTV{
+    width:100%;
+}
+
+.pAanwezig{
+color: green;
+font-size:30px;
+}
+
+.pAfwezig {
+    color: red;
+    font-size: medium;
+}
+
+.pOngekend {
+    color: yellow;
+    font-size: medium;
+}
