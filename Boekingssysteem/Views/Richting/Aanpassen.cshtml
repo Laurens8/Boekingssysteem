@@ -3,6 +3,10 @@
 @{
     ViewData["Title"] = "Aanpassen";
 }
+
+<a class="btn btn-primary btn-lg mb-2" asp-controller="Richting" asp-action="Index">Terug</a>
+<hr />
+
 <form asp-action="Aanpassen">
     <input type="hidden" asp-for="RichtingID" />
     <div class="row mt-5">
