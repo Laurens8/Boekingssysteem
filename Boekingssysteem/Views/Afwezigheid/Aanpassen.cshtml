@@ -1,0 +1,59 @@
+﻿@model Boekingssysteem.ViewModels.AfwezigheidCRUDViewModel
+
+@{
+    ViewData["Title"] = "Afwezigheid aanpassen";
+}
+
+<a class="btn btn-primary btn-lg mb-2" asp-controller="Afwezigheid" asp-action="Index">Terug</a>
+<hr />
+
+<div class="h-100 d-flex align-items-center justify-content-center">
+    <div BtnCrud>
+        <div class="col-sm-12">
+            <div class="mb-5">
+                @using (Html.BeginForm())
+                {
+                    @Html.TextBoxFor(s => s.Personeelnummer)
+                    <input class="btn btn-primary mb-2" type="submit" value="Zoek adhv personeelsnummer" />
+                }
+            </div>
+            <div class="@ViewBag.Class @ViewBag.Visibility" role="alert">
+                @ViewBag.Message
+            </div>
+
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <th>Begindatum</th>
+                    <th>Einddatum</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                @foreach (var afwezig in ViewBag.Afwezigheden)
+                {
+                    <tr>
+                        <td>@String.Format("{0:dd/MM/yyyy}",@afwezig.Begindatum)</td>
+                        <td>
+                            @if (@afwezig.Einddatum != null)
+                            {
+                                @String.Format("{0:dd/MM/yyyy}",@afwezig.Einddatum)
+                            }
+                        </td>
+                        <td><a class="button" asp-action="AanpassenDetail" asp-route-id="@afwezig.AfwezigheidID">Aanpassen</a></td>
+                        <td><a class="button" asp-action="Verwijderen" asp-route-id="@afwezig.AfwezigheidID">Verwijderen</a></td>
+                    </tr>
+                }
+            </table>
+
+        </div>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" class="btn btn-primary mt-4">Terug naar overzicht</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

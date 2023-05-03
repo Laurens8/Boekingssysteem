@@ -1,0 +1,67 @@
+﻿@model Boekingssysteem.ViewModels.PersoonCRUDViewModel
+@{
+    ViewData["Title"] = "Aanwezigheid aanpassen";
+}
+
+<a class="btn btn-primary btn-lg mb-2" asp-controller="Status" asp-action="Index">Terug</a>
+<hr />
+
+<div class="h-100 d-flex align-items-center justify-content-center">
+    <div class="col">
+        @using (Html.BeginForm("StatusData", "Status", FormMethod.Post))
+        {
+            <form>
+                <div class="col">
+                    <div class="mb-5">
+                        <div class="form-group">
+                            <label class="mr-3">Personeelsnummer: </label>
+                            @Html.TextBoxFor(s => s.Personeelnummer, new {@class = "form-control mb-3", @placeholder = "R-nummer"})
+                            <input type="submit" value="Gebruiker zoeken" class="btn btn-primary mb-2" />
+                        </div>
+                    </div>
+                    <div class="PersoneelInfo">
+                        <div class="col">
+                            <div class="row">
+                                <p>Naam: </p>
+                                <p>@ViewBag.naam</p>
+                            </div>
+                            <div class="row">
+                                <p>Voornaam: </p>
+                                <p>@ViewBag.voornaam</p>
+                            </div>
+                            <div class="row">
+                                <p>Personeelnummer: </p>
+                                <p>@ViewBag.personeelnummer</p>
+                            </div>
+                            <div class="row">
+                                <p>Status: </p>
+                                @if (@ViewBag.Aanwezig == null)
+                                {
+                                    <p></p> 
+                                }
+                                else if (@ViewBag.Aanwezig == true)
+                                {
+                                    <p>Aanwezig</p>                                    
+                                }
+                                else
+                                {
+                                    <p>Afwezig</p>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+            </form>
+        }       
+        <div class="row">
+            <div>
+                @using (Html.BeginForm("AanpassenViaId", "Status", new { @personeelnummer = $"{@ViewBag.personeelnummer}" }, FormMethod.Post))
+                {
+                    <div class="mt-5 mr-5">
+                        <input type="submit" class="btn btn-primary btn-lg mb-2" value="Status aanpassen">
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
