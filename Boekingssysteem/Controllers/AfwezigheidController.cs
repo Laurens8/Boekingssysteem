@@ -13,6 +13,7 @@ namespace Boekingssysteem.Controllers
     public class AfwezigheidController : Controller
     {
         private readonly BoekingssysteemContext _context;
+        string persnr = "";
 
         public AfwezigheidController(BoekingssysteemContext context)
         {
@@ -34,6 +35,7 @@ namespace Boekingssysteem.Controllers
         {
             ViewBag.Visibility = "invisible";
             DateTime nu = DateTime.Now;
+            var afwezigheden = _context.Afwezigheden.Where(a => a.Personeelnummer == viewModel.Personeelnummer);
 
             if (nu > viewModel.Begindatum)
             {
@@ -48,6 +50,16 @@ namespace Boekingssysteem.Controllers
                 ViewBag.Class = "alert alert-danger mb-5";
                 ViewBag.Visibility = "visible";
                 return View(nameof(Toevoegen));
+            }
+            foreach (var afwezigheid in afwezigheden)
+            {
+                if (viewModel.Begindatum > afwezigheid.Begindatum && viewModel.Einddatum < afwezigheid.Einddatum)
+                {
+                    ViewBag.Message = "Er is deze periode al een afwezigheid geregistreerd!";
+                    ViewBag.Class = "alert alert-danger mb-5";
+                    ViewBag.Visibility = "visible";
+                    return View(nameof(Toevoegen));
+                }
             }
 
             if (ModelState.IsValid)
@@ -80,15 +92,15 @@ namespace Boekingssysteem.Controllers
         }
 
         [HttpPost]
-        public IActionResult Aanpassen(string personeelnummer)
+        public IActionResult Aanpassen(AfwezigheidCRUDViewModel viewModel)
         {
-            Persoon persoon = _context.Personen.Find(personeelnummer);
-            ViewBag.Afwezigheden = _context.Afwezigheden.Where(a => a.Personeelnummer == personeelnummer);
+            Persoon persoon = _context.Personen.Find(viewModel.Personeelnummer);
+            ViewBag.Afwezigheden = _context.Afwezigheden.Where(a => a.Personeelnummer == viewModel.Personeelnummer).OrderBy(a => a.Begindatum);
 
             return View();
         }
 
-        public async Task<IActionResult> AanpassenDetail(int id) 
+        public async Task<IActionResult> AanpassenDetail(int id)
         {
             if (id == null)
             {
@@ -115,7 +127,7 @@ namespace Boekingssysteem.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AanpassenDetail(int id, AfwezigheidCRUDViewModel viewModel)
-        {            
+        {
             if (id != viewModel.AfwezigheidID)
             {
                 return NotFound();
@@ -147,17 +159,31 @@ namespace Boekingssysteem.Controllers
                         throw;
                     }
                 }
-                return View(Aanpassen());
+                return RedirectToAction(nameof(Aanpassen));
             }
 
-            return View(Aanpassen());
+            return RedirectToAction(nameof(Aanpassen));
         }
 
-        public IActionResult Verwijderen(string personeelnummer, int id)
+        public async Task<IActionResult> Verwijderen(string personeelnummer, int id)
         {
-            
-            
-            return View(Aanpassen(personeelnummer));
+            Afwezigheid afwezigheid = _context.Afwezigheden.Where(d => d.AfwezigheidID == id).FirstOrDefault();
+            if (afwezigheid != null)
+            {
+                AfwezigheidCRUDViewModel vm = new AfwezigheidCRUDViewModel()
+                {
+                    AfwezigheidID = id
+                };
+            }
+
+            _context.Afwezigheden.Remove(afwezigheid);
+            await _context.SaveChangesAsync();
+
+            //ViewBag.Message = "Afwezigheid succesvol verwijderd!";
+            //ViewBag.Class = "alert alert-succes mb-5";
+            //ViewBag.Visibility = "visible";
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }
