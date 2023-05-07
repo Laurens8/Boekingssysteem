@@ -38,7 +38,11 @@ namespace Boekingssysteem.Controllers
 
         public IActionResult StatusIndividueel()
         {
-            return View();
+            var personen = _context.Personen.ToList();
+            PersoonCRUDViewModel plvm = new PersoonCRUDViewModel();
+            plvm.Personen = personen;
+
+            return View(plvm);
         }
 
         public async Task<IActionResult> StatusAanpassen(PersoonCRUDViewModel vm)

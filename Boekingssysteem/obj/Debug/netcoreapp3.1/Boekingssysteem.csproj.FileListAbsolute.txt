@@ -1214,3 +1214,8 @@ C:\Users\lende\Documents\thomasmore\jaar 2\projecten van het werkveld\aspProject
 C:\Users\lende\Documents\thomasmore\jaar 2\projecten van het werkveld\aspProject\Boekingssysteem\Boekingssysteem\Boekingssysteem\obj\Debug\netcoreapp3.1\Boekingssysteem.dll
 C:\Users\lende\Documents\thomasmore\jaar 2\projecten van het werkveld\aspProject\Boekingssysteem\Boekingssysteem\Boekingssysteem\obj\Debug\netcoreapp3.1\Boekingssysteem.pdb
 C:\Users\lende\Documents\thomasmore\jaar 2\projecten van het werkveld\aspProject\Boekingssysteem\Boekingssysteem\Boekingssysteem\obj\Debug\netcoreapp3.1\Boekingssysteem.genruntimeconfig.cache
+C:\Users\laure\OneDrive\Desktop\Boekingssysteem\Boekingssysteem\Boekingssysteem\obj\Debug\netcoreapp3.1\Razor\Views\Home\GebruikerView.cshtml.g.cs
+C:\Users\laure\OneDrive\Desktop\Boekingssysteem\Boekingssysteem\Boekingssysteem\obj\Debug\netcoreapp3.1\Razor\Views\Gebruiker\Create.cshtml.g.cs
+C:\Users\laure\OneDrive\Desktop\Boekingssysteem\Boekingssysteem\Boekingssysteem\obj\Debug\netcoreapp3.1\Razor\Views\Gebruiker\Details.cshtml.g.cs
+C:\Users\laure\OneDrive\Desktop\Boekingssysteem\Boekingssysteem\Boekingssysteem\obj\Debug\netcoreapp3.1\Razor\Views\Gebruiker\GrantPermissions.cshtml.g.cs
+C:\Users\laure\OneDrive\Desktop\Boekingssysteem\Boekingssysteem\Boekingssysteem\obj\Debug\netcoreapp3.1\Razor\Views\Gebruiker\Index.cshtml.g.cs

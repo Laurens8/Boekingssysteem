@@ -1,7 +1,9 @@
-﻿using Boekingssysteem.Data;
+﻿using Boekingssysteem.Areas.Identity.Data;
+using Boekingssysteem.Data;
 using Boekingssysteem.Lib;
 using Boekingssysteem.Models;
 using Boekingssysteem.ViewModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -16,23 +18,32 @@ namespace Boekingssysteem.Controllers
     {
         private readonly BoekingssysteemContext _context;
 
-        public PersoonController(BoekingssysteemContext context)
+        private UserManager<CustomUser> _userManager;
+        private RoleManager<IdentityRole> _roleManager;
+
+        public PersoonController(BoekingssysteemContext context, UserManager<CustomUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _context = context;
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         public ViewResult Index()
         {
             return View();
         }
-
+        
         public IActionResult Toevoegen()
         {
             ViewBag.Visibility = "invisible";
             ViewBag.Functies = _context.Functies;
             ViewBag.Richtingen = _context.Richtingen;
 
-            return View();
+            var personen = _context.Personen.ToList();
+            PersoonCRUDViewModel plvm = new PersoonCRUDViewModel();
+            plvm.Personen = personen;
+
+            return View(plvm);
         }
 
         [HttpPost]
@@ -96,7 +107,11 @@ namespace Boekingssysteem.Controllers
             ViewBag.Functies = _context.Functies;
             ViewBag.Richtingen = _context.Richtingen;
 
-            return View();
+            var personen = _context.Personen.ToList();
+            PersoonCRUDViewModel plvm = new PersoonCRUDViewModel();
+            plvm.Personen = personen;
+
+            return View(plvm);
         }
 
         [HttpPost]
@@ -235,7 +250,12 @@ namespace Boekingssysteem.Controllers
         {
             ViewBag.Enabled = "disabled";
             ViewBag.Visibility = "invisible";
-            return View();
+
+            var personen = _context.Personen.ToList();
+            PersoonCRUDViewModel plvm = new PersoonCRUDViewModel();
+            plvm.Personen = personen;
+
+            return View(plvm);
         }
 
         public IActionResult VerwijderenData(string personeelnummer)

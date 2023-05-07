@@ -8,8 +8,9 @@ namespace Boekingssysteem.Areas.Identity.Data
     {
         [PersonalData]
         public string Naam { get; set; }
-
         [PersonalData]
-        public DateTime Geboortedatum { get; set; }
+        public string Personeelnummer { get; set; }
+        [PersonalData]
+        public string Voornaam { get; set; }
     }
 }

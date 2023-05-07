@@ -26,7 +26,11 @@ namespace Boekingssysteem.Controllers
 
         public IActionResult Toevoegen()
         {
-            return View();
+            var personen = _context.Personen.ToList();
+            AfwezigheidCRUDViewModel plvm = new AfwezigheidCRUDViewModel();
+            plvm.Personen = personen;
+
+            return View(plvm);
         }
 
         [HttpPost]
