@@ -3,10 +3,10 @@
 @{
     ViewData["Title"] = "Details";
 }
-<h1>@Model.Naam</h1>
+<h1>Admin</h1>
 
 <p> Naam: @Model.Naam</p>
 <p> Voornaam: @Model.Voornaam</p>
 <p> Personeelnummer: @Model.Personeelnummer</p>
 
-@Html.ActionLink("Terug", "Index", "Gebruiker")
+<a class="btn btn-primary" asp-action="Index">Terug</a>
