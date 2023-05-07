@@ -3,14 +3,14 @@
     ViewData["Title"] = "Index";
 }
 
-<h2> Gebruikers</h2>
 <p>
     <a asp-action="Create" class="btn btn-primary btn-lg mb-2">Admin toevoegen</a>
 </p>
 <p>
     <a asp-action="GrantPermissions" class="btn btn-primary btn-lg mb-2">Rol veranderen</a>
 </p>
-<table>
+<h2> Gebruikers</h2>
+<table>  
     <tbody>
         @foreach (var gebruiker in Model.Gebruikers)
         {            

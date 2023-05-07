@@ -24,7 +24,7 @@ namespace Boekingssysteem.Controllers
         }
 
         public ViewResult Index()
-        {
+        {            
             var personen = _context.Personen.ToList();
             var persoonrichtingen = _context.PersoonRichtingen.Include(x => x.Persoon).Include(z => z.Richting);
             var persoonfuncties = _context.PersoonFuncties.Include(x => x.Persoon).Include(z => z.Functie);

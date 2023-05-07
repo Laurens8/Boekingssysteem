@@ -5,7 +5,7 @@
 }
 
 <div class="row mb-5">
-    <a class="btn btn-primary btn-lg mb-2" asp-controller="Persoon" asp-action="Index">Terug</a>
+    <a class="btn btn-primary btn-lg mb-2" asp-controller="Afwezigheid" asp-action="Index">Terug</a>
     <hr />
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
         Personeel lijst
@@ -25,15 +25,18 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    @foreach (var item in Model.Personen)
+                    @if (Model.Personen != null)
                     {
-                        <table>
-                            <tr>@item.Personeelnummer    </tr>
-                            <tr>@item.Naam    </tr>
-                            <tr>@item.Voornaam    </tr>
-                            <div class="divider mb-5 mt-5"></div>
-                        </table>
-                    }
+                        @foreach (var item in Model.Personen)
+                        {
+                            <table>
+                                <tr>@item.Personeelnummer    </tr>
+                                <tr>@item.Naam    </tr>
+                                <tr>@item.Voornaam    </tr>
+                                <div class="divider mb-5 mt-5"></div>
+                            </table>
+                        }
+                    }                   
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

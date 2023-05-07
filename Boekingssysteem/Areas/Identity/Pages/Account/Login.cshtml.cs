@@ -84,7 +84,7 @@ namespace Boekingssysteem.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+                    return LocalRedirect("~/Home/AdminView");
                 }
                 if (result.RequiresTwoFactor)
                 {
