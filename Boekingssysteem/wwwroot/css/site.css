@@ -144,3 +144,9 @@ font-size:30px;
     color: yellow;
     font-size: medium;
 }
+
+.login {
+  /*  margin-left: auto;
+    margin-right: 0;*/
+    float: right;
+}

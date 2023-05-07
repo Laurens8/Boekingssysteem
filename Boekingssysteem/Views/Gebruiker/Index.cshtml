@@ -5,44 +5,31 @@
 
 <h2> Gebruikers</h2>
 <p>
-    <a asp-action="Create"> Create New</a>
+    <a asp-action="Create" class="btn btn-primary btn-lg mb-2">Admin toevoegen</a>
 </p>
 <p>
-    <a asp-action="GrantPermissions"> Change Roles</a>
+    <a asp-action="GrantPermissions" class="btn btn-primary btn-lg mb-2">Rol veranderen</a>
 </p>
 <table>
-    <thead>
-        <tr>
-            <th class="col-md-4">
-                @Html.DisplayNameFor(v => v.Gebruikers[0].Naam)
-            </th>
-            <th class="col-md-4">
-                @Html.DisplayNameFor(v => v.Gebruikers[0].Voornaam)
-            </th>
-            <th class="col-md-4">
-                @Html.DisplayNameFor(v => v.Gebruikers[0].Personeelnummer)
-            </th>
-        </tr>
-    </thead>
     <tbody>
         @foreach (var gebruiker in Model.Gebruikers)
-        {
+        {            
             <tr>
                 <td class="col-md-4">
-                    @Html.DisplayFor(modelitem => gebruiker.Naam)
+                        @Html.DisplayFor(modelitem => gebruiker.Naam)
                 </td>
                 <td class="col-md-4">
-                    @Html.DisplayFor(modelitem => gebruiker.Voornaam)
+                        @Html.DisplayFor(modelitem => gebruiker.Voornaam)
                 </td>
                 <td class="col-md-4">
-                    @Html.DisplayFor(modelitem => gebruiker.Personeelnummer)
+                        @Html.DisplayFor(modelitem => gebruiker.Personeelnummer)
                 </td>
                 <td class="col-md-4">
-                    <a asp-action="Details" asp-route-id="@gebruiker.Id">Details</a>
-                    <a asp-action="Delete" asp-route-id="@gebruiker.Id">Delete</a>
+                    <a asp-action="Details" class="btn btn-primary btn-lg mb-2" asp-route-id="@gebruiker.Id">Admin details</a>
+                    <a asp-action="Delete" class="btn btn-primary btn-lg mb-4" asp-route-id="@gebruiker.Id">Admin verwijderen</a>
                 </td>
-
-            </tr>
+            </tr>                   
         }
     </tbody>
 </table>
+<a class="btn btn-primary btn-lg mb-2" asp-controller="Home" asp-action="AdminView">Terug</a>

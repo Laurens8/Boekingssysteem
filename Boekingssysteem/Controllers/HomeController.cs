@@ -68,7 +68,7 @@ namespace Boekingssysteem.Controllers
 
             foreach (var persoon in lijstPersonen)
             {
-                if (persoon.Personeelnummer == personeelnummer && persoon.Admin == true)
+                if (persoon.Personeelnummer == personeelnummer)
                 {
                     gevonden = true;
                 }

@@ -65,9 +65,7 @@ namespace Boekingssysteem
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
-
             CreateRoles(serviceProvider).Wait();
-
         }
 
         private async Task CreateRoles(IServiceProvider serviceProvider)
