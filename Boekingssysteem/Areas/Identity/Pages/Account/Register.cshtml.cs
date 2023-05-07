@@ -47,6 +47,18 @@ namespace Boekingssysteem.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
+            [StringLength(100, ErrorMessage = "Naam moet ingevuld zijn.")]
+            [Display(Name = "Naam")]
+            public string Naam { get; set; }
+            [Required]
+            [StringLength(100, ErrorMessage = "Voornaam moet ingevuld zijn.")]
+            [Display(Name = "Voornaam")]
+            public string Voornaam { get; set; }
+            [Required]
+            [StringLength(8, ErrorMessage = "Personeelnummer moet ingevuld zijn.")]
+            [Display(Name = "Personeelnummer")]
+            public string Personeelnummer { get; set; }            
+            [Required]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
@@ -75,7 +87,7 @@ namespace Boekingssysteem.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new CustomUser { UserName = Input.Email, Email = Input.Email };
+                var user = new CustomUser { UserName = Input.Email, Email = Input.Email, Naam = Input.Naam, Voornaam = Input.Voornaam, Personeelnummer = Input.Personeelnummer };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

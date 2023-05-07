@@ -3,6 +3,7 @@ using Boekingssysteem.Data;
 using Boekingssysteem.Lib;
 using Boekingssysteem.Models;
 using Boekingssysteem.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Session;
@@ -35,7 +36,13 @@ namespace Boekingssysteem.Controllers
             return View();
         }
 
+        //[Authorize(Roles = "admin")]
         public IActionResult AdminView()
+        {
+            return View();
+        }
+
+        public IActionResult GebruikerView()
         {
             return View();
         }
@@ -70,7 +77,7 @@ namespace Boekingssysteem.Controllers
             {
                 if (gevonden)
                 {
-                    return RedirectToAction("AdminView");
+                    return RedirectToAction("GebruikerView");
                 }
                 else
                 {
