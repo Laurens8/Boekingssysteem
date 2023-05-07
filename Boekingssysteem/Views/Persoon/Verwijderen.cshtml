@@ -24,14 +24,17 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    @foreach (var item in Model.Personen)
+                    @if (Model.Personen != null)
                     {
-                        <table>
-                            <tr>@item.Personeelnummer    </tr>
-                            <tr>@item.Naam    </tr>
-                            <tr>@item.Voornaam    </tr>
-                            <div class="divider mb-5 mt-5"></div>
-                        </table>
+                        @foreach (var item in Model.Personen)
+                        {
+                            <table>
+                                <tr>@item.Personeelnummer    </tr>
+                                <tr>@item.Naam    </tr>
+                                <tr>@item.Voornaam    </tr>
+                                <div class="divider mb-5 mt-5"></div>
+                            </table>
+                        }
                     }
                 </div>
                 <div class="modal-footer">

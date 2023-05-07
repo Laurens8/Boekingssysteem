@@ -1,4 +1,5 @@
 ﻿
+using Boekingssysteem.Areas.Identity.Data;
 using Boekingssysteem.Data;
 using Boekingssysteem.Lib;
 using Boekingssysteem.Models;
@@ -20,14 +21,19 @@ namespace Boekingssysteem.Controllers
     public class HomeController : Controller
     {
         private readonly BoekingssysteemContext _context;
-        
-        public HomeController(BoekingssysteemContext context)
+        private readonly SignInManager<CustomUser> _signInManager;
+        private readonly ILogger<HomeController> _logger;
+
+        public HomeController(BoekingssysteemContext context, SignInManager<CustomUser> signInManager, ILogger<HomeController> logger)
         {
             _context = context;
+            _signInManager = signInManager;
+            _logger = logger;
         }
 
         public IActionResult Index()
-        {
+        {         
+            var login = _signInManager.IsSignedIn(User);
             return View();
         }
 
@@ -39,7 +45,8 @@ namespace Boekingssysteem.Controllers
         //[Authorize(Roles = "admin")]
         public IActionResult AdminView()
         {
-            return View();
+            var login = _signInManager.IsSignedIn(User);
+            return View(login);
         }
 
         public IActionResult GebruikerView()

@@ -91,8 +91,11 @@ namespace Boekingssysteem.Controllers
 
         public IActionResult Aanpassen()
         {
+            var personen = _context.Personen.ToList();
+            AfwezigheidCRUDViewModel plvm = new AfwezigheidCRUDViewModel();
+            plvm.Personen = personen;
             ViewBag.Afwezigheden = "";
-            return View();
+            return View(plvm);            
         }
 
         [HttpPost]

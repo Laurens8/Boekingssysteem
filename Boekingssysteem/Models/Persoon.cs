@@ -17,6 +17,9 @@ namespace Boekingssysteem.Models
         [Required(ErrorMessage = "Admin moet ingevuld zijn!")]
         public bool Admin { get; set; }
         public bool? Aanwezig { get; set; }
+        //[Required(ErrorMessage = "Wachtwoord moet ingevuld zijn!")]
+        //[MinLength(8)]
+        //public string Wachtwoord { get; set; }
 
         //Navigatieproperties
         public virtual ICollection<Afwezigheid> Afwezigheden { get; set; }

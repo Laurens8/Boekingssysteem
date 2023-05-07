@@ -33,7 +33,14 @@ namespace Boekingssysteem
             //Voor identity
             services.AddDefaultIdentity<CustomUser>().AddRoles<IdentityRole>().AddEntityFrameworkStores<BoekingssysteemContext>();
             services.AddRazorPages();
-            
+            services
+         .AddAuthentication()
+         .AddCookie(options =>
+         {
+             options.LoginPath = "/login";
+             options.LogoutPath = "/logout";
+         });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,7 +72,7 @@ namespace Boekingssysteem
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
-            CreateRoles(serviceProvider).Wait();
+            CreateRoles(serviceProvider).Wait();            
         }
 
         private async Task CreateRoles(IServiceProvider serviceProvider)

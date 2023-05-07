@@ -111,7 +111,7 @@ namespace Boekingssysteem.Areas.Identity.Pages.Account
                     else
                     {
                         await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
+                        return LocalRedirect("~/Home/AdminView");
                     }
                 }
                 foreach (var error in result.Errors)
