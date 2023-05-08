@@ -37,6 +37,11 @@ namespace Boekingssysteem.Controllers
             return View();
         }
 
+        public IActionResult WachtwoordVergetenView()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();
@@ -66,7 +71,8 @@ namespace Boekingssysteem.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(string personeelnummer)
+        [ValidateAntiForgeryToken]
+        public IActionResult Index(string personeelnummer, string wachtwoord)
         {
             ViewBag.Visibility = "invisible";
 
@@ -75,7 +81,7 @@ namespace Boekingssysteem.Controllers
 
             foreach (var persoon in lijstPersonen)
             {
-                if (persoon.Personeelnummer == personeelnummer)
+                if (persoon.Personeelnummer == personeelnummer && persoon.Wachtwoord == wachtwoord)
                 {
                     gevonden = true;
                 }
@@ -100,6 +106,32 @@ namespace Boekingssysteem.Controllers
                 Foutenlogboek.FoutLoggen(e);
             }
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AanpassenViaId(string personeelnummer, string wachtwoord)
+        {
+            var persoon = _context.Personen.FirstOrDefault(p => p.Personeelnummer == personeelnummer);
+
+            if (persoon != null && wachtwoord != string.Empty)
+            {
+                try
+                {
+                    //int wachtwoordhash = wachtwoord.GetHashCode();
+                    persoon.Wachtwoord = wachtwoord;
+               
+                    _context.Update(persoon);
+                    await _context.SaveChangesAsync();
+                    return View("Index");
+                }
+                catch (Exception e)
+                {
+                    Foutenlogboek.FoutLoggen(e);
+                }
+            }
+
+            return View("Index");
         }
     }
 }

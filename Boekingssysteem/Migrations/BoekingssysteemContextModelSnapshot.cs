@@ -155,6 +155,10 @@ namespace Boekingssysteem.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Wachtwoord")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Personeelnummer");
 
                     b.ToTable("Persoon");

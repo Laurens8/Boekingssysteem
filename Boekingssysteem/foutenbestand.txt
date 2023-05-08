@@ -433,3 +433,33 @@ The entity type 'PersoonCRUDViewModel' was not found. Ensure that the entity typ
    at Boekingssysteem.Controllers.StatusController.Aanpassen(String personeelnummer) in C:\Users\laure\OneDrive\Desktop\Boekingssysteem\Boekingssysteem\Boekingssysteem\Controllers\StatusController.cs:line 148
 --------------------------------------------------------------------------------
 
+02:46:32 
+InvalidOperationException
+The entity type 'PersoonCRUDViewModel' was not found. Ensure that the entity type has been added to the model.
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.GetOrCreateEntry(Object entity)
+   at Microsoft.EntityFrameworkCore.DbContext.EntryWithoutDetectChanges[TEntity](TEntity entity)
+   at Microsoft.EntityFrameworkCore.DbContext.SetEntityState[TEntity](TEntity entity, EntityState entityState)
+   at Microsoft.EntityFrameworkCore.DbContext.Update[TEntity](TEntity entity)
+   at Boekingssysteem.Controllers.HomeController.AanpassenViaId(String personeelnummer, String wachtwoord) in C:\Users\laure\OneDrive\Desktop\Boekingssysteem\Boekingssysteem\Boekingssysteem\Controllers\HomeController.cs:line 128
+--------------------------------------------------------------------------------
+
+02:47:08 
+InvalidOperationException
+The entity type 'PersoonCRUDViewModel' was not found. Ensure that the entity type has been added to the model.
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.GetOrCreateEntry(Object entity)
+   at Microsoft.EntityFrameworkCore.DbContext.EntryWithoutDetectChanges[TEntity](TEntity entity)
+   at Microsoft.EntityFrameworkCore.DbContext.SetEntityState[TEntity](TEntity entity, EntityState entityState)
+   at Microsoft.EntityFrameworkCore.DbContext.Update[TEntity](TEntity entity)
+   at Boekingssysteem.Controllers.HomeController.AanpassenViaId(String personeelnummer, String wachtwoord) in C:\Users\laure\OneDrive\Desktop\Boekingssysteem\Boekingssysteem\Boekingssysteem\Controllers\HomeController.cs:line 128
+--------------------------------------------------------------------------------
+
+02:47:46 
+InvalidOperationException
+The entity type 'PersoonCRUDViewModel' was not found. Ensure that the entity type has been added to the model.
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.GetOrCreateEntry(Object entity)
+   at Microsoft.EntityFrameworkCore.DbContext.EntryWithoutDetectChanges[TEntity](TEntity entity)
+   at Microsoft.EntityFrameworkCore.DbContext.SetEntityState[TEntity](TEntity entity, EntityState entityState)
+   at Microsoft.EntityFrameworkCore.DbContext.Update[TEntity](TEntity entity)
+   at Boekingssysteem.Controllers.HomeController.AanpassenViaId(String personeelnummer, String wachtwoord) in C:\Users\laure\OneDrive\Desktop\Boekingssysteem\Boekingssysteem\Boekingssysteem\Controllers\HomeController.cs:line 128
+--------------------------------------------------------------------------------
+

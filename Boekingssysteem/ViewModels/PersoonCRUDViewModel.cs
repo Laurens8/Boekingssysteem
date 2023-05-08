@@ -18,6 +18,9 @@ namespace Boekingssysteem.ViewModels
         public string Voornaam { get; set; }
         public bool Admin { get; set; }
         public bool? Aanwezig { get; set; }
+        [Required(ErrorMessage = "Wachtwoord moet ingevuld zijn!")]
+        [MinLength(8)]
+        public string Wachtwoord { get; set; }
 
         public ICollection<Persoon> Personen { get; set; }
         public List<Persoon> lijstPersonen { get; set; }
