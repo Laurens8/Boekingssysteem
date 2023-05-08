@@ -150,3 +150,12 @@ font-size:30px;
     margin-right: 0;*/
     float: right;
 }
+
+.bg {
+    background-image: url("/images/Moonwhale.jpg");
+    height: 100%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}

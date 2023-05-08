@@ -1219,3 +1219,4 @@ C:\Users\laure\OneDrive\Desktop\Boekingssysteem\Boekingssysteem\Boekingssysteem\
 C:\Users\laure\OneDrive\Desktop\Boekingssysteem\Boekingssysteem\Boekingssysteem\obj\Debug\netcoreapp3.1\Razor\Views\Gebruiker\Details.cshtml.g.cs
 C:\Users\laure\OneDrive\Desktop\Boekingssysteem\Boekingssysteem\Boekingssysteem\obj\Debug\netcoreapp3.1\Razor\Views\Gebruiker\GrantPermissions.cshtml.g.cs
 C:\Users\laure\OneDrive\Desktop\Boekingssysteem\Boekingssysteem\Boekingssysteem\obj\Debug\netcoreapp3.1\Razor\Views\Gebruiker\Index.cshtml.g.cs
+C:\Users\laure\OneDrive\Desktop\Boekingssysteem\Boekingssysteem\Boekingssysteem\obj\Debug\netcoreapp3.1\Razor\Views\Home\WachtwoordVergetenView.cshtml.g.cs
