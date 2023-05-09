@@ -62,6 +62,9 @@ namespace Boekingssysteem.Migrations
                     b.Property<string>("Personeelnummer")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PersoonPersoneelnummer")
+                        .HasColumnType("nvarchar(8)");
+
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
@@ -90,6 +93,8 @@ namespace Boekingssysteem.Migrations
                         .IsUnique()
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.HasIndex("PersoonPersoneelnummer");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -355,6 +360,13 @@ namespace Boekingssysteem.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("Boekingssysteem.Areas.Identity.Data.CustomUser", b =>
+                {
+                    b.HasOne("Boekingssysteem.Models.Persoon", "Persoon")
+                        .WithMany()
+                        .HasForeignKey("PersoonPersoneelnummer");
                 });
 
             modelBuilder.Entity("Boekingssysteem.Models.Afwezigheid", b =>
