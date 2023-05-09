@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "hkSNj8sHqsO7ClZxrpJIbsxs5DE5ZAbSYvcd/GQ87Z8WLw1IunbyutfYKDmQ0UA2+IGfkPdRB/PKeYCrEEDWXg==",
+  "dgSpecHash": "Kld5nDHpXOSTN1FMZFECcqvaDEzdvRm5I62V8eSFIChaJbshias8vDi+af8VChWcfnTwtf/Z1ooZEaMQGhW8+w==",
   "success": true,
   "projectFilePath": "C:\\Users\\laure\\OneDrive\\Desktop\\Boekingssysteem\\Boekingssysteem\\Boekingssysteem\\Boekingssysteem.csproj",
   "expectedPackageFiles": [
@@ -171,7 +171,8 @@
     "C:\\Users\\laure\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\laure\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\laure\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\laure\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512"
+    "C:\\Users\\laure\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512",
+    "C:\\Users\\laure\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.32\\microsoft.netcore.app.host.win-x64.3.1.32.nupkg.sha512"
   ],
   "logs": []
 }

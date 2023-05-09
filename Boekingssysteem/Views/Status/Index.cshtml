@@ -1,11 +1,23 @@
 ﻿@model Boekingssysteem.ViewModels.PersoonListViewModel
+@using Microsoft.AspNetCore.Identity
+@using Boekingssysteem.Areas.Identity.Data
 
+@inject SignInManager<CustomUser> SignInManager
+@inject UserManager<CustomUser> UserManager
 @{
     ViewData["Title"] = "Registratie aanwezigheid";
     <meta http-equiv="refresh" content="10">
 }
 
-<a class="btn btn-primary btn-lg mb-2" asp-controller="Home" asp-action="AdminView">Terug</a>
+@if (SignInManager.IsSignedIn(User) == true)
+{
+    <a class="btn btn-primary btn-lg mb-2" asp-controller="Home" asp-action="AdminView">Terug</a>
+}
+else
+{
+    <a class="btn btn-primary btn-lg mb-2" asp-controller="Home" asp-action="GebruikerView">Terug</a>
+}   
+
 <hr />
 <div class="StatusWindow">
     <div class="container">

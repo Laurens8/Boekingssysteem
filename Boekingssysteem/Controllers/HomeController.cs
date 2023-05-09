@@ -33,7 +33,7 @@ namespace Boekingssysteem.Controllers
 
         public IActionResult Index()
         {         
-            var login = _signInManager.IsSignedIn(User);
+            
             return View();
         }
 
@@ -50,13 +50,12 @@ namespace Boekingssysteem.Controllers
         //[Authorize(Roles = "admin")]
         public IActionResult AdminView()
         {
-            var login = _signInManager.IsSignedIn(User);
-            return View(login);
+           return View();                   
         }
-
+        
         public IActionResult GebruikerView()
-        {
-            return View();
+        {                  
+                return View();            
         }
 
         public IActionResult Status()
