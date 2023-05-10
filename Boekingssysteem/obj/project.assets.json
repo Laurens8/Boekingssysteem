@@ -9203,24 +9203,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\laure\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\chris\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\laure\\OneDrive\\Desktop\\Boekingssysteem\\Boekingssysteem\\Boekingssysteem\\Boekingssysteem.csproj",
+      "projectUniqueName": "C:\\Thomas More 2de jaar\\Projecten van het werkveld\\Boekingssysteem\\Boekingssysteem\\Boekingssysteem.csproj",
       "projectName": "Boekingssysteem",
-      "projectPath": "C:\\Users\\laure\\OneDrive\\Desktop\\Boekingssysteem\\Boekingssysteem\\Boekingssysteem\\Boekingssysteem.csproj",
-      "packagesPath": "C:\\Users\\laure\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\laure\\OneDrive\\Desktop\\Boekingssysteem\\Boekingssysteem\\Boekingssysteem\\obj\\",
+      "projectPath": "C:\\Thomas More 2de jaar\\Projecten van het werkveld\\Boekingssysteem\\Boekingssysteem\\Boekingssysteem.csproj",
+      "packagesPath": "C:\\Users\\chris\\.nuget\\packages\\",
+      "outputPath": "C:\\Thomas More 2de jaar\\Projecten van het werkveld\\Boekingssysteem\\Boekingssysteem\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\laure\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\chris\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -9228,7 +9223,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -9293,12 +9287,6 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.NETCore.App.Host.win-x64",
-            "version": "[3.1.32, 3.1.32]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -9307,7 +9295,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.103\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }
