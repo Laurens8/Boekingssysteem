@@ -11,5 +11,6 @@ namespace Boekingssysteem.ViewModels
         public string Voornaam { get; set; }
         public string Personeelnummer { get; set; }
         public string Email { get; set; }
+        public string Rol { get; set; }
     }
 }
