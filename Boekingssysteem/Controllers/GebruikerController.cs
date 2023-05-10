@@ -6,19 +6,24 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Threading.Tasks;
+using Boekingssysteem.Models;
+using Boekingssysteem.Data;
+using System;
 
 namespace Boekingssysteem.Controllers
 {
     //[Authorize(Roles = "admin")]
     public class GebruikerController : Controller
     {       
+            private readonly BoekingssysteemContext _context;
             private UserManager<CustomUser> _userManager;
             private RoleManager<IdentityRole> _roleManager;
 
-            public GebruikerController(UserManager<CustomUser> userManager, RoleManager<IdentityRole> roleManager)
+            public GebruikerController(UserManager<CustomUser> userManager, RoleManager<IdentityRole> roleManager, BoekingssysteemContext context)
             {
                 _userManager = userManager;
                 _roleManager = roleManager;
+                _context = context;
             }
 
             public IActionResult Index()
@@ -75,7 +80,18 @@ namespace Boekingssysteem.Controllers
                         Email = viewModel.Email
                     };
 
-                    IdentityResult result = await _userManager.CreateAsync(gebruiker, viewModel.Password);
+                _context.Add(new Persoon()
+                {
+                    Naam = viewModel.Naam,
+                    Voornaam = viewModel.Voornaam,
+                    Personeelnummer = viewModel.Personeelnummer,
+                    Wachtwoord = viewModel.Password,
+                    Admin = false
+                });
+                await _context.SaveChangesAsync();
+
+
+                IdentityResult result = await _userManager.CreateAsync(gebruiker, viewModel.Password);
                     if (result.Succeeded)
                         return RedirectToAction("Index");
                     else
@@ -90,13 +106,22 @@ namespace Boekingssysteem.Controllers
 
 
             public async Task<IActionResult> Delete(string id)
+            {            
+
+            CustomUser user = await _userManager.FindByIdAsync(id);
+
+            if (user != null) 
             {
-                CustomUser user = await _userManager.FindByIdAsync(id);
-                if (user != null)
+                Persoon persoon = await _context.Personen.FindAsync(user.Personeelnummer);
+                _context.Personen.Remove(persoon);
+                await _context.SaveChangesAsync();
+            }
+            
+            if (user != null)
                 {
                     IdentityResult result = await _userManager.DeleteAsync(user);
-                    if (result.Succeeded)
-                        return RedirectToAction("Index");
+                    if (result.Succeeded)                    
+                return RedirectToAction("Index");
                     else
                         foreach (IdentityError error in result.Errors)
                             ModelState.AddModelError("", error.Description);
