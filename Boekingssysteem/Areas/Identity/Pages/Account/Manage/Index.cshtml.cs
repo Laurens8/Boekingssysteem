@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Boekingssysteem.Areas.Identity.Data;
+using Boekingssysteem.Data;
+using Boekingssysteem.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -14,16 +16,21 @@ namespace Boekingssysteem.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<CustomUser> _userManager;
         private readonly SignInManager<CustomUser> _signInManager;
+        private readonly BoekingssysteemContext _context;
 
         public IndexModel(
             UserManager<CustomUser> userManager,
-            SignInManager<CustomUser> signInManager)
+            SignInManager<CustomUser> signInManager,
+            BoekingssysteemContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _context = context;
         }
 
         public string Username { get; set; }
+        public string Naam { get; set; }
+        public string Voornaam { get; set; }
 
         [TempData]
         public string StatusMessage { get; set; }
@@ -33,21 +40,26 @@ namespace Boekingssysteem.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
-            [Phone]
-            [Display(Name = "Phone number")]
-            public string PhoneNumber { get; set; }
+            [Display(Name = "Naam")]
+            public string Naam { get; set; }
+            [Display(Name = "Voornaam")]
+            public string Voornaam { get; set; }
         }
 
         private async Task LoadAsync(CustomUser user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            var naam = await Task.FromResult(user.Naam);
+            var voornaam = await Task.FromResult(user.Voornaam);
 
             Username = userName;
+            Naam = naam;
+            Voornaam = voornaam;
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                Naam = naam,
+                Voornaam = voornaam
             };
         }
 
@@ -77,19 +89,17 @@ namespace Boekingssysteem.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-            if (Input.PhoneNumber != phoneNumber)
-            {
-                var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
-                if (!setPhoneResult.Succeeded)
-                {
-                    StatusMessage = "Unexpected error when trying to set phone number.";
-                    return RedirectToPage();
-                }
-            }
+            user.Naam = Input.Naam;
+            user.Voornaam = Input.Voornaam;
 
+            Persoon persoon = _context.Personen.Find(user.Personeelnummer);
+            persoon.Naam = Input.Naam;
+            persoon.Voornaam = Input.Voornaam;
+            await _context.SaveChangesAsync();
+
+            await _userManager.UpdateAsync(user);
             await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your profile has been updated";
+            StatusMessage = "Uw profiel is aangepast";
             return RedirectToPage();
         }
     }

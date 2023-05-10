@@ -10,23 +10,29 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using Boekingssysteem.Areas.Identity.Data;
+using Boekingssysteem.Models;
+using Boekingssysteem.Data;
 
 namespace Boekingssysteem.Areas.Identity.Pages.Account.Manage
 {
     public partial class EmailModel : PageModel
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<CustomUser> _userManager;
+        private readonly SignInManager<CustomUser> _signInManager;
         private readonly IEmailSender _emailSender;
+        private readonly BoekingssysteemContext _context;
 
         public EmailModel(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager,
-            IEmailSender emailSender)
+            UserManager<CustomUser> userManager,
+            SignInManager<CustomUser> signInManager,
+            IEmailSender emailSender,
+            BoekingssysteemContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
+            _context = context;
         }
 
         public string Username { get; set; }
@@ -49,7 +55,7 @@ namespace Boekingssysteem.Areas.Identity.Pages.Account.Manage
             public string NewEmail { get; set; }
         }
 
-        private async Task LoadAsync(IdentityUser user)
+        private async Task LoadAsync(CustomUser user)
         {
             var email = await _userManager.GetEmailAsync(user);
             Email = email;
@@ -91,19 +97,28 @@ namespace Boekingssysteem.Areas.Identity.Pages.Account.Manage
             var email = await _userManager.GetEmailAsync(user);
             if (Input.NewEmail != email)
             {
-                var userId = await _userManager.GetUserIdAsync(user);
-                var code = await _userManager.GenerateChangeEmailTokenAsync(user, Input.NewEmail);
-                var callbackUrl = Url.Page(
-                    "/Account/ConfirmEmailChange",
-                    pageHandler: null,
-                    values: new { userId = userId, email = Input.NewEmail, code = code },
-                    protocol: Request.Scheme);
-                await _emailSender.SendEmailAsync(
-                    Input.NewEmail,
-                    "Confirm your email",
-                    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                //var userId = await _userManager.GetUserIdAsync(user);
+                //var code = await _userManager.GenerateChangeEmailTokenAsync(user, Input.NewEmail);
+                //var callbackUrl = Url.Page(
+                //    "/Account/ConfirmEmailChange",
+                //    pageHandler: null,
+                //    values: new { userId = userId, email = Input.NewEmail, code = code },
+                //    protocol: Request.Scheme);
+                //await _emailSender.SendEmailAsync(
+                //    Input.NewEmail,
+                //    "Confirm your email",
+                //    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-                StatusMessage = "Confirmation link to change email sent. Please check your email.";
+                user.UserName = Input.NewEmail;
+                user.Email = Input.NewEmail;
+                await _userManager.UpdateAsync(user);
+
+                // Moesten we email aan Persoon toevoegen staat dit al klaar
+                //Persoon persoon = _context.Personen.Find(user.Personeelnummer);
+                //persoon.Email = email;
+                //await _context.SaveChangesAsync();
+
+                StatusMessage = "Uw email is aangepast";
                 return RedirectToPage();
             }
 
@@ -128,16 +143,19 @@ namespace Boekingssysteem.Areas.Identity.Pages.Account.Manage
             var userId = await _userManager.GetUserIdAsync(user);
             var email = await _userManager.GetEmailAsync(user);
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            
             code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-            var callbackUrl = Url.Page(
-                "/Account/ConfirmEmail",
-                pageHandler: null,
-                values: new { area = "Identity", userId = userId, code = code },
-                protocol: Request.Scheme);
-            await _emailSender.SendEmailAsync(
-                email,
-                "Confirm your email",
-                $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+            var result = await _userManager.ConfirmEmailAsync(user, code);
+            //var callbackUrl = Url.Page(
+            //    "/Account/ConfirmEmail",
+            //    pageHandler: null,
+            //    values: new { area = "Identity", userId = userId, code = code },
+            //    protocol: Request.Scheme);
+            //await _emailSender.SendEmailAsync(
+            //    email,
+            //    "Confirm your email",
+            //    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
             StatusMessage = "Verification email sent. Please check your email.";
             return RedirectToPage();
