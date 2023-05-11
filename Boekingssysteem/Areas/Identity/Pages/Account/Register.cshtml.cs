@@ -54,15 +54,15 @@ namespace Boekingssysteem.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
-            [StringLength(100, ErrorMessage = "Naam moet ingevuld zijn.")]
+            [StringLength(100, ErrorMessage = "Naam moet ingevuld zijn")]
             [Display(Name = "Naam")]
             public string Naam { get; set; }
             [Required]
-            [StringLength(100, ErrorMessage = "Voornaam moet ingevuld zijn.")]
+            [StringLength(100, ErrorMessage = "Voornaam moet ingevuld zijn")]
             [Display(Name = "Voornaam")]
             public string Voornaam { get; set; }
             [Required]
-            [StringLength(8, ErrorMessage = "Personeelnummer moet ingevuld zijn.")]
+            [StringLength(8, ErrorMessage = "Personeelnummer moet ingevuld zijn")]
             [Display(Name = "Personeelnummer")]
             public string Personeelnummer { get; set; }            
             [Required]
@@ -93,48 +93,57 @@ namespace Boekingssysteem.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
-            {                          
-                var user = new CustomUser { UserName = Input.Email, Email = Input.Email, Naam = Input.Naam, Voornaam = Input.Voornaam, Personeelnummer = Input.Personeelnummer };
-                var result = await _userManager.CreateAsync(user, Input.Password);
-                if (result.Succeeded)
+            {
+                Persoon persoon = _context.Personen.Find(Input.Personeelnummer);
+
+                if (persoon == null)
                 {
-                    _logger.LogInformation("User created a new account with password.");
-
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                    var callbackUrl = Url.Page(
-                        "/Account/ConfirmEmail",
-                        pageHandler: null,
-                        values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
-                        protocol: Request.Scheme);
-
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-
-                    _context.Add(new Persoon()
+                    var user = new CustomUser { UserName = Input.Email, Email = Input.Email, Naam = Input.Naam, Voornaam = Input.Voornaam, Personeelnummer = Input.Personeelnummer };
+                    var result = await _userManager.CreateAsync(user, Input.Password);
+                    if (result.Succeeded)
                     {
-                        Naam = Input.Naam,
-                        Voornaam = Input.Voornaam,
-                        Personeelnummer = Input.Personeelnummer,
-                        Admin = false,
-                        Wachtwoord = Input.Password
-                    });
-                    await _context.SaveChangesAsync();
+                        _logger.LogInformation("User created a new account with password.");
 
-                    if (_userManager.Options.SignIn.RequireConfirmedAccount)
-                    {
-                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
+                        var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                        code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                        var callbackUrl = Url.Page(
+                            "/Account/ConfirmEmail",
+                            pageHandler: null,
+                            values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
+                            protocol: Request.Scheme);
+
+                        await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                            $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+                        _context.Add(new Persoon()
+                        {
+                            Naam = Input.Naam,
+                            Voornaam = Input.Voornaam,
+                            Personeelnummer = Input.Personeelnummer,
+                            Admin = false,
+                            Wachtwoord = Input.Password
+                        });
+                        await _context.SaveChangesAsync();
+
+                        if (_userManager.Options.SignIn.RequireConfirmedAccount)
+                        {
+                            return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
+                        }
+                        else
+                        {
+                            await _signInManager.SignInAsync(user, isPersistent: false);
+                            return LocalRedirect("~/Home/AdminView");
+                        }
                     }
-                    else
+                    foreach (var error in result.Errors)
                     {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect("~/Home/AdminView");
+                        ModelState.AddModelError(string.Empty, error.Description);
                     }
                 }
-                foreach (var error in result.Errors)
+                else
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
+                    ModelState.AddModelError(string.Empty, "Deze personeelsnummer is al ingebruik!");
+                }                
             }
 
             // If we got this far, something failed, redisplay form

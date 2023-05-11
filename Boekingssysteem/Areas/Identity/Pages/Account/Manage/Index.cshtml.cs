@@ -28,6 +28,7 @@ namespace Boekingssysteem.Areas.Identity.Pages.Account.Manage
             _context = context;
         }
 
+        [Display(Name = "Email")]
         public string Username { get; set; }
         public string Naam { get; set; }
         public string Voornaam { get; set; }

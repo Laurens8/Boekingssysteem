@@ -9309,19 +9309,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\laure\\.nuget\\packages\\": {}
+    "C:\\Users\\chris\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\laure\\OneDrive\\Desktop\\Boekingssysteem\\Boekingssysteem\\Boekingssysteem\\Boekingssysteem.csproj",
+      "projectUniqueName": "C:\\Thomas More 2de jaar\\Projecten van het werkveld\\Boekingssysteem\\Boekingssysteem\\Boekingssysteem.csproj",
       "projectName": "Boekingssysteem",
-      "projectPath": "C:\\Users\\laure\\OneDrive\\Desktop\\Boekingssysteem\\Boekingssysteem\\Boekingssysteem\\Boekingssysteem.csproj",
-      "packagesPath": "C:\\Users\\laure\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\laure\\OneDrive\\Desktop\\Boekingssysteem\\Boekingssysteem\\Boekingssysteem\\obj\\",
+      "projectPath": "C:\\Thomas More 2de jaar\\Projecten van het werkveld\\Boekingssysteem\\Boekingssysteem\\Boekingssysteem.csproj",
+      "packagesPath": "C:\\Users\\chris\\.nuget\\packages\\",
+      "outputPath": "C:\\Thomas More 2de jaar\\Projecten van het werkveld\\Boekingssysteem\\Boekingssysteem\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\laure\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\chris\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
