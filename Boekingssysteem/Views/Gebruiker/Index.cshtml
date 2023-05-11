@@ -10,34 +10,43 @@
     <a asp-action="GrantPermissions" class="btn btn-primary btn-lg mb-2">Rol veranderen</a>
 </p>
 <h2> Gebruikers</h2>
-<table>  
+<table>
     <tbody>
         @foreach (var gebruiker in Model.Gebruikers)
-        {            
+        {
             <tr>
-                <td class="col-md-4">
-                        @Html.DisplayFor(modelitem => gebruiker.Naam)
+                <td class="col-md-2">
+                    @Html.DisplayFor(modelitem => gebruiker.Naam)
                 </td>
-                <td class="col-md-4">
-                        @Html.DisplayFor(modelitem => gebruiker.Voornaam)
+                <td class="col-md-2">
+                    @Html.DisplayFor(modelitem => gebruiker.Voornaam)
                 </td>
-                <td class="col-md-4">
-                        @Html.DisplayFor(modelitem => gebruiker.Personeelnummer)
+                <td class="col-md-2">
+                    @Html.DisplayFor(modelitem => gebruiker.Personeelnummer)
                 </td>
-                <td class="col-md-4">
-                    @Html.DisplayFor(modelitem => gebruiker.UserName)
-                </td>
-                @*<td class="col-md-4">
-
-                Hier zou ik graag de rol van de gebruiker willen weergeven.
-
-                    @Html.DisplayFor(modelitem => gebruiker.)
-                </td>*@
-                <td class="col-md-4">
+                @foreach (var rol in Model.Roles)
+                {
+                    @if (rol.Personeelnummer == gebruiker.Personeelnummer)
+                    {
+                        @if (rol.Admin == true)
+                        {
+                            <td class="col-md-2">
+                                <p>Admin</p>
+                            </td>
+                        }
+                        else
+                        {
+                            <td class="col-md-2">
+                                <p>User</p>
+                            </td>
+                        }
+                    }
+                }
+                <td class="col-md-2">
                     <a asp-action="Details" class="btn btn-primary btn-lg mb-2" asp-route-id="@gebruiker.Id">Admin details</a>
                     <a asp-action="Delete" class="btn btn-primary btn-lg mb-4" asp-route-id="@gebruiker.Id">Admin verwijderen</a>
                 </td>
-            </tr>                   
+            </tr>
         }
     </tbody>
 </table>

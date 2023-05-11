@@ -1598,3 +1598,7 @@ C:\Thomas More 2de jaar\Projecten van het werkveld\Boekingssysteem\Boekingssyste
 C:\Thomas More 2de jaar\Projecten van het werkveld\Boekingssysteem\Boekingssysteem\obj\Debug\netcoreapp3.1\Razor\Views\Richting\Toevoegen.cshtml.g.cs
 C:\Thomas More 2de jaar\Projecten van het werkveld\Boekingssysteem\Boekingssysteem\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LoginPartial.cshtml.g.cs
 C:\Thomas More 2de jaar\Projecten van het werkveld\Boekingssysteem\Boekingssysteem\obj\Debug\netcoreapp3.1\Razor\Views\Status\StatusIndividueel.cshtml.g.cs
+C:\Users\laure\OneDrive\Desktop\Boekingssysteem\Boekingssysteem\Boekingssysteem\bin\Debug\netcoreapp3.1\EntityFramework.SqlServer.dll
+C:\Users\laure\OneDrive\Desktop\Boekingssysteem\Boekingssysteem\Boekingssysteem\bin\Debug\netcoreapp3.1\EntityFramework.dll
+C:\Users\laure\OneDrive\Desktop\Boekingssysteem\Boekingssysteem\Boekingssysteem\bin\Debug\netcoreapp3.1\Microsoft.AspNet.Identity.Core.dll
+C:\Users\laure\OneDrive\Desktop\Boekingssysteem\Boekingssysteem\Boekingssysteem\bin\Debug\netcoreapp3.1\Microsoft.AspNet.Identity.EntityFramework.dll

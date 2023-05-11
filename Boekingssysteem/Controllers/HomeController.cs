@@ -4,6 +4,7 @@ using Boekingssysteem.Data;
 using Boekingssysteem.Lib;
 using Boekingssysteem.Models;
 using Boekingssysteem.ViewModels;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -28,12 +29,12 @@ namespace Boekingssysteem.Controllers
         {
             _context = context;
             _signInManager = signInManager;
-            _logger = logger;
+            _logger = logger;                         
         }
 
+        [Authorize]
         public IActionResult Index()
-        {         
-            
+        {
             return View();
         }
 
@@ -52,7 +53,7 @@ namespace Boekingssysteem.Controllers
         {
            return View();                   
         }
-        
+        //[Authorize(Roles = "User")]
         public IActionResult GebruikerView()
         {                  
                 return View();            
