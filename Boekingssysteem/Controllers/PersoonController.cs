@@ -1,10 +1,12 @@
 ﻿using Boekingssysteem.Areas.Identity.Data;
 using Boekingssysteem.Data;
 using Boekingssysteem.Lib;
+using Boekingssysteem.Migrations;
 using Boekingssysteem.Models;
 using Boekingssysteem.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -164,8 +166,8 @@ namespace Boekingssysteem.Controllers
 
         [HttpPost, ActionName("AanpassenDetail")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AanpassenDetail(string personeelnummer, PersoonCRUDViewModel viewModel, int[] FunctieIDs, int[] RichtingIDs)
-        {
+        public async Task<IActionResult> AanpassenDetail(string personeelnummer, PersoonCRUDViewModel viewModel, int[] FunctieIDs, int[] RichtingIDs, string userId)
+        {        
             ViewBag.Functies = _context.Functies;
             ViewBag.Richtingen = _context.Richtingen;
 
@@ -186,7 +188,13 @@ namespace Boekingssysteem.Controllers
                         Admin = viewModel.Admin,
                         Wachtwoord = viewModel.Wachtwoord
                     };
-
+                                       
+                    CustomUser user = _userManager.Users.Where(k => k.Personeelnummer == personeelnummer).FirstOrDefault();
+                    user.Personeelnummer = personeelnummer;
+                    user.Naam = viewModel.Naam;
+                    user.Voornaam = viewModel.Voornaam;
+                                      
+                    await _userManager.UpdateAsync(user);
                     _context.Update(persoon);
                     await _context.SaveChangesAsync();
 
