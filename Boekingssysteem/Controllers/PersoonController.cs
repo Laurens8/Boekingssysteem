@@ -142,8 +142,8 @@ namespace Boekingssysteem.Controllers
                         Personeelnummer = persoon.Personeelnummer,
                         Naam = persoon.Naam,
                         Voornaam = persoon.Voornaam,
-                        Admin = persoon.Admin
-
+                        Admin = persoon.Admin,
+                        Wachtwoord = persoon.Wachtwoord                       
                     };
 
                     return View(viewModel);
@@ -183,7 +183,8 @@ namespace Boekingssysteem.Controllers
                         Personeelnummer = viewModel.Personeelnummer,
                         Voornaam = viewModel.Voornaam,
                         Naam = viewModel.Naam,
-                        Admin = viewModel.Admin
+                        Admin = viewModel.Admin,
+                        Wachtwoord = viewModel.Wachtwoord
                     };
 
                     _context.Update(persoon);

@@ -6,24 +6,34 @@
     <div BtnCrud>
         <div class="col">
             <div class="mb-5">
+                @*<p>Toont de status aanpassen pagina
+                    <br>personeel aanwezig of afwezig melden
+                </p>*@
                 <a asp-controller="Status" asp-action="Index" class="btn btn-primary btn-lg mb-2" role="button">Naar status pagina</a>
             </div>
             <div class="mb-5">
+                @*<p>Toont de aanwezigheden pagina
+                    <br>studenten kunnen zien wie aanwezig is</p>*@
                 <a asp-controller="TV" asp-action="Index" class="btn btn-primary btn-lg mb-2" role="button">Naar tv pagina</a>
             </div>
             <div class="mb-5">
+               @* <p>creëer/update/delete Personeel</p>*@
                 <a asp-controller="Persoon" asp-action="Index" class="btn btn-primary btn-lg mb-2" role="button">Naar persoon pagina</a>
             </div>
             <div class="mb-5">
+         @*       <p>nieuw functie aanmaken</p>*@
                 <a asp-controller="Functie" asp-action="Index" class="btn btn-primary btn-lg mb-2" role="button">Naar functie pagina</a>
             </div>
             <div class="mb-5">
+             @*   <p>nieuw richting aanmaken</p>*@
                 <a asp-controller="Richting" asp-action="Index" class="btn btn-primary btn-lg mb-2" role="button">Naar richting pagina</a>
             </div>
             <div class="mb-5">
+           @*     <p>Personeel afwezigheden melden</p>*@
                 <a asp-controller="Afwezigheid" asp-action="Index" class="btn btn-primary btn-lg mb-2" role="button">Naar afwezigheden pagina</a>
             </div>
             <div class="mb-5">
+              @*  <p>Geef gebruikers administrator rechten</p>*@
                 <a asp-controller="Gebruiker" asp-action="Index" class="btn btn-primary btn-lg mb-2" role="button">Naar admin pagina</a>
             </div>
         </div>

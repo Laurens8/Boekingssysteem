@@ -25,7 +25,7 @@
                             {
                                 @foreach (var functie in p.PersoonFuncties)
                                 {                                   
-                                    @if (functie.FunctieID == 3)
+                                    @if (functie.FunctieID >= 3)
                                     {
                                         @if (p.Aanwezig == true)
                                         {
@@ -87,11 +87,11 @@
                                                     </div>                                                                                                                                                    
                                             }        
                                         }
-                                        else
+                                        else if (p.Aanwezig == null)
                                         {
-                                            <div class="card text-white bg-danger m-3" style="max-width: 18rem;">
-                                                <div class="card-header"><h4>@Html.DisplayFor(modelItem => p.Voornaam) @Html.DisplayFor(modelItem => p.Naam) (Afwezig)</h4></div>
-                                                  
+                                            <div class="card text-white bg-warning m-3" style="max-width: 18rem;">
+                                                <div class="card-header"><h4>@Html.DisplayFor(modelItem => p.Voornaam) @Html.DisplayFor(modelItem => p.Naam) (Ongekend)</h4></div>
+
                                             </div>
                                         }
                                     }
