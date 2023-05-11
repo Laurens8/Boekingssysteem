@@ -29,9 +29,10 @@
                         @foreach (var item in Model.Personen)
                         {
                             <table>
-                                <tr>@item.Personeelnummer    </tr>
-                                <tr>@item.Naam    </tr>
-                                <tr>@item.Voornaam    </tr>
+                                @using (Html.BeginForm("StatusData", "Status", new { @personeelnummer = $"{@item.Personeelnummer}" }, FormMethod.Post))
+                                {
+                                    <input type="submit" class="btn btn-primary btn mb-2" value="@item.Personeelnummer @item.Naam @item.Voornaam">
+                                }                                                    
                                 <div class="divider mb-5 mt-5"></div>
                             </table>
                         }
@@ -74,11 +75,11 @@
                             </div>
                             <div class="row">
                                 <p>Status: </p>
-                                @if (@ViewBag.Aanwezig == null)
+                                @if (ViewBag.Aanwezig == null)
                                 {
-                                    <p></p> 
+                                    <p>Ongekend</p> 
                                 }
-                                else if (@ViewBag.Aanwezig == true)
+                                else if (ViewBag.Aanwezig == true)
                                 {
                                     <p>Aanwezig</p>                                    
                                 }
