@@ -1,5 +1,6 @@
 using Boekingssysteem.Areas.Identity.Data;
 using Boekingssysteem.Data;
+using Boekingssysteem.ViewModels;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;

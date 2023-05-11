@@ -152,9 +152,18 @@ namespace Boekingssysteem.Controllers
             {
                 CustomUser user = await _userManager.FindByIdAsync(viewModel.GebruikerId);
                 IdentityRole role = await _roleManager.FindByIdAsync(viewModel.RolId);
+                string personeelnummer = _userManager.Users.Where(k => k.Id == viewModel.GebruikerId).Select(k => k.Personeelnummer).FirstOrDefault();
+                Persoon persoon = await _context.Personen.FindAsync(personeelnummer);
                 if (user != null && role != null)
                 {
                     IdentityResult result = await _userManager.AddToRoleAsync(user, role.Name);
+                    if (role.Name == "admin")
+                    {
+                        persoon.Admin = true;
+                    }
+                    else
+                        persoon.Admin = false;
+                    await _context.SaveChangesAsync();
                     if (result.Succeeded)
                         return RedirectToAction("Index");
                     else

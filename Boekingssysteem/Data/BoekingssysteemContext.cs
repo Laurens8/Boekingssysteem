@@ -6,6 +6,7 @@ using Boekingssysteem.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Boekingssysteem.Areas.Identity.Data;
+using Boekingssysteem.ViewModels;
 
 namespace Boekingssysteem.Data
 {
