@@ -35,7 +35,8 @@ namespace Boekingssysteem.Controllers
         [Authorize]
         public IActionResult Index()
         {
-            return View();
+           _signInManager.SignOutAsync();
+            return RedirectToPage("/Account/Login", new { area = "Identity" });
         }
 
         public IActionResult WachtwoordVergetenView()

@@ -29,9 +29,10 @@
                         @foreach (var item in Model.Personen)
                         {
                             <table>
-                                <tr>@item.Personeelnummer    </tr>
-                                <tr>@item.Naam    </tr>
-                                <tr>@item.Voornaam    </tr>
+                                @using (Html.BeginForm("VerwijderenData", "Persoon", new { @personeelnummer = $"{@item.Personeelnummer}" }, FormMethod.Post))
+                                {
+                                    <input type="submit" class="btn btn-primary btn mb-2" value="@item.Personeelnummer @item.Naam @item.Voornaam">
+                                }
                                 <div class="divider mb-5 mt-5"></div>
                             </table>
                         }
