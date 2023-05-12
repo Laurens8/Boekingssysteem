@@ -23,10 +23,10 @@
                         {
                             @if (item2.RichtingID == teller)
                             {
-                                @foreach (var functie in p.PersoonFuncties)
+                                @*@foreach (var functie in p.PersoonFuncties)
                                 {                                   
                                     @if (functie.FunctieID >= 3)
-                                    {
+                                    {*@
                                         @if (p.Aanwezig == true)
                                         {
                                             <div class="card text-white bg-success m-3" style="max-width: 18rem;">
@@ -64,9 +64,9 @@
                                                
                                             </div>
                                         }
-                                    }                                   
-                                }
-                                @foreach (var functie in p.PersoonFuncties)
+                                  @*  }                                   
+                                }*@
+                                @*@foreach (var functie in p.PersoonFuncties)
                                 {
                                     @if (functie.FunctieID == 2)
                                     {
@@ -96,7 +96,7 @@
                                         }
                                     }
 
-                                }
+                                }*@
                             }
                         }
                     }
