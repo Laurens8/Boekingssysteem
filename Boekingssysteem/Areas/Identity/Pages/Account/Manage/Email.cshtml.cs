@@ -124,7 +124,7 @@ namespace Boekingssysteem.Areas.Identity.Pages.Account.Manage
                 user.UserName = Input.NewEmail;
                 user.Email = Input.NewEmail;
                 await _userManager.UpdateAsync(user);
-
+                await _signInManager.SignInAsync(user, isPersistent: false);
                 // Moesten we email aan Persoon toevoegen staat dit al klaar
                 //Persoon persoon = _context.Personen.Find(user.Personeelnummer);
                 //persoon.Email = email;

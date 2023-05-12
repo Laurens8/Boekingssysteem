@@ -2,6 +2,7 @@
 using Boekingssysteem.Lib;
 using Boekingssysteem.Models;
 using Boekingssysteem.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace Boekingssysteem.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class AfwezigheidController : Controller
     {
         private readonly BoekingssysteemContext _context;

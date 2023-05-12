@@ -14,7 +14,7 @@ using System.Collections.Generic;
 
 namespace Boekingssysteem.Controllers
 {
-    //[Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin")]
     public class GebruikerController : Controller
     {
         private readonly BoekingssysteemContext _context;
@@ -160,10 +160,14 @@ namespace Boekingssysteem.Controllers
                     if (role.Name == "admin")
                     {
                         persoon.Admin = true;
+                        result = await _userManager.RemoveFromRoleAsync(user, "user");
                     }
                     else
+                    {
                         persoon.Admin = false;
-                    await _context.SaveChangesAsync();
+                        await _context.SaveChangesAsync();
+                        result = await _userManager.RemoveFromRoleAsync(user, "admin");
+                    }                        
                     if (result.Succeeded)
                         return RedirectToAction("Index");
                     else

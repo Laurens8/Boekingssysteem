@@ -19,6 +19,7 @@ using System.Threading.Tasks;
 
 namespace Boekingssysteem.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly BoekingssysteemContext _context;
@@ -32,7 +33,6 @@ namespace Boekingssysteem.Controllers
             _logger = logger;                         
         }
 
-        [Authorize]
         public IActionResult Index()
         {
            _signInManager.SignOutAsync();
@@ -49,7 +49,7 @@ namespace Boekingssysteem.Controllers
             return View();
         }
 
-        //[Authorize(Roles = "admin")]
+        //[Authorize(Roles = "Admin")]
         public IActionResult AdminView()
         {
            return View();                   
