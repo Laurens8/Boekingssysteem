@@ -32,15 +32,14 @@ namespace Boekingssysteem
             services.AddDbContext<BoekingssysteemContext>(options => options.UseSqlServer(Configuration.GetConnectionString("BoekingssysteemDB")));
 
             //Voor identity
-            services.AddDefaultIdentity<CustomUser>().AddRoles<IdentityRole>().AddEntityFrameworkStores<BoekingssysteemContext>();
+            services.AddDefaultIdentity<CustomUser>().AddRoles<IdentityRole>().AddEntityFrameworkStores<BoekingssysteemContext>().AddErrorDescriber<CustomIdentityErrorDescriber>();
             services.AddRazorPages();
-            services
-         .AddAuthentication()
-         .AddCookie(options =>
-         {
-             options.LoginPath = "/login";
-             options.LogoutPath = "/logout";
-         });
+            services.AddAuthentication()
+            .AddCookie(options =>
+            {
+               options.LoginPath = "/login";
+               options.LogoutPath = "/logout";
+            });
 
             services.Configure<IdentityOptions>(options =>
             {

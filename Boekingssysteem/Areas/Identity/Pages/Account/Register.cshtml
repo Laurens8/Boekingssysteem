@@ -5,13 +5,9 @@
 }
 
 <h1>@ViewData["Title"]</h1>
-
 <div class="row">
     <div class="col-md-4">
         <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <div class="@ViewBag.Class @ViewBag.Visibility" role="alert">
-                @ViewBag.Message
-            </div>
             <h4>Nieuw account aanmaken</h4>
             <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
