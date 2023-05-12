@@ -4,6 +4,7 @@ using Boekingssysteem.Lib;
 using Boekingssysteem.Migrations;
 using Boekingssysteem.Models;
 using Boekingssysteem.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -16,6 +17,7 @@ using System.Xml.Linq;
 
 namespace Boekingssysteem.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class PersoonController : Controller
     {
         private readonly BoekingssysteemContext _context;
