@@ -1,5 +1,0 @@
-TODO/bug:
-
-Validaties persoon, functie, richting & afwezigheid testen + verfijnen
-Bij registreren als je personeelnummer ingeeft die al bestaat krijg je PK constraint -> opvangen
-Wachtwoord vergeten stuurt zogezegd mail maar werkt niet -> bouwen zoals wachtwoord aanpassen met email, oud wachtwoord en nieuw wachtwoord?

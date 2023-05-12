@@ -94,6 +94,18 @@ namespace Boekingssysteem.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
+            var users = _userManager.Users.ToList();
+
+            foreach (var gebruiker in users)
+            {
+                if (gebruiker.Email == Input.NewEmail)
+                {
+                    ModelState.AddModelError(string.Empty, "Dit emailadres is al in gebruik!");
+                    //StatusMessage = "Dit emailadres is al in gebruik!";
+                    return Page();
+                }
+            }
+
             var email = await _userManager.GetEmailAsync(user);
             if (Input.NewEmail != email)
             {
@@ -128,6 +140,16 @@ namespace Boekingssysteem.Areas.Identity.Pages.Account.Manage
 
         public async Task<IActionResult> OnPostSendVerificationEmailAsync()
         {
+            var users = _userManager.Users.ToList();
+
+            foreach (var gebruiker in users)
+            {
+                if (gebruiker.Email == Input.NewEmail)
+                {
+                    ModelState.AddModelError(string.Empty, "Dit emailadres is al in gebruik!");
+                }
+            }
+            
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {

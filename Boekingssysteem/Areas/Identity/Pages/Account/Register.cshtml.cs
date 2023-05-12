@@ -92,8 +92,10 @@ namespace Boekingssysteem.Areas.Identity.Pages.Account
         {
             returnUrl = returnUrl ?? Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
             if (ModelState.IsValid)
             {
+                var personen = _userManager.Users.ToList();
                 Persoon persoon = _context.Personen.Find(Input.Personeelnummer);
 
                 if (persoon == null)
