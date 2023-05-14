@@ -21,6 +21,10 @@
                     {
                         @if (p.PersoonFuncties != null)
                         {
+                            @while (teller != item.RichtingID)
+                            {
+                                teller++;
+                            }
                             @if (item2.RichtingID == teller)
                             {
                                 @*@foreach (var functie in p.PersoonFuncties)
@@ -102,7 +106,6 @@
                     }
                 }
             }
-        </div>
-        teller++;
-    }
+        </div>          
+    }   
 </div>

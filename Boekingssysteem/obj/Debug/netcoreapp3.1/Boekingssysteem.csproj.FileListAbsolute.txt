@@ -1606,3 +1606,7 @@ C:\Thomas More 2de jaar\Projecten van het werkveld\Boekingssysteem\Boekingssyste
 C:\Thomas More 2de jaar\Projecten van het werkveld\Boekingssysteem\Boekingssysteem\bin\Debug\netcoreapp3.1\EntityFramework.dll
 C:\Thomas More 2de jaar\Projecten van het werkveld\Boekingssysteem\Boekingssysteem\bin\Debug\netcoreapp3.1\Microsoft.AspNet.Identity.Core.dll
 C:\Thomas More 2de jaar\Projecten van het werkveld\Boekingssysteem\Boekingssysteem\bin\Debug\netcoreapp3.1\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\laure\OneDrive\Desktop\Nieuwe map (4)\Boekingssysteem\Boekingssysteem\bin\Debug\netcoreapp3.1\EntityFramework.SqlServer.dll
+C:\Users\laure\OneDrive\Desktop\Nieuwe map (4)\Boekingssysteem\Boekingssysteem\bin\Debug\netcoreapp3.1\EntityFramework.dll
+C:\Users\laure\OneDrive\Desktop\Nieuwe map (4)\Boekingssysteem\Boekingssysteem\bin\Debug\netcoreapp3.1\Microsoft.AspNet.Identity.Core.dll
+C:\Users\laure\OneDrive\Desktop\Nieuwe map (4)\Boekingssysteem\Boekingssysteem\bin\Debug\netcoreapp3.1\Microsoft.AspNet.Identity.EntityFramework.dll
