@@ -58,7 +58,7 @@
                 }
             </div>
             <div class="@ViewBag.Class @ViewBag.Visibility" role="alert">
-                Geen personeelslid gevonden!
+                @ViewBag.Message
             </div>
             <div class="mb-5">
                 @using (Html.BeginForm("AanpassenDetail", "Persoon", FormMethod.Post))
