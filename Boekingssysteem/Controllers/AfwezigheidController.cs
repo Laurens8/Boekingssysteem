@@ -42,12 +42,16 @@ namespace Boekingssysteem.Controllers
             ViewBag.Visibility = "invisible";
             DateTime nu = DateTime.Now;
             var afwezigheden = _context.Afwezigheden.Where(a => a.Personeelnummer == viewModel.Personeelnummer);
-
+            
             if (nu > viewModel.Begindatum)
             {
                 ViewBag.Message = "Begindatum kan niet in het verleden liggen!";
                 ViewBag.Class = "alert alert-danger mb-5";
                 ViewBag.Visibility = "visible";
+                if (viewModel.Begindatum.Year == 1)
+                {
+                    ViewBag.Visibility = "invisible";
+                }
                 return View(nameof(Toevoegen));
             }
             if (viewModel.Begindatum > viewModel.Einddatum)
@@ -192,7 +196,7 @@ namespace Boekingssysteem.Controllers
             //ViewBag.Class = "alert alert-succes mb-5";
             //ViewBag.Visibility = "visible";
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Aanpassen));
         }
     }
 }
