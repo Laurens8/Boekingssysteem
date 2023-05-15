@@ -43,11 +43,11 @@ namespace Boekingssysteem.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage = "Email is verplicht in te vullen")]
             [EmailAddress]
             public string Email { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Wachtwoord is verplicht in te vullen")]
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
@@ -97,7 +97,7 @@ namespace Boekingssysteem.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "De inloggegevens zijn onjuist");
                     return Page();
                 }
             }
