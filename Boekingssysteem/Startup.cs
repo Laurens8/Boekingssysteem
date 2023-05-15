@@ -47,6 +47,9 @@ namespace Boekingssysteem
                 options.Password.RequireDigit = false;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 8;
+
+                options.User.RequireUniqueEmail = true;
             });
 
         }

@@ -13,5 +13,12 @@ namespace Boekingssysteem.Areas.Identity.Data
         {
             return new IdentityError { Code = nameof(PasswordMismatch), Description = "Uw huidig wachtwoord is onjuist" };
         }
+
+        public override IdentityError PasswordTooShort(int length) 
+        { 
+            return new IdentityError { Code = nameof(PasswordTooShort), Description = $"Het wachtwoord moet minstens 8 tekens lang zijn" };
+        }
+
+        
     }
 }
