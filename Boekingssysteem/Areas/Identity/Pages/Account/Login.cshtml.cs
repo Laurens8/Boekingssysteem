@@ -97,7 +97,7 @@ namespace Boekingssysteem.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Uw email bestaat niet of wachtwoord is onjuist");
+                    ModelState.AddModelError(string.Empty, "De inloggegevens zijn onjuist");
                     return Page();
                 }
             }
