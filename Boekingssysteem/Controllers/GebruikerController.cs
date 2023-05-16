@@ -72,6 +72,10 @@ namespace Boekingssysteem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateGebruikerViewModel viewModel)
         {
+            if (viewModel.Personeelnummer.Length != 8)
+            {
+
+            }
             if (ModelState.IsValid)
             {
                 CustomUser gebruiker = new CustomUser
@@ -83,24 +87,32 @@ namespace Boekingssysteem.Controllers
                     Email = viewModel.Email
                 };
 
-                _context.Add(new Persoon()
+                if (gebruiker.Personeelnummer.Length != 8 && viewModel.Personeelnummer.Length != 8)
                 {
-                    Naam = viewModel.Naam,
-                    Voornaam = viewModel.Voornaam,
-                    Personeelnummer = viewModel.Personeelnummer,
-                    Wachtwoord = viewModel.Password,
-                    Admin = false
-                });
-                await _context.SaveChangesAsync();
-
-
-                IdentityResult result = await _userManager.CreateAsync(gebruiker, viewModel.Password);
-                if (result.Succeeded)
-                    return RedirectToAction("Index");
+                    ModelState.AddModelError("", "personeelsnummer moet minstens 8 tekens bevatten");
+                }
                 else
                 {
-                    foreach (IdentityError error in result.Errors)
-                        ModelState.AddModelError("", error.Description);
+                    _context.Add(new Persoon()
+                    {
+                        Naam = viewModel.Naam,
+                        Voornaam = viewModel.Voornaam,
+                        Personeelnummer = viewModel.Personeelnummer,
+                        Wachtwoord = viewModel.Password,
+                        Admin = false
+                    });
+                    await _context.SaveChangesAsync();
+
+
+
+                    IdentityResult result = await _userManager.CreateAsync(gebruiker, viewModel.Password);
+                    if (result.Succeeded)
+                        return RedirectToAction("Index");
+                    else
+                    {
+                        foreach (IdentityError error in result.Errors)
+                            ModelState.AddModelError("", error.Description);
+                    }
                 }
             }
             return View(viewModel);
