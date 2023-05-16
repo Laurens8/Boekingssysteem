@@ -101,46 +101,53 @@ namespace Boekingssysteem.Areas.Identity.Pages.Account
                 if (persoon == null)
                 {
                     var user = new CustomUser { UserName = Input.Email, Email = Input.Email, Naam = Input.Naam, Voornaam = Input.Voornaam, Personeelnummer = Input.Personeelnummer };
-                    var result = await _userManager.CreateAsync(user, Input.Password);
-                    if (result.Succeeded)
+                    if (user.Personeelnummer.Length != 8)
                     {
-                        _logger.LogInformation("User created a new account with password.");
-
-                        var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                        code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                        var callbackUrl = Url.Page(
-                            "/Account/ConfirmEmail",
-                            pageHandler: null,
-                            values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
-                            protocol: Request.Scheme);
-
-                        await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                            $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-
-                        _context.Add(new Persoon()
-                        {
-                            Naam = Input.Naam,
-                            Voornaam = Input.Voornaam,
-                            Personeelnummer = Input.Personeelnummer,
-                            Admin = false,
-                            Wachtwoord = Input.Password
-                        });
-                        await _context.SaveChangesAsync();
-
-                        if (_userManager.Options.SignIn.RequireConfirmedAccount)
-                        {
-                            return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
-                        }
-                        else
-                        {
-                            await _signInManager.SignInAsync(user, isPersistent: false);
-                            return LocalRedirect("~/Home/AdminView");
-                        }
+                        ModelState.AddModelError("", "personeelsnummer moet minstens 8 tekens bevatten");
                     }
-                    foreach (var error in result.Errors)
+                    else
                     {
-                        ModelState.AddModelError(string.Empty, error.Description);
-                    }
+                        var result = await _userManager.CreateAsync(user, Input.Password);
+                        if (result.Succeeded)
+                        {
+                            _logger.LogInformation("User created a new account with password.");
+
+                            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                            code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                            var callbackUrl = Url.Page(
+                                "/Account/ConfirmEmail",
+                                pageHandler: null,
+                                values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
+                                protocol: Request.Scheme);
+
+                            await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                                $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                            
+                                _context.Add(new Persoon()
+                                {
+                                    Naam = Input.Naam,
+                                    Voornaam = Input.Voornaam,
+                                    Personeelnummer = Input.Personeelnummer,
+                                    Admin = false,
+                                    Wachtwoord = Input.Password
+                                });
+                                await _context.SaveChangesAsync();
+
+                                if (_userManager.Options.SignIn.RequireConfirmedAccount)
+                                {
+                                    return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
+                                }
+                                else
+                                {
+                                    await _signInManager.SignInAsync(user, isPersistent: false);
+                                    return LocalRedirect("~/Home/AdminView");
+                                }                            
+                        }
+                        foreach (var error in result.Errors)
+                        {
+                            ModelState.AddModelError(string.Empty, error.Description);
+                        }
+                    }                                       
                 }
                 else
                 {
