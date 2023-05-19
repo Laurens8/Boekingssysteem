@@ -51,27 +51,34 @@ namespace Boekingssysteem.Areas.Identity.Pages.Account
 
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
+        [TempData]
+        public string ErrorMessage { get; set; }
+
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage = "Naam moet ingevuld zijn")]
             [StringLength(100, ErrorMessage = "Naam moet ingevuld zijn")]
             [Display(Name = "Naam")]
             public string Naam { get; set; }
-            [Required]
+
+            [Required(ErrorMessage = "Voornaam moet ingevuld zijn")]
             [StringLength(100, ErrorMessage = "Voornaam moet ingevuld zijn")]
             [Display(Name = "Voornaam")]
             public string Voornaam { get; set; }
-            [Required]
+
+            [Required(ErrorMessage = "Personeelnummer moet ingevuld zijn")]
             [StringLength(8, ErrorMessage = "Personeelnummer moet ingevuld zijn")]
             [Display(Name = "Personeelnummer")]
-            public string Personeelnummer { get; set; }            
-            [Required]
+            public string Personeelnummer { get; set; } 
+            
+            [Required(ErrorMessage = "Email moet ingevuld zijn")]
+            [StringLength(8, ErrorMessage = "Email moet ingevuld zijn")]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
 
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Required(ErrorMessage = "Uw wachtwoord moet 8 karakters lang zijn")]
+            [StringLength(100, ErrorMessage = "Uw wachtwoord moet 8 karakters lang zijn", MinimumLength = 8)]
             [DataType(DataType.Password)]
             [Display(Name = "Wachtwoord")]
             public string Password { get; set; }
@@ -83,13 +90,13 @@ namespace Boekingssysteem.Areas.Identity.Pages.Account
         }
 
         public async Task OnGetAsync(string returnUrl = null)
-        {
+        {            
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
-        {
+        {            
             returnUrl = returnUrl ?? Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
@@ -132,7 +139,7 @@ namespace Boekingssysteem.Areas.Identity.Pages.Account
                                     Wachtwoord = Input.Password
                                 });
                                 await _context.SaveChangesAsync();
-
+                                
                                 if (_userManager.Options.SignIn.RequireConfirmedAccount)
                                 {
                                     return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
@@ -156,6 +163,7 @@ namespace Boekingssysteem.Areas.Identity.Pages.Account
             }
 
             // If we got this far, something failed, redisplay form
+            ModelState.Clear();
             return Page();
         }
     }

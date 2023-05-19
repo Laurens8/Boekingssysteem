@@ -9309,19 +9309,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\lende\\.nuget\\packages\\": {}
+    "C:\\Users\\laure\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\lende\\Documents\\thomasmore\\jaar 2\\projecten van het werkveld\\project\\Boekingssysteem\\Boekingssysteem\\Boekingssysteem.csproj",
+      "projectUniqueName": "C:\\Users\\laure\\OneDrive\\Desktop\\Boekingssysteem\\Nieuwe map\\Boekingssysteem\\Boekingssysteem\\Boekingssysteem.csproj",
       "projectName": "Boekingssysteem",
-      "projectPath": "C:\\Users\\lende\\Documents\\thomasmore\\jaar 2\\projecten van het werkveld\\project\\Boekingssysteem\\Boekingssysteem\\Boekingssysteem.csproj",
-      "packagesPath": "C:\\Users\\lende\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\lende\\Documents\\thomasmore\\jaar 2\\projecten van het werkveld\\project\\Boekingssysteem\\Boekingssysteem\\obj\\",
+      "projectPath": "C:\\Users\\laure\\OneDrive\\Desktop\\Boekingssysteem\\Nieuwe map\\Boekingssysteem\\Boekingssysteem\\Boekingssysteem.csproj",
+      "packagesPath": "C:\\Users\\laure\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\laure\\OneDrive\\Desktop\\Boekingssysteem\\Nieuwe map\\Boekingssysteem\\Boekingssysteem\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\lende\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\laure\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -9405,7 +9405,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.105\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   },
