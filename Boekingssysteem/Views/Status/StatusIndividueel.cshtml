@@ -4,11 +4,21 @@
 }
 
 <div class="row mb-5">
-    <a class="btn btn-primary btn-lg mb-2" asp-controller="Status" asp-action="Index">Terug</a>
+    @if (Context.User.IsInRole("admin"))
+    {
+        <a class="btn btn-primary btn-lg mb-2" asp-controller="Status" asp-action="Index">Terug</a>
+    }
+    else
+    {
+        <a class="btn btn-primary btn-lg mb-2" asp-controller="Home" asp-action="AdminView">Terug</a>
+    }   
     <hr />
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
-        Personeel lijst
-    </button>
+    @if (Context.User.IsInRole("admin"))
+    {
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+            Personeel lijst
+        </button>
+    }   
 </div>
 
 @if (Model != null)
