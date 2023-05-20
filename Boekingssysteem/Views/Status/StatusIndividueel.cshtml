@@ -58,6 +58,7 @@
 
 <div class="h-100 d-flex align-items-center justify-content-center">
     <div class="col">
+        <div asp-validation-summary="All" class="text-danger"></div>
         @using (Html.BeginForm("StatusData", "Status", FormMethod.Post))
         {
             <form>
@@ -65,8 +66,9 @@
                     <div class="mb-5">
                         <div class="form-group">
                             <label class="mr-3">Personeelsnummer: </label>
-                            @Html.TextBoxFor(s => s.Personeelnummer, new {@class = "form-control mb-3", @placeholder = "R-nummer"})
+                            @Html.TextBoxFor(s => s.Personeelnummer, new {@class = "form-control mb-3", @placeholder = ""})
                             <input type="submit" value="Gebruiker zoeken" class="btn btn-primary mb-2" />
+                            <span asp-validation-for="Personeelnummer" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="PersoneelInfo">

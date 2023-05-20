@@ -72,8 +72,8 @@ namespace Boekingssysteem.Areas.Identity.Pages.Account
             public string Personeelnummer { get; set; } 
             
             [Required(ErrorMessage = "Email moet ingevuld zijn")]
-            [StringLength(8, ErrorMessage = "Email moet ingevuld zijn")]
-            [EmailAddress]
+            [StringLength(20, ErrorMessage = "Email moet ingevuld zijn")]
+            [EmailAddress(ErrorMessage = "Ongeldig email address")]
             [Display(Name = "Email")]
             public string Email { get; set; }
 
