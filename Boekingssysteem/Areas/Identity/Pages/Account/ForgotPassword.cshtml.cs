@@ -31,8 +31,8 @@ namespace Boekingssysteem.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessage = "Email moet ingevuld zijn")]
+            [EmailAddress(ErrorMessage = "Ongeldig email address")]
             public string Email { get; set; }
         }
 

@@ -54,7 +54,7 @@
                 {
                     @Html.TextBoxFor(s => s.Personeelnummer)
                     <input class="btn btn-primary mb-2" type="submit" value="Zoek adhv personeelsnummer" />
-
+                    <div> <span asp-validation-for="Personeelnummer" class="text-danger"></span></div>
                 }
             </div>
             <div class="@ViewBag.Class @ViewBag.Visibility" role="alert">
@@ -111,8 +111,10 @@
                                     }
                                 </ul>
                             </div>
-                        </div>
-
+                        </div>  
+                        
+                        <input asp-for=Admin type="hidden" value="@Model.Admin" />
+                        
                         @*<div class="form-group row mt-2">
                             <div class="col-sm-2">Admin</div>
                             <div class="col-sm-10">

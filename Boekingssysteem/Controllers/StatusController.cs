@@ -9,6 +9,9 @@ using System.Collections.Generic;
 using Boekingssysteem.Models;
 using Boekingssysteem.Lib;
 using System;
+using static Boekingssysteem.Areas.Identity.Pages.Account.ExternalLoginModel;
+using System.ComponentModel.DataAnnotations;
+using System.Xml.Linq;
 
 namespace Boekingssysteem.Controllers
 {
@@ -21,6 +24,18 @@ namespace Boekingssysteem.Controllers
         {
             _context = context;
             _logger = logger;
+        }
+
+        [BindProperty]
+        public InputModel Input { get; set; }
+
+        [TempData]
+        public string ErrorMessage { get; set; }
+
+        public class InputModel
+        {         
+            [Display(Name = "Personeelnummer moet ingevuld zijn")]
+            public string Personeelnummer { get; set; }
         }
 
         public ViewResult Index()
@@ -95,13 +110,13 @@ namespace Boekingssysteem.Controllers
         {
             try
             {
-                if (personeelnummer == null)
+                Persoon persoon = _context.Personen.Find(personeelnummer);
+                if (persoon == null)
                 {
-                    return NotFound();
+                    ModelState.AddModelError(string.Empty, "De personeelnummer is onjuist");
                 }
                 else
                 {
-                    Persoon persoon = _context.Personen.Find(personeelnummer);
                     ViewBag.naam = persoon.Naam;
                     ViewBag.voornaam = persoon.Voornaam;
                     ViewBag.personeelnummer = persoon.Personeelnummer;
@@ -168,7 +183,7 @@ namespace Boekingssysteem.Controllers
         {            
             if (personeelnummer == null)
             {
-                return NotFound();
+                ModelState.AddModelError(string.Empty, "De Personeelnummer is onjuist");
             }
             else
             {
