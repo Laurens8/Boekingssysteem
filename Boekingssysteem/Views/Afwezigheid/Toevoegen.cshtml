@@ -51,10 +51,11 @@
     <div BtnCrud>
         <div class="col-sm-12">
             <div class="mb-5">
+                <div class="@ViewBag.Class @ViewBag.Visibility" role="alert">
+                    @ViewBag.Message
+                </div>
                 <form asp-action="Toevoegen">
-                    <div class="@ViewBag.Class @ViewBag.Visibility" role="alert">
-                        @ViewBag.Message
-                    </div>
+                    
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group row">
                         <label asp-for="Personeelnummer" class="col-sm-4 col-form-label">Personeelnummer</label>
@@ -66,14 +67,14 @@
                     <div class="form-group row">
                         <label asp-for="Begindatum" class="col-sm-4 col-form-label">Begindatum</label>
                         <div class="col-sm-10">
-                            <input class="form-control" type"date" data-val="true" asp-for="Begindatum" />
+                            <input class="form-control" type="date" data-val="true" asp-for="Begindatum" />
                             <span asp-validation-for="Begindatum" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label asp-for="Einddatum" class="col-sm-4 col-form-label">EindDatum</label>
+                        <label asp-for="Einddatum" class="col-sm-4 col-form-label">Einddatum</label>
                         <div class="col-sm-10">
-                            <input class="form-control" type"date" data-val="true" asp-for="Einddatum" />
+                            <input class="form-control" type="date" data-val="true" asp-for="Einddatum" />
                             <span asp-validation-for="Einddatum" class="text-danger"></span>
                         </div>
                     </div>

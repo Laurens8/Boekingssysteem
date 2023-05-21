@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "fmS7e5DCSHBup/mDSKTVsxfcPIss4H/WAuI+NCijbbsFZEyQiaByjpJ+Y3FaKn4MsgtmQiYcKZHCBrSfcUN8xQ==",
+  "dgSpecHash": "ALLG7INOtAqMqc7/erIVzruuq3BVkdLglgeDubrgi102Cn2mIjqQqoJvJ8oIpvbyrHzpQ9UKlvgWMGEBOdr+rA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\laure\\OneDrive\\Desktop\\Boekingssysteem\\Nieuwe map\\Boekingssysteem\\Boekingssysteem\\Boekingssysteem.csproj",
+  "projectFilePath": "C:\\Users\\laure\\OneDrive\\Desktop\\Boekingssysteem\\Nieuwe map (2)\\Boekingssysteem\\Boekingssysteem\\Boekingssysteem.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\laure\\.nuget\\packages\\entityframework\\6.1.0\\entityframework.6.1.0.nupkg.sha512",
     "C:\\Users\\laure\\.nuget\\packages\\microsoft.aspnet.identity.core\\2.2.3\\microsoft.aspnet.identity.core.2.2.3.nupkg.sha512",

@@ -8,7 +8,7 @@ namespace Boekingssysteem.ViewModels
     {
         [Required(ErrorMessage = "Personeelnummer moet ingevuld zijn!")]
         [MinLength(8, ErrorMessage = "Een personeelnummer bestaat uit 8 tekens")]
-        [MaxLength(8)]
+        [MaxLength(8, ErrorMessage = "Personeelnummer moet 8 tekens zijn!")]
         public string Personeelnummer { get; set; }
         [Required(ErrorMessage = "Naam moet ingevuld zijn!")]
         [MaxLength(15)]

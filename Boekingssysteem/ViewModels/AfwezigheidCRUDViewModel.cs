@@ -11,8 +11,8 @@ namespace Boekingssysteem.ViewModels
         public int AfwezigheidID { get; set; }
 
         [Required(ErrorMessage = "Personeelnummer moet ingevuld zijn!")]
-        [MinLength(8)]
-        [MaxLength(8)]
+        [MinLength(8, ErrorMessage = "Personeelnummer moet 8 tekens zijn!")]
+        [MaxLength(8, ErrorMessage = "Personeelnummer moet 8 tekens zijn!")]
         public string Personeelnummer { get; set; }
 
         [Required(ErrorMessage = "Begindatum moet ingevuld zijn!")]
