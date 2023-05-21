@@ -6,10 +6,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace Boekingssysteem.Controllers
 {
@@ -17,7 +15,6 @@ namespace Boekingssysteem.Controllers
     public class AfwezigheidController : Controller
     {
         private readonly BoekingssysteemContext _context;
-        string persnr = "";
 
         public AfwezigheidController(BoekingssysteemContext context)
         {
@@ -32,6 +29,7 @@ namespace Boekingssysteem.Controllers
         {
             var personen = _context.Personen.ToList();
             AfwezigheidCRUDViewModel plvm = new AfwezigheidCRUDViewModel();
+            plvm.Begindatum = new DateTime(DateTime.Now.Year, 01, 01);
             plvm.Personen = personen;
 
             return View(plvm);
@@ -41,11 +39,21 @@ namespace Boekingssysteem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Toevoegen(AfwezigheidCRUDViewModel viewModel)
         {
-            ViewBag.Visibility = "invisible";
-            DateTime nu = DateTime.Now;
+            DateTime nu = DateTime.Today;
             var afwezigheden = _context.Afwezigheden.Where(a => a.Personeelnummer == viewModel.Personeelnummer);
-            
-            if (nu > viewModel.Begindatum)
+
+            Persoon persoon = _context.Personen.Find(viewModel.Personeelnummer);
+
+            if (persoon == null)
+            {
+                ViewBag.Message = "Deze personeelsnummer is niet in gebruik!";
+                ViewBag.Class = "alert alert-danger mb-5";
+                ViewBag.Visibility = "visible";
+
+                return View(nameof(Toevoegen));
+            }
+
+            if (nu > viewModel.Begindatum && nu != viewModel.Begindatum)
             {
                 ViewBag.Message = "Begindatum kan niet in het verleden liggen!";
                 ViewBag.Class = "alert alert-danger mb-5";
@@ -63,11 +71,20 @@ namespace Boekingssysteem.Controllers
                 ViewBag.Visibility = "visible";
                 return View(nameof(Toevoegen));
             }
+
             foreach (var afwezigheid in afwezigheden)
             {
-                if (viewModel.Begindatum > afwezigheid.Begindatum && viewModel.Einddatum < afwezigheid.Einddatum)
+                if (viewModel.Einddatum == null && viewModel.Begindatum == afwezigheid.Begindatum)
                 {
-                    ViewBag.Message = "Er is deze periode al een afwezigheid geregistreerd!";
+                    ViewBag.Message = "Deze afwezigheid is al geregistreerd!";
+                    ViewBag.Class = "alert alert-danger mb-5";
+                    ViewBag.Visibility = "visible";
+                    return View(nameof(Toevoegen));
+                }
+
+                if (viewModel.Begindatum >= afwezigheid.Begindatum && viewModel.Begindatum <= afwezigheid.Einddatum)
+                {
+                    ViewBag.Message = "Er is deze periode al een afwezigheid geregistreerd, gelieve deze aan te passen";
                     ViewBag.Class = "alert alert-danger mb-5";
                     ViewBag.Visibility = "visible";
                     return View(nameof(Toevoegen));
@@ -94,16 +111,23 @@ namespace Boekingssysteem.Controllers
                 }
 
             }
+            else
+            {
+                ViewBag.Message = "Gelieve minstens een begindatum in te voeren!";
+                ViewBag.Class = "alert alert-danger mb-5";
+                ViewBag.Visibility = "visible";
+                return View(nameof(Toevoegen));
+            }
             return View(Toevoegen());
         }
 
         public IActionResult Aanpassen()
         {
             var personen = _context.Personen.ToList();
-            AfwezigheidCRUDViewModel plvm = new AfwezigheidCRUDViewModel();
-            plvm.Personen = personen;
+            AfwezigheidCRUDViewModel acvm = new AfwezigheidCRUDViewModel();
+            acvm.Personen = personen;
             ViewBag.Afwezigheden = "";
-            return View(plvm);            
+            return View(acvm);
         }
 
         [HttpPost]
@@ -146,6 +170,43 @@ namespace Boekingssysteem.Controllers
             if (id != viewModel.AfwezigheidID)
             {
                 return NotFound();
+            }
+
+            DateTime nu = DateTime.Now;
+            var afwezigheden = _context.Afwezigheden.Where(a => a.Personeelnummer == viewModel.Personeelnummer);
+
+            if (nu > viewModel.Begindatum && nu != viewModel.Begindatum)
+            {
+                ViewBag.Message = "Begindatum kan niet in het verleden liggen!";
+                ViewBag.Class = "alert alert-danger mb-5";
+                ViewBag.Visibility = "visible";
+                return View(nameof(Toevoegen));
+            }
+            if (viewModel.Begindatum > viewModel.Einddatum)
+            {
+                ViewBag.Message = "Begindatum moet voor de einddatum liggen!";
+                ViewBag.Class = "alert alert-danger mb-5";
+                ViewBag.Visibility = "visible";
+                return View(nameof(Toevoegen));
+            }
+
+            foreach (var afwezigheid in afwezigheden)
+            {
+                if (viewModel.Einddatum == null && viewModel.Begindatum == afwezigheid.Begindatum)
+                {
+                    ViewBag.Message = "Deze afwezigheid is al geregistreerd!";
+                    ViewBag.Class = "alert alert-danger mb-5";
+                    ViewBag.Visibility = "visible";
+                    return View(nameof(Toevoegen));
+                }
+
+                if (viewModel.Begindatum >= afwezigheid.Begindatum && viewModel.Begindatum <= afwezigheid.Einddatum)
+                {
+                    ViewBag.Message = "Er is deze periode al een afwezigheid geregistreerd, gelieve deze aan te passen";
+                    ViewBag.Class = "alert alert-danger mb-5";
+                    ViewBag.Visibility = "visible";
+                    return View(nameof(Toevoegen));
+                }
             }
 
             if (ModelState.IsValid)
@@ -193,10 +254,6 @@ namespace Boekingssysteem.Controllers
 
             _context.Afwezigheden.Remove(afwezigheid);
             await _context.SaveChangesAsync();
-
-            //ViewBag.Message = "Afwezigheid succesvol verwijderd!";
-            //ViewBag.Class = "alert alert-succes mb-5";
-            //ViewBag.Visibility = "visible";
 
             return RedirectToAction(nameof(Aanpassen));
         }
