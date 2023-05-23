@@ -8,14 +8,26 @@
     ViewData["Title"] = "Admin scherm";
 }
 
+
+
 <div class="h-100 d-flex align-items-center justify-content-center">
     <div BtnCrud>
         <div class="col">
             <div class="row">
-                <div class="mb-4 mx-2">
-                    <h5>Aanwezig/afwezig melden</h5>
-                    <a asp-controller="Status" asp-action="Index" class="btn btn-primary btn-lg mb-2" role="button">Status pagina</a>
-                </div>
+                @if (Context.User.IsInRole("admin"))
+                {
+                    <div class="mb-4 mx-2">
+                        <h5>Aanwezig/afwezig melden</h5>
+                        <a asp-controller="Status" asp-action="Index" class="btn btn-primary btn-lg mb-2" role="button">Status pagina</a>
+                    </div>
+                }
+                else
+                {
+                    <div class="mb-4 mx-2">
+                        <h5>Aanwezig/afwezig melden</h5>
+                        <a asp-controller="Status" asp-action="StatusIndividueel" class="btn btn-primary btn-lg mb-2" role="button">Status pagina</a>
+                    </div>
+                }
                 <div class="mb-4 mx-2">
                     <h5>Toont het tv scherm</h5>
                     <a asp-controller="TV" asp-action="Index" class="btn btn-primary btn-lg mb-2" role="button">TV pagina</a>

@@ -72,7 +72,7 @@ namespace Boekingssysteem.Areas.Identity.Pages.Account
             public string Personeelnummer { get; set; } 
             
             [Required(ErrorMessage = "Email moet ingevuld zijn")]
-            [StringLength(20, ErrorMessage = "Email moet ingevuld zijn")]
+            [StringLength(100, ErrorMessage = "Email moet ingevuld zijn")]
             [EmailAddress(ErrorMessage = "Ongeldig email address")]
             [Display(Name = "Email")]
             public string Email { get; set; }
@@ -110,8 +110,14 @@ namespace Boekingssysteem.Areas.Identity.Pages.Account
                     var user = new CustomUser { UserName = Input.Email, Email = Input.Email, Naam = Input.Naam, Voornaam = Input.Voornaam, Personeelnummer = Input.Personeelnummer };
                     if (user.Personeelnummer.Length != 8)
                     {
-                        ModelState.AddModelError("", "personeelsnummer moet minstens 8 tekens bevatten");
+                        ModelState.AddModelError("", "Personeelsnummer moet minstens 8 tekens bevatten");
                     }
+                    if (user.Personeelnummer.Substring(0, 1).ToUpper() != "R" && user.Personeelnummer.Substring(0, 1).ToUpper() != "U" || 
+                        !int.TryParse(user.Personeelnummer.Substring(1, 7), out int persnr))
+                    {
+                        ModelState.AddModelError("", "Personeelsnummer bestaat uit R of U en 7 cijfers!");
+                    }
+
                     else
                     {
                         var result = await _userManager.CreateAsync(user, Input.Password);
@@ -163,7 +169,7 @@ namespace Boekingssysteem.Areas.Identity.Pages.Account
             }
 
             // If we got this far, something failed, redisplay form
-            ModelState.Clear();
+            //ModelState.Clear();
             return Page();
         }
     }

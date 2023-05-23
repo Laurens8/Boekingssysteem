@@ -2321,3 +2321,4 @@ C:\Users\laure\OneDrive\Desktop\Boekingssysteem\Nieuwe map (2)\Boekingssysteem\B
 C:\Users\laure\OneDrive\Desktop\Boekingssysteem\Nieuwe map (2)\Boekingssysteem\Boekingssysteem\obj\Debug\netcoreapp3.1\Boekingssysteem.Views.pdb
 C:\Users\laure\OneDrive\Desktop\Boekingssysteem\Nieuwe map (2)\Boekingssysteem\Boekingssysteem\obj\Debug\netcoreapp3.1\Boekingssysteem.csproj.CopyComplete
 C:\Users\laure\OneDrive\Desktop\Boekingssysteem\Nieuwe map (2)\Boekingssysteem\Boekingssysteem\obj\Debug\netcoreapp3.1\Boekingssysteem.genruntimeconfig.cache
+C:\Thomas More 2de jaar\Projecten van het werkveld\Boekingssysteem\Boekingssysteem\obj\Debug\netcoreapp3.1\Razor\Views\Status\StatusAdmin.cshtml.g.cs

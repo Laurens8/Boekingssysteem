@@ -5,13 +5,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 using Boekingssysteem.Models;
 using Boekingssysteem.Lib;
 using System;
 using static Boekingssysteem.Areas.Identity.Pages.Account.ExternalLoginModel;
 using System.ComponentModel.DataAnnotations;
-using System.Xml.Linq;
+using Boekingssysteem.Areas.Identity.Data;
+using Microsoft.AspNetCore.Identity;
+
 
 namespace Boekingssysteem.Controllers
 {
@@ -19,11 +20,13 @@ namespace Boekingssysteem.Controllers
     {
         private readonly BoekingssysteemContext _context;
         private readonly ILogger<StatusController> _logger;
+        private UserManager<CustomUser> _userManager;
 
-        public StatusController(ILogger<StatusController> logger, BoekingssysteemContext context)
+        public StatusController(ILogger<StatusController> logger, BoekingssysteemContext context, UserManager<CustomUser> userManager)
         {
             _context = context;
             _logger = logger;
+            _userManager = userManager;
         }
 
         [BindProperty]
@@ -51,7 +54,7 @@ namespace Boekingssysteem.Controllers
             return View(plvm);
         }
 
-        public IActionResult StatusIndividueel()
+        public IActionResult StatusAdmin()
         {
             var personen = _context.Personen.ToList();
             PersoonCRUDViewModel plvm = new PersoonCRUDViewModel();
@@ -123,7 +126,7 @@ namespace Boekingssysteem.Controllers
                     ViewBag.Aanwezig = persoon.Aanwezig;                    
                 }
                 
-                return View("StatusIndividueel");
+                return View("StatusAdmin");
             }
             catch (Exception e)
             {
@@ -183,7 +186,7 @@ namespace Boekingssysteem.Controllers
         {            
             if (personeelnummer == null)
             {
-                ModelState.AddModelError(string.Empty, "De Personeelnummer is onjuist");
+                ModelState.AddModelError(string.Empty, "De personeelnummer is onjuist");
             }
             else
             {
@@ -218,7 +221,44 @@ namespace Boekingssysteem.Controllers
 
             }                           
                 ViewBag.JavaScriptFunction = string.Format("MeldingSucces('{0}');", personeelnummer);
-                return RedirectToAction("StatusIndividueel");           
+                return RedirectToAction("StatusAdmin");           
+        }
+
+        [HttpGet]
+        public IActionResult StatusIndividueel()
+        {
+            CustomUser user = _userManager.Users.Where(u => u.Email == User.Identity.Name).FirstOrDefault();
+            Persoon persoon = _context.Personen.Where(p => p.Personeelnummer == user.Personeelnummer).FirstOrDefault();
+
+            PersoonCRUDViewModel viewModel = new PersoonCRUDViewModel()
+            {
+                Voornaam = persoon.Voornaam,
+                Naam = persoon.Naam,
+                Personeelnummer = persoon.Personeelnummer,
+                Aanwezig = persoon.Aanwezig
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> StatusIndividueel(PersoonCRUDViewModel viewModel) 
+        {
+            CustomUser user = _userManager.Users.Where(u => u.Email == User.Identity.Name).FirstOrDefault();
+            Persoon persoon = _context.Personen.Where(p => p.Personeelnummer == user.Personeelnummer).FirstOrDefault();
+
+            if (persoon.Aanwezig == true)
+            {
+                persoon.Aanwezig = false;
+            }
+            else
+            {
+                persoon.Aanwezig = true;
+            }
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(StatusIndividueel));
         }
     }
 }
