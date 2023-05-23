@@ -11,6 +11,7 @@ using Boekingssysteem.Data;
 using System;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 
 namespace Boekingssysteem.Controllers
 {
@@ -185,11 +186,11 @@ namespace Boekingssysteem.Controllers
                     else
                     {
                         foreach (IdentityError error in result.Errors)
-                            ModelState.AddModelError("", error.Description);
+                            ModelState.AddModelError("", $"Gebruiker heeft de rol {role.Name} al");
                     }
                 }
                 else
-                    ModelState.AddModelError("", "User or role Not Found");
+                    ModelState.AddModelError("", $"Gebruiker heeft de rol {role.Name} al");
             }
             return View(viewModel);
         }
