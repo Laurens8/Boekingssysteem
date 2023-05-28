@@ -90,7 +90,7 @@ namespace Boekingssysteem.Controllers
 
                 if (gebruiker.Personeelnummer.Length != 8 && viewModel.Personeelnummer.Length != 8)
                 {
-                    ModelState.AddModelError("", "personeelsnummer moet minstens 8 tekens bevatten");
+                    ModelState.AddModelError("", "Personeelsnummer moet minstens 8 tekens bevatten");
                 }
                 else
                 {

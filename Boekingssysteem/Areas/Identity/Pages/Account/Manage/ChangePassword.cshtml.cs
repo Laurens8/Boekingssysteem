@@ -99,7 +99,6 @@ namespace Boekingssysteem.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
-
             var changePasswordResult = await _userManager.ChangePasswordAsync(user, Input.OldPassword, Input.NewPassword);
             Persoon persoon = _context.Personen.Find(user.Personeelnummer);
             persoon.Wachtwoord = Input.NewPassword;

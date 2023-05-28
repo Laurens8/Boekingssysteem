@@ -42,8 +42,10 @@ namespace Boekingssysteem.Areas.Identity.Pages.Account.Manage
         public class InputModel
         {
             [Display(Name = "Naam")]
+            [Required(ErrorMessage = "Naam moet ingevuld zijn")]
             public string Naam { get; set; }
             [Display(Name = "Voornaam")]
+            [Required(ErrorMessage = "Voornaam moet ingevuld zijn")]
             public string Voornaam { get; set; }
         }
 

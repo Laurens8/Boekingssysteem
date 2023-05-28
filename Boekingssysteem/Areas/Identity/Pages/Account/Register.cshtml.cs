@@ -68,6 +68,8 @@ namespace Boekingssysteem.Areas.Identity.Pages.Account
 
             [Required(ErrorMessage = "Personeelnummer moet ingevuld zijn")]
             [StringLength(8, ErrorMessage = "Personeelnummer moet ingevuld zijn")]
+            [MinLength(8, ErrorMessage = "Personeelnummer bestaat uit 8 tekens")]
+            [MaxLength(8, ErrorMessage = "Personeelnummer bestaat uit 8 tekens")]
             [Display(Name = "Personeelnummer")]
             public string Personeelnummer { get; set; } 
             
@@ -110,12 +112,12 @@ namespace Boekingssysteem.Areas.Identity.Pages.Account
                     var user = new CustomUser { UserName = Input.Email, Email = Input.Email, Naam = Input.Naam, Voornaam = Input.Voornaam, Personeelnummer = Input.Personeelnummer };
                     if (user.Personeelnummer.Length != 8)
                     {
-                        ModelState.AddModelError("", "Personeelsnummer moet minstens 8 tekens bevatten");
+                        ModelState.AddModelError("", "Personeelnummer moet minstens 8 tekens bevatten");
                     }
                     if (user.Personeelnummer.Substring(0, 1).ToUpper() != "R" && user.Personeelnummer.Substring(0, 1).ToUpper() != "U" || 
                         !int.TryParse(user.Personeelnummer.Substring(1, 7), out int persnr))
                     {
-                        ModelState.AddModelError("", "Personeelsnummer bestaat uit R of U en 7 cijfers!");
+                        ModelState.AddModelError("", "Personeelnummer bestaat uit R of U en 7 cijfers!");
                     }
 
                     else
