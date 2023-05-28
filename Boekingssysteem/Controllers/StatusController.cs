@@ -116,7 +116,7 @@ namespace Boekingssysteem.Controllers
                 Persoon persoon = _context.Personen.Find(personeelnummer);
                 if (persoon == null)
                 {
-                    ModelState.AddModelError(string.Empty, "De personeelnummer is onjuist");
+                    ModelState.AddModelError(string.Empty, "Het personeelnummer is onjuist");
                 }
                 else
                 {
@@ -125,7 +125,7 @@ namespace Boekingssysteem.Controllers
                     ViewBag.personeelnummer = persoon.Personeelnummer;
                     ViewBag.Aanwezig = persoon.Aanwezig;                    
                 }
-                
+
                 return View("StatusAdmin");
             }
             catch (Exception e)
@@ -186,7 +186,7 @@ namespace Boekingssysteem.Controllers
         {            
             if (personeelnummer == null)
             {
-                ModelState.AddModelError(string.Empty, "De personeelnummer is onjuist");
+                ModelState.AddModelError(string.Empty, "Het personeelnummer is onjuist");
             }
             else
             {

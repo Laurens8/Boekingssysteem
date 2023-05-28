@@ -49,9 +49,9 @@ namespace Boekingssysteem.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
-            [Required]
             [EmailAddress]
             [Display(Name = "Nieuwe email")]
+            [Required(ErrorMessage = "Email moet ingevuld zijn")]
             public string NewEmail { get; set; }
         }
 

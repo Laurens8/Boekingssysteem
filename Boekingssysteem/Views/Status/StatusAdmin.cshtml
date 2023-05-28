@@ -60,7 +60,7 @@
     <div class="col">
         <div asp-validation-summary="All" class="text-danger"></div>
         @using (Html.BeginForm("StatusData", "Status", FormMethod.Post))
-        {
+        {            
             <form>
                 <div class="col">
                     <div class="mb-5">
@@ -74,30 +74,27 @@
                     <div class="PersoneelInfo">
                         <div class="col">
                             <div class="row">
-                                <p>Naam: </p>
-                                <p>@ViewBag.naam</p>
+                                <p>Naam: @ViewBag.naam</p>
                             </div>
                             <div class="row">
-                                <p>Voornaam: </p>
-                                <p>@ViewBag.voornaam</p>
+                                <p>Voornaam: @ViewBag.voornaam</p>
+
                             </div>
                             <div class="row">
-                                <p>Personeelnummer: </p>
-                                <p>@ViewBag.personeelnummer</p>
+                                <p>Personeelnummer: @ViewBag.personeelnummer</p>
                             </div>
                             <div class="row">
-                                <p>Status: </p>
                                 @if (ViewBag.Aanwezig == null)
                                 {
-                                    <p></p> 
+                                    <p>Status: Ongekend</p>
                                 }
                                 else if (ViewBag.Aanwezig == true)
                                 {
-                                    <p>Aanwezig</p>                                    
+                                    <p>Status: Aanwezig</p>
                                 }
                                 else
                                 {
-                                    <p>Afwezig</p>
+                                    <p>Status: Afwezig</p>
                                 }
                             </div>
                         </div>
