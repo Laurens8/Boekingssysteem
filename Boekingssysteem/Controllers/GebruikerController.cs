@@ -163,34 +163,40 @@ namespace Boekingssysteem.Controllers
         {
             if (ModelState.IsValid)
             {
-                CustomUser user = await _userManager.FindByIdAsync(viewModel.GebruikerId);
-                IdentityRole role = await _roleManager.FindByIdAsync(viewModel.RolId);
+                CustomUser users = await _userManager.FindByIdAsync(viewModel.GebruikerId);
+                IdentityRole roles = await _roleManager.FindByIdAsync(viewModel.RolId);
                 string personeelnummer = _userManager.Users.Where(k => k.Id == viewModel.GebruikerId).Select(k => k.Personeelnummer).FirstOrDefault();
                 Persoon persoon = await _context.Personen.FindAsync(personeelnummer);
-                if (user != null && role != null)
+                if (users != null && roles != null)
                 {
-                    IdentityResult result = await _userManager.AddToRoleAsync(user, role.Name);
-                    if (role.Name == "admin")
+                    IdentityResult result = await _userManager.AddToRoleAsync(users, roles.Name);
+                    if (roles.Name == "admin")
                     {
                         persoon.Admin = true;
-                        result = await _userManager.RemoveFromRoleAsync(user, "user");
+                        result = await _userManager.RemoveFromRoleAsync(users, "user");
                     }
                     else
                     {
                         persoon.Admin = false;
                         await _context.SaveChangesAsync();
-                        result = await _userManager.RemoveFromRoleAsync(user, "admin");
-                    }                        
+                        result = await _userManager.RemoveFromRoleAsync(users, "admin");
+                    }
                     if (result.Succeeded)
                         return RedirectToAction("Index");
                     else
                     {
                         foreach (IdentityError error in result.Errors)
-                            ModelState.AddModelError("", $"Gebruiker heeft de rol {role.Name} al");
+                            ModelState.AddModelError("", $"Gebruiker heeft de rol {roles.Name} al");
+
+                        viewModel.Gebruikers = new SelectList(_userManager.Users.ToList(), "Id", "UserName");
+                        viewModel.Rollen = new SelectList(_roleManager.Roles.ToList(), "Id", "Name");
                     }
                 }
-                else
-                    ModelState.AddModelError("", $"Gebruiker heeft de rol {role.Name} al");
+                else 
+                {
+                    ModelState.AddModelError("", $"Gebruiker heeft de rol {roles.Name} al");
+                }
+                    
             }
             return View(viewModel);
         }

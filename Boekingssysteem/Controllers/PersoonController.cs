@@ -127,10 +127,11 @@ namespace Boekingssysteem.Controllers
 
             bool gevonden = false;
             var lijstPersonen = _context.Personen.ToList();
+            string personnr = personeelnummer.ToUpper();
 
             foreach (var persoon in lijstPersonen)
             {
-                if (persoon.Personeelnummer == personeelnummer)
+                if (persoon.Personeelnummer == personnr)
                 {
                     gevonden = true;
                 }
@@ -140,7 +141,7 @@ namespace Boekingssysteem.Controllers
             {
                 if (gevonden)
                 {
-                    Persoon persoon = _context.Personen.Find(personeelnummer);
+                    Persoon persoon = _context.Personen.Find(personnr);
                     PersoonCRUDViewModel viewModel = new PersoonCRUDViewModel()
                     {
                         Personeelnummer = persoon.Personeelnummer,
@@ -150,14 +151,22 @@ namespace Boekingssysteem.Controllers
                         Wachtwoord = persoon.Wachtwoord                       
                     };
 
+                    var personen = _context.Personen.ToList();
+                    viewModel.Personen = personen;
+
                     return View(viewModel);
                 }
                 else
                 {
                     ViewBag.Class = "alert alert-danger mb-5";
                     ViewBag.Visibility = "visible";
+                    ViewBag.Message = "Geen gebruiker gevonden met deze personeelnummer";
 
-                    return View(nameof(Aanpassen));
+                    var personen = _context.Personen.ToList();
+                    PersoonCRUDViewModel plvm = new PersoonCRUDViewModel();
+                    plvm.Personen = personen;
+
+                    return View(plvm);
                 }
             }
             catch (Exception)

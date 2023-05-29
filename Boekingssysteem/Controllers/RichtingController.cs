@@ -43,7 +43,7 @@ namespace Boekingssysteem.Controllers
 
             foreach (var functie in viewModel.Richtingen)
             {
-                if (viewModel.Naam == functie.Naam)
+                if (viewModel.Naam.ToLower() == functie.Naam.ToLower())
                 {
                     ViewBag.Class = "alert alert-danger mb-5";
                     ViewBag.Visibility = "visible";
