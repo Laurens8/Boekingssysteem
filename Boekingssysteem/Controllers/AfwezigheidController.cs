@@ -39,6 +39,9 @@ namespace Boekingssysteem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Toevoegen(AfwezigheidCRUDViewModel viewModel)
         {
+            var personen = _context.Personen.ToList();
+            viewModel.Personen = personen;
+
             DateTime nu = DateTime.Today;
             var afwezigheden = _context.Afwezigheden.Where(a => a.Personeelnummer == viewModel.Personeelnummer);
 
@@ -50,7 +53,7 @@ namespace Boekingssysteem.Controllers
                 ViewBag.Class = "alert alert-danger mb-5";
                 ViewBag.Visibility = "visible";
 
-                return View(nameof(Toevoegen));
+                return View("Toevoegen", viewModel);
             }
 
             if (nu > viewModel.Begindatum && nu != viewModel.Begindatum)
@@ -62,14 +65,15 @@ namespace Boekingssysteem.Controllers
                 {
                     ViewBag.Visibility = "invisible";
                 }
-                return View(nameof(Toevoegen));
+                return View("Toevoegen", viewModel);
             }
             if (viewModel.Begindatum > viewModel.Einddatum)
             {
                 ViewBag.Message = "Begindatum moet voor de einddatum liggen!";
                 ViewBag.Class = "alert alert-danger mb-5";
                 ViewBag.Visibility = "visible";
-                return View(nameof(Toevoegen));
+
+                return View("Toevoegen", viewModel);
             }
 
             foreach (var afwezigheid in afwezigheden)
@@ -79,7 +83,8 @@ namespace Boekingssysteem.Controllers
                     ViewBag.Message = "Deze afwezigheid is al geregistreerd!";
                     ViewBag.Class = "alert alert-danger mb-5";
                     ViewBag.Visibility = "visible";
-                    return View(nameof(Toevoegen));
+
+                    return View("Toevoegen", viewModel);
                 }
 
                 if (viewModel.Begindatum >= afwezigheid.Begindatum && viewModel.Begindatum <= afwezigheid.Einddatum)
@@ -87,7 +92,8 @@ namespace Boekingssysteem.Controllers
                     ViewBag.Message = "Er is deze periode al een afwezigheid geregistreerd, gelieve deze aan te passen";
                     ViewBag.Class = "alert alert-danger mb-5";
                     ViewBag.Visibility = "visible";
-                    return View(nameof(Toevoegen));
+
+                    return View("Toevoegen", viewModel);
                 }
             }
 
@@ -116,9 +122,10 @@ namespace Boekingssysteem.Controllers
                 ViewBag.Message = "Gelieve minstens een begindatum in te voeren!";
                 ViewBag.Class = "alert alert-danger mb-5";
                 ViewBag.Visibility = "visible";
-                return View(nameof(Toevoegen));
+
+                return View("Toevoegen", viewModel);
             }
-            return View(Toevoegen());
+            return View("Toevoege", viewModel);
         }
 
         public IActionResult Aanpassen()
@@ -127,16 +134,19 @@ namespace Boekingssysteem.Controllers
             AfwezigheidCRUDViewModel acvm = new AfwezigheidCRUDViewModel();
             acvm.Personen = personen;
             ViewBag.Afwezigheden = "";
+
             return View(acvm);
         }
 
         [HttpPost]
         public IActionResult Aanpassen(AfwezigheidCRUDViewModel viewModel)
         {
+            var personen = _context.Personen.ToList();
             Persoon persoon = _context.Personen.Find(viewModel.Personeelnummer);
+            viewModel.Personen = personen;
             ViewBag.Afwezigheden = _context.Afwezigheden.Where(a => a.Personeelnummer == viewModel.Personeelnummer).OrderBy(a => a.Begindatum);
 
-            return View();
+            return View(viewModel);
         }
 
         public async Task<IActionResult> AanpassenDetail(int id)

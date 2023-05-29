@@ -111,6 +111,10 @@ namespace Boekingssysteem.Controllers
 
         public IActionResult StatusData(string personeelnummer)
         {
+            var personen = _context.Personen.ToList();
+            PersoonCRUDViewModel plvm = new PersoonCRUDViewModel();
+            plvm.Personen = personen;
+
             try
             {
                 Persoon persoon = _context.Personen.Find(personeelnummer);
@@ -126,7 +130,7 @@ namespace Boekingssysteem.Controllers
                     ViewBag.Aanwezig = persoon.Aanwezig;                    
                 }
 
-                return View("StatusAdmin");
+                return View("StatusAdmin", plvm);
             }
             catch (Exception e)
             {
