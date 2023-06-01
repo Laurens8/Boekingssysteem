@@ -26,25 +26,25 @@ namespace Boekingssysteem.Controllers
             var richtingen = _context.Richtingen;
             var afwezigheden = _context.Afwezigheden;
 
-            if (DateTime.Now.Hour == 23)
-            {
-                foreach (var item in personen)
-                {
-                    item.Aanwezig = null;
-                    _context.Update(item);
-                    await _context.SaveChangesAsync();
+            //if (DateTime.Now.Hour == 23)
+            //{
+            //    foreach (var item in personen)
+            //    {
+            //        item.Aanwezig = null;
+            //        _context.Update(item);
+            //        await _context.SaveChangesAsync();
 
-                    foreach (var item2 in afwezigheden)
-                    {
-                        if (item2.Begindatum <= item2.Einddatum)
-                        {
-                            item.Aanwezig = false;
-                            _context.Update(item);
-                            await _context.SaveChangesAsync();
-                        }
-                    }
-                }                
-            }
+            //        foreach (var item2 in afwezigheden)
+            //        {
+            //            if (item2.Begindatum <= item2.Einddatum)
+            //            {
+            //                item.Aanwezig = false;
+            //                _context.Update(item);
+            //                await _context.SaveChangesAsync();
+            //            }
+            //        }
+            //    }                
+            //}
 
             PersoonListViewModel plvm = new PersoonListViewModel();
             plvm.Personen = personen;
