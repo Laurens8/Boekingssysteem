@@ -11,5 +11,6 @@
     <WebStackScaffolding_DbContextDialogWidth>650</WebStackScaffolding_DbContextDialogWidth>
     <WebStackScaffolding_LayoutPageFile>~/Views/Shared/_Layout.cshtml</WebStackScaffolding_LayoutPageFile>
     <WebStackScaffolding_IdentityDialogWidth>650</WebStackScaffolding_IdentityDialogWidth>
+    <NameOfLastUsedPublishProfile>C:\Users\laure\OneDrive\Desktop\Boekingssysteem\Boekingssysteem\.github\workflows\ThomasMoreBoekingssysteem.yml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
 </Project>

@@ -10,15 +10,16 @@
 </head>
 <body>
     <header>
-
-        <div>
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
             <a asp-controller="Home" asp-action="AdminView"><img class="HeaderImg" src="~/images/TM-logo.png" /></a>
-            <div class="login" style="float: right;">
+            <div class="login mt-3 mt-md-0">
                 <partial name="_LoginPartial" />
             </div>
         </div>
-        <div class="divider mb-5 mt-5"></div>
+        <div class="divider my-5"></div>
     </header>
+
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
