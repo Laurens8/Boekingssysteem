@@ -2324,3 +2324,4 @@ C:\Users\laure\OneDrive\Desktop\Boekingssysteem\Nieuwe map (2)\Boekingssysteem\B
 C:\Thomas More 2de jaar\Projecten van het werkveld\Boekingssysteem\Boekingssysteem\obj\Debug\netcoreapp3.1\Razor\Views\Status\StatusAdmin.cshtml.g.cs
 C:\Users\laure\OneDrive\Desktop\Boekingssysteem\Boekingssysteem\Boekingssysteem\obj\Debug\netcoreapp3.1\Razor\Views\Status\StatusAdmin.cshtml.g.cs
 C:\Thomas More 2de jaar\Projecten van het werkveld\Boekingssysteem\Boekingssysteem\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Account\RegisterAdmin.cshtml.g.cs
+C:\Users\laure\OneDrive\Desktop\Boekingssysteem\Boekingssysteem\Boekingssysteem\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Account\RegisterAdmin.cshtml.g.cs
