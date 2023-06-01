@@ -53,5 +53,5 @@ jobs:
         with:
           app-name: 'ThomasMoreBoekingssysteem'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_4135827E1B3F4F7AA89717DC78A34022 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_287976632919404C91A651EF8D136AB0 }}
           package: .
